@@ -15,13 +15,15 @@ int main() {
   for(int i = 0; i < 256; i++){
     featureDataRow[i] = i - 128;
   }
-  loadFeatureIntoAccel(featureDataRow, 256);
+  //loadFeatureIntoAccel(featureDataRow, 256);
+  doLoadFeatureRowDma(featureDataRow);
   int passed = 0;
   int failed = 0;
   for(int i = 0; i < 256; i++){
     if(featureDataRow[i] == fetchOneResult(i)){
       passed++;
     } else {
+      printf("[ERROR] addr:%x, expect:%d, actually:%d\n",i,featureDataRow[i],fetchOneResult(i));
       failed++;
     }
   }

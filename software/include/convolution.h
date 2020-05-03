@@ -9,6 +9,7 @@
 // #define k_DO_ACCUM 3
 
 #define k_DO_LOAD_FEATURE_ROW 0
+#define k_DO_LOAD_FEATURE_ROW_DMA 1
 #define k_DO_STORE_RESULT 4
 //   val doLoadFeatureRow = funct === UInt(0)
 //   val doLoadFilter = funct === UInt(1)
@@ -21,6 +22,8 @@ uint32_t empty;
 
 #define doLoadFeatureRow(addr_rs1, data_rs2)                                       \
   ROCC_INSTRUCTION_SS(XCUSTOM_CONV, addr_rs1, data_rs2, k_DO_LOAD_FEATURE_ROW);
+#define doLoadFeatureRowDma(addr_rs1)                                       \
+  ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_LOAD_FEATURE_ROW_DMA);
 #define doStoreResult(result_rd, addr_rs1)                                              \
   ROCC_INSTRUCTION_DSS(XCUSTOM_CONV, result_rd, addr_rs1, 0, k_DO_STORE_RESULT)
 
