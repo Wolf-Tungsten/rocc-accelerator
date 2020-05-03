@@ -29,10 +29,10 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val rs2 = cmd.bits.rs2
   // funct 定义
   val doLoadFeatureRow = funct === UInt(0)
-  //val doLoadFilter = funct === UInt(1)
-  //val doPushFeatureRowIntoFifo = funct === UInt(2)
-  //val doConv = funct === UInt(3)
-  val doStoreResult = funct === UInt(1)
+  val doLoadFilter = funct === UInt(1)
+  val doPushFeatureRowIntoFifo = funct === UInt(2)
+  val doConv = funct === UInt(3)
+  val doStoreResult = funct === UInt(4)
 
   // 状态定义
   val s_idle::s_loadFeatureData::s_loadFilterData::s_storeResultData::s_resp::Nil = Enum(Bits(), 5)
@@ -68,13 +68,13 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       // 功能要求加载特征，并且指定的起始地址不同
       for(i <- 0 until (xLen / 8)){ // i <- 0,1,2,3
         featureRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7,0) (15, 8)
-        featureRegFileData(i) := rs1(8 * (i + 1) - 1, 8 * i).asSInt() 
+        featureRegFileData(i) := rs2(8 * (i + 1) - 1, 8 * i).asSInt() 
       }
       state := s_loadFeatureData
     }.elsewhen(doStoreResult){
       resultStore_rd := cmd.bits.inst.rd
       for(i <- 0 until (xLen / 16)){ // i <- 0,1
-        resultRegFileAddr(i) := rs1(16 * (i + 1) - 1, 16 * i) // (15, 0) (31, 16)
+        resultRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7, 0) (15, 8)
       }
       state := s_storeResultData
     }.otherwise{
@@ -100,8 +100,9 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   
   when(state === s_storeResultData){
     // io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
-    // io.resp.bits.data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
-    // resultStore_rd_data := 47.U(32.W)
+    resultStore_rd_data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
+    // resultStore_rd_data := 0x47.U(32.W)
+    // resultStore_rd_data := Cat(0.U(24.W), resultRegFileAddr(0))
     state := s_resp
   }
   
