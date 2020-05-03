@@ -1,16 +1,29 @@
 #include <stdint.h>
 #include <stdio.h>
-#include "include/accumulator.h"
-#include "include/translator.h"
+#include "include/convolution.h"
 #include "util.h"
 
 int main() {
 
-  uint8_t data [] = {12, 34, 56, 78}, y;
-
-  uint16_t addr = 1;
-  setStats(1);
-  printf("Hello, RISCV!\n");
+  // printf("Hello, RISCV!\n");
+  int8_t featureData[256];
+  int16_t resultData[256];
+  // printf("Init featureData...\n");
+  // for(int i = 0; i < 256; i++){
+  //   featureData[i] = 256 - i;
+  // }
+  // printf("Init featureData Done\n");
+  // printf("Loading feature...\n");
+  // setStats(1);
+  doLoadFeatureRow(&featureData[0]);
+  // setStats(0);
+  // printf("Feature loaded\n");
+  // setStats(1);
+  // doStoreResult(&resultData[0]);
+  // setStats(0);
+  // for(int i = 0; i < 256; i++){
+  //   printf("%d ", resultData[i]);
+  // }
   // printf("[INFO] Write R[%d] = 0x%lx\n", addr, data[0]);
   // doWrite(y, addr, data[0]);
 
@@ -42,6 +55,5 @@ int main() {
   // doRead(y, addr);
   // printf("[INFO]   Received 0x%lx (expected 0x%lx)\n", y, data[2]);
   // //assert(y == data[2]);
-  setStats(0);
   return 0;
 }

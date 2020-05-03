@@ -13,16 +13,18 @@ import freechips.rocketchip.util._
 import freechips.rocketchip.system._
 import freechips.rocketchip.subsystem._
 
+// 同时挂
 class WithGRHRocc extends Config((site, here, up) => {
   case BuildRoCC => List(
     (p: Parameters) => {
         val accel = LazyModule(new GRHConvRoccAccel(OpcodeSet.custom0, featureSize = 256, filterSize = 3, mulStage = 3)(p))
+        //val accel = LazyModule(new AccumulatorExample(OpcodeSet.custom0, n = 4)(p))
         accel
+    },
+    (p: Parameters) => {
+        val accumulator = LazyModule(new AccumulatorExample(OpcodeSet.custom1 | OpcodeSet.custom2 | OpcodeSet.custom3 , n = 4)(p))
+        accumulator
     })
-    // (p: Parameters) => {
-    //     val translator = LazyModule(new TranslatorExample(OpcodeSet.custom1)(p))
-    //     translator
-    // },
     // (p: Parameters) => {
     //     val counter = LazyModule(new CharacterCountExample(OpcodeSet.custom2)(p))
     //     counter
@@ -65,7 +67,7 @@ class With1TinyRV32Core extends Config((site, here, up) => {
   ))
 })
 
-class GRHRV32EmulatorConfig extends Config(new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
-class GRHRV32FPGAConfig extends Config(new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
-
+class GRHRV32EmulatorConfig extends Config(new WithGRHRocc ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
+class GRHRV32FPGAConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
+class GRHRV32RBBConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
 
