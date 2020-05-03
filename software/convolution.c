@@ -3,17 +3,32 @@
 #include "include/convolution.h"
 #include "util.h"
 
-int16_t fetchOneResult(uint8_t resultAddr);
-void loadFeatureIntoAccel(int8_t* baseAddr, uint8_t size);
+int8_t fetchOneResult(uint8_t resultAddr);
+void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size);
 void loadAndStoreTestSimple();
 
 int main() {
 
   printf("Hello, RISCV!\n");
-  loadAndStoreTestSimple();
+  //loadAndStoreTestSimple();
+  int8_t featureDataRow[256];
+  for(int i = 0; i < 256; i++){
+    featureDataRow[i] = i - 128;
+  }
+  loadFeatureIntoAccel(featureDataRow, 256);
+  int passed = 0;
+  int failed = 0;
+  for(int i = 0; i < 256; i++){
+    if(featureDataRow[i] == fetchOneResult(i)){
+      passed++;
+    } else {
+      failed++;
+    }
+  }
+  printf("[INFO] passed:%d, failed:%d\n", passed, failed);
 }
 
-void loadFeatureIntoAccel(int8_t* baseAddr, uint8_t size){
+void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){
   // 指令设计为每次装载 4 个 8 位符号整数
   uint8_t cycle = size >> 2;
   uint32_t rs1;
@@ -24,32 +39,32 @@ void loadFeatureIntoAccel(int8_t* baseAddr, uint8_t size){
     rs1 = ((ptr + 3) << (8 * 3)) |
           ((ptr + 2) << (8 * 2)) |
           ((ptr + 1) << (8 * 1)) |
-          ptr;
-    rs2 = ((uint32_t)baseAddr[ptr+3] << (8 * 3))|
-          ((uint32_t)baseAddr[ptr+2] << (8 * 2))|
-          ((uint32_t)baseAddr[ptr+1] << (8 * 1))|
-          ((uint32_t)baseAddr[ptr]);
+          ptr; // addr
+    rs2 = (((uint32_t)baseAddr[ptr+3] << (8 * 3)) & 0xFF000000)|
+          (((uint32_t)baseAddr[ptr+2] << (8 * 2)) & 0x00FF0000)|
+          (((uint32_t)baseAddr[ptr+1] << (8 * 1)) & 0x0000FF00)|
+          (((uint32_t)baseAddr[ptr]) & 0x000000FF); // data
+    // printf("addr: %x - data: %x \n", rs1, rs2);
     doLoadFeatureRow(rs1, rs2); 
   }
-  uint8_t needMore1Cycle = size | 0x3;
+  uint8_t needMore1Cycle = size & 0x3;
   // 再装载剩下的
   if(needMore1Cycle){
     rs1 = 0;
     rs2 = 0;
     for(uint8_t i = 0; i < needMore1Cycle; i++){
-      rs1 += (cycle << 2 + i);
-      rs1 = rs1 << 8;
-      rs2 += baseAddr[(cycle << 2 + i)];
-      rs2 = rs2 << 8;
+      rs1 = (cycle << 2) + i;
+      rs2 = baseAddr[(cycle << 2) + i];
+      // printf("addr: %x - data: %x \n", rs1, rs2);
     }
-    doLoadFeatureRow(rs1, rs2);
+    //doLoadFeatureRow(rs1, rs2);
   }
 }
 
-int16_t fetchOneResult(uint8_t resultAddr){
+int8_t fetchOneResult(uint8_t resultAddr){
   int32_t result = 0;
   doStoreResult(result, resultAddr);
-  return (int16_t)(result & 0x00FF);
+  return (int8_t)(result & 0x00FF);
 }
 
 void loadAndStoreTestSimple(){
