@@ -9,7 +9,7 @@
 // #define k_DO_ACCUM 3
 
 #define k_DO_LOAD_FEATURE_ROW 0
-#define k_DO_STORE_RESULT 4
+#define k_DO_STORE_RESULT 1
 //   val doLoadFeatureRow = funct === UInt(0)
 //   val doLoadFilter = funct === UInt(1)
 //   val doPushFeatureRowIntoFifo = funct === UInt(2)
@@ -19,9 +19,9 @@
 #define XCUSTOM_CONV 0
 uint32_t empty;
 
-#define doLoadFeatureRow(baseAddr)                                       \
-  ROCC_INSTRUCTION_S(XCUSTOM_CONV, baseAddr, k_DO_LOAD_FEATURE_ROW);
-#define doStoreResult(baseAddr)                                              \
-  ROCC_INSTRUCTION_S(XCUSTOM_CONV, baseAddr, k_DO_STORE_RESULT);
+#define doLoadFeatureRow(rs1, rs2)                                       \
+  ROCC_INSTRUCTION_SS(XCUSTOM_CONV, rs1, rs2, k_DO_LOAD_FEATURE_ROW);
+#define doStoreResult(rd, rs1)                                              \
+  ROCC_INSTRUCTION_DSS(XCUSTOM_CONV, rd, 0, rs1, k_DO_STORE_RESULT)
 
 #endif

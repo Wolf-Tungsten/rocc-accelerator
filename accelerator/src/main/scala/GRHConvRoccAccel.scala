@@ -29,17 +29,19 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val rs2 = cmd.bits.rs2
   // funct 定义
   val doLoadFeatureRow = funct === UInt(0)
-  val doLoadFilter = funct === UInt(1)
-  val doPushFeatureRowIntoFifo = funct === UInt(2)
-  val doConv = funct === UInt(3)
-  val doStoreResult = funct === UInt(4)
+  //val doLoadFilter = funct === UInt(1)
+  //val doPushFeatureRowIntoFifo = funct === UInt(2)
+  //val doConv = funct === UInt(3)
+  val doStoreResult = funct === UInt(1)
 
   // 状态定义
-  val s_idle::s_loadFeatureData::s_loadFilterData::s_storeResultData::Nil = Enum(Bits(), 4)
+  val s_idle::s_loadFeatureData::s_loadFilterData::s_storeResultData::s_resp::Nil = Enum(Bits(), 5)
   val state = Reg(init = s_idle)
   cmd.ready := (state === s_idle) // 只允许在 idle 状态接受指令
-  io.busy := (state =/= s_idle)
+  io.busy := (state =/= s_idle) && (state =/= s_resp)
+  io.resp.valid := (state === s_resp)
   io.interrupt := Bool(false)
+  io.mem.req.valid := Bool(false)
 
   // 寄存器文件定义
   val featureRegFile = Mem(outer.featureSize, SInt(width = 8))   // 特征行寄存器
@@ -54,12 +56,14 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val filterRegFileAddr = Mem(xLen / 8, UInt(width = 8))
   val filterRegFileData = Mem(xLen / 8, SInt(width = 8))
   val resultRegFileAddr = Mem(xLen / 16, UInt(width = 8))
-  val resultStore_rd = Reg(cmd.bits.inst.rd)
+  val resultStore_rd = RegInit(0.U(5.W))
+  val resultStore_rd_data = RegInit(0.U(32.W))
 
+  io.resp.bits.rd := resultStore_rd
+  io.resp.bits.data := resultStore_rd_data
 
   // 状态转换逻辑
   when(cmd.fire()){
-    io.resp.valid := false.B
     when(doLoadFeatureRow){
       // 功能要求加载特征，并且指定的起始地址不同
       for(i <- 0 until (xLen / 8)){ // i <- 0,1,2,3
@@ -74,7 +78,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       }
       state := s_storeResultData
     }.otherwise{
-      io.resp.valid := true.B
+      state := s_resp
     }
   }
 
@@ -91,14 +95,14 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
           featureRegFile(featureRegFileAddr(i)) := featureRegFileData(i)
         }
       }
-    io.resp.valid := true.B // 允许指令返回
+    state := s_resp
   }
   
   when(state === s_storeResultData){
-    io.resp.bits.rd := resultStore_rd
-    //io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
-    io.resp.bits.data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
-    io.resp.valid := true.B
+    // io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
+    // io.resp.bits.data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
+    // resultStore_rd_data := 47.U(32.W)
+    state := s_resp
   }
   
   // when(state === s_loadFeatureData){
