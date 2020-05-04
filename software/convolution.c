@@ -12,11 +12,19 @@ int main() {
   printf("Hello, RISCV!\n");
   //loadAndStoreTestSimple();
   int8_t featureDataRow[256];
+  int16_t resultData[256];
   for(int i = 0; i < 256; i++){
     featureDataRow[i] = i - 128;
   }
+  //setStats(1);
   //loadFeatureIntoAccel(featureDataRow, 256);
+  //setStats(0);
+  printf("Loading Result into Accelerator By DMA...\n");
   doLoadFeatureRowDma(featureDataRow);
+  printf("Load Result into Accelerator By DMA Done!\n");
+  // printf("Storing Result from Accelerator to Mem...\n");
+  // doStoreResult(resultData);
+  // printf("Storing Result from Accelerator to Mem Done!\n");
   int passed = 0;
   int failed = 0;
   for(int i = 0; i < 256; i++){
@@ -65,7 +73,7 @@ void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){
 
 int8_t fetchOneResult(uint8_t resultAddr){
   int32_t result = 0;
-  doStoreResult(result, resultAddr);
+  doFetchResult(result, resultAddr);
   return (int8_t)(result & 0x00FF);
 }
 
@@ -78,7 +86,7 @@ void loadAndStoreTestSimple(){
   uint32_t result = 0;
   printf("[INFO]Fetching Result from position 0x47...\n");
   addr = 0x00000047;
-  doStoreResult(result, addr);
+  doFetchResult(result, addr);
   result &= 0xFF; // only check lowest 1 bit
   printf("[INFO]Result of position 0x47 is 0x%x\n", result);
   if(result == data){

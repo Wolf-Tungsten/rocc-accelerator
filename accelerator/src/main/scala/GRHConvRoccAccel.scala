@@ -23,25 +23,19 @@ val mulStage: Int = 3
 class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters) extends LazyRoCCModuleImp(outer)
     with HasCoreParameters {
 
+  // 一些经常需要访问的信号
   val cmd = io.cmd
   val funct = cmd.bits.inst.funct
   val rs1 = cmd.bits.rs1
   val rs2 = cmd.bits.rs2
-  // funct 定义
+  // funct 功能定义
   val doLoadFeatureRow = funct === UInt(0)
   val doLoadFeatureRowDMA = funct === UInt(1)
   val doLoadFilter = funct === UInt(2)
   val doPushFeatureRowIntoFifo = funct === UInt(3)
   val doConv = funct === UInt(4)
-  val doStoreResult = funct === UInt(4)
-
-  // 状态定义
-  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_loadFeatureDataDMAStall::s_loadFilterData::s_storeResultData::s_resp::Nil = Enum(Bits(), 7)
-  val state = Reg(init = s_idle)
-  cmd.ready := (state === s_idle) // 只允许在 idle 状态接受指令
-  io.busy := (state =/= s_idle) && (state =/= s_resp)
-  io.resp.valid := (state === s_resp)
-  io.interrupt := Bool(false)
+  val doFetchResult = funct === UInt(5)
+  val doStoreResult = funct === UInt(6)
 
   // 寄存器文件定义
   val featureRegFile = Mem(outer.featureSize, SInt(width = 8))   // 特征行寄存器
@@ -51,19 +45,36 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val resultRegFile = Mem(resultSize, 47.S(16.W)) // 弄个魔法数字便于检验
   
   // 关键寄存器
-  val featureRegFileAddr = Mem(xLen / 8, UInt(width = 8)) // 锁存将要写入特征寄存器组的地址
-  val featureRegFileData = Mem(xLen / 8, SInt(width = 8)) // 锁存将要写入特征寄存器组的数据
-  val featureMemBaseAddr = Reg(0.U(32.W)) // 使用 DMA 读取 feature data 时的内存基地址
-  val featureMemPtr = Reg(0.U(32.W)) // 使用 DMA 时 feature data 的活动指针
-  val featureRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记特征寄存器组访存状态
+  // loadFeatureRow 指令相关寄存器
+  val featureRegFileAddr = Mem(xLen / 8, UInt(width = 8)) // 锁存将要写入特征寄存器组的地址（来自 rs1）
+  val featureRegFileData = Mem(xLen / 8, SInt(width = 8)) // 锁存将要写入特征寄存器组的数据（来自 rs2）
+  // loadFeatureRowDMA 指令相关寄存器
+  val featureMemBaseAddr = Reg(0.U(32.W)) // feature data 行的内存基地址，通过 rs1 传入
+  val featureMemPtr = Reg(0.U(32.W)) // 访存 feature data 行时的活动指针
+  val featureRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态
+  // loadFilter 指令相关寄存器
   val filterRegFileAddr = Mem(xLen / 8, UInt(width = 8))
   val filterRegFileData = Mem(xLen / 8, SInt(width = 8))
-  val resultRegFileAddr = Mem(xLen / 16, UInt(width = 8))
-  val resultStore_rd = RegInit(0.U(5.W))
-  val resultStore_rd_data = RegInit(0.U(32.W))
+  // fetchResult 指令相关寄存器
+  val resultRegFileAddr = Mem(xLen / 16, UInt(width = 8)) // 锁存将要访问的结果寄存器组的地址（来自 rs1）
+  val resultStore_rd = RegInit(0.U(5.W)) // 锁存指令将要写入的 rd 寄存器编号
+  val resultStore_rd_data = RegInit(0.U(32.W)) // 锁存要写入 rd 的数据，在 s_resp 状态时返回给 Core
+  // storeResult 指令相关寄存器
+  val resultMemBaseAddr = Reg(0.U(32.W))
+  val resultMemPtr = Reg(0.U(32.W)) // 访存 result data 时的活动指针
+  val resultRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态 
 
+  // 状态定义及相关信号定义
+  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_loadFeatureDataDMAStall::s_loadFilterData::s_fetchResultData::s_storeResultData::s_resp::Nil = Enum(Bits(), 8)
+  val state = Reg(init = s_idle)
+  cmd.ready := (state === s_idle) // 只允许在 idle 状态接受指令
+  io.busy := (state =/= s_idle) && (state =/= s_resp) // 在 idle 状态和 resp 状态时拉低 busy 信号结束指令
+  io.resp.valid := (state === s_resp) // 在 resp 状态标记 io.resp 接口 valid，向 Core 返回数据
+  io.mem.req.valid := (state === s_loadFeatureDataDMA) || (state === s_storeResultData)
+  io.interrupt := Bool(false) // 指令不涉及中断
   io.resp.bits.rd := resultStore_rd
   io.resp.bits.data := resultStore_rd_data
+
 
   // 状态转换逻辑
   when(cmd.fire()){
@@ -79,11 +90,16 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       featureMemPtr := 0.U
       featureRegDmaPending.map{ _ := true.B }
       state := s_loadFeatureDataDMA
-    }.elsewhen(doStoreResult){
+    }.elsewhen(doFetchResult){
       resultStore_rd := cmd.bits.inst.rd
       for(i <- 0 until (xLen / 16)){ // i <- 0,1
         resultRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7, 0) (15, 8)
       }
+      state := s_fetchResultData
+    }.elsewhen(doStoreResult){
+      resultMemBaseAddr := rs1
+      resultMemPtr := 0.U
+      resultRegDmaPending.map{ _ := true.B }
       state := s_storeResultData
     }.otherwise{
       state := s_resp
@@ -106,35 +122,64 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     state := s_resp
   }
 
-  io.mem.req.valid := (state === s_loadFeatureDataDMA)
-
   when(state === s_loadFeatureDataDMA){
-    io.mem.req.bits.addr := featureMemBaseAddr + featureMemPtr - 1.U
-    io.mem.req.bits.tag := featureMemPtr(7, 0)-1.U// 也许是10到0？
-    io.mem.req.bits.cmd := M_XRD // perform a load (M_XWR for stores)
+    io.mem.req.bits.addr := featureMemBaseAddr + featureMemPtr
+    io.mem.req.bits.tag := featureMemPtr(7, 0)// 也许是10到0？
+    io.mem.req.bits.cmd := M_XRD // 内存读取
     io.mem.req.bits.size := log2Ceil(1).U // 每次读取一字节
     io.mem.req.bits.signed := Bool(true) // 有符号
     io.mem.req.bits.data := Bits(0) 
     io.mem.req.bits.phys := Bool(false)
     io.mem.req.bits.dprv := cmd.bits.status.dprv
   }
+
+  when(state === s_storeResultData){
+    io.mem.req.bits.addr := resultMemBaseAddr + resultMemPtr
+    io.mem.req.bits.tag := resultMemPtr(7, 0) >> 1
+    io.mem.req.bits.cmd := M_XWR // 内存写入
+    io.mem.req.bits.size := log2Ceil(2).U // 每次写入两字节
+    io.mem.req.bits.signed := Bool(true) // 有符号
+    io.mem.req.bits.data := Cat((featureRegFile((resultMemPtr(7, 0) >> 1)+1.U)).asUInt, (featureRegFile(resultMemPtr(7, 0) >> 1)).asUInt) // 待写入的数据
+    io.mem.req.bits.phys := Bool(false)
+    io.mem.req.bits.dprv := cmd.bits.status.dprv
+  }
   
-  when(io.mem.req.fire() && featureMemPtr < outer.featureSize.U){
-    // 内存请求成功时，指针向后偏移
-    featureMemPtr := featureMemPtr + 1.U
+  // 内存系统请求成功时，指针向后偏移
+  when(io.mem.req.fire()){
+    when(state === s_loadFeatureDataDMA  && featureMemPtr < outer.featureSize.U){
+      featureMemPtr := featureMemPtr + 1.U
+    }
+    when(state === s_storeResultData) {
+      when( (resultMemPtr >> 1) < resultSize.U ){
+        resultMemPtr := resultMemPtr + 2.U
+      }.otherwise{
+        state := s_resp
+      }
+      
+    }
   }
 
+  // 内存系统响应有效时记录状态
   when(io.mem.resp.valid){
     // 当内存响应数据时，根据 tag 记录数据，并取消对应位的 pending 状态
-    featureRegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
-    featureRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+    when(state === s_loadFeatureDataDMA){
+      featureRegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
+      featureRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+    }
+    when(state === s_storeResultData){
+      resultRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+    }
   }
 
+  // 访存完成，指令响应
   when(state === s_loadFeatureDataDMA && !featureRegDmaPending.reduce(_ || _)){
     state := s_resp
   }
+  // when(state === s_storeResultData && !resultRegDmaPending.reduce(_ || _)){
+  //   state := s_resp
+  // }
 
-  when(state === s_storeResultData){
+  when(state === s_fetchResultData){
     // io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
     resultStore_rd_data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
     // resultStore_rd_data := 0x47.U(32.W)
