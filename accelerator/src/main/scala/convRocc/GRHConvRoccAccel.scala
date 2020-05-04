@@ -32,7 +32,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val doLoadFeatureRow = funct === UInt(0)
   val doLoadFeatureRowDMA = funct === UInt(1)
   val doLoadFilter = funct === UInt(2)
-  val doPushFeatureRowIntoFifo = funct === UInt(3)
+  val doPushFeatureRowIntoFIFO = funct === UInt(3)
   val doConv = funct === UInt(4)
   val doFetchResult = funct === UInt(5)
   val doStoreResult = funct === UInt(6)
@@ -65,7 +65,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val resultRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态 
 
   // 状态定义及相关信号定义
-  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_loadFeatureDataDMAStall::s_loadFilterData::s_fetchResultData::s_storeResultData::s_resp::Nil = Enum(Bits(), 8)
+  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_pushFeatureRowIntoFIFO::s_loadFilterData::s_fetchResultData::s_storeResultData::s_resp::Nil = Enum(Bits(), 8)
   val state = Reg(init = s_idle)
   cmd.ready := (state === s_idle) // 只允许在 idle 状态接受指令
   io.busy := (state =/= s_idle) && (state =/= s_resp) // 在 idle 状态和 resp 状态时拉低 busy 信号结束指令
@@ -75,6 +75,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   io.resp.bits.rd := resultStore_rd
   io.resp.bits.data := resultStore_rd_data
 
+  // 内部模块实例化
+  val featureFIFO = Module(new GRHFeatureFIFO(outer.featureSize, outer.filterSize))
 
   // 状态转换逻辑
   when(cmd.fire()){
@@ -96,6 +98,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
         resultRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7, 0) (15, 8)
       }
       state := s_fetchResultData
+    }.elsewhen(doPushFeatureRowIntoFIFO){
+      state := s_pushFeatureRowIntoFIFO
     }.elsewhen(doStoreResult){
       resultMemBaseAddr := rs1
       resultMemPtr := 0.U
@@ -131,6 +135,17 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.data := Bits(0) 
     io.mem.req.bits.phys := Bool(false)
     io.mem.req.bits.dprv := cmd.bits.status.dprv
+  }
+
+  featureFIFO.io.push := (state === s_pushFeatureRowIntoFIFO)
+  // featureFIFO.io.inputRow.zipWithIndex.map{
+  //   case(dataInput, index) => dataInput := featureRegFile(index)
+  // }
+  for(i <- 0 until outer.featureSize){
+    featureFIFO.io.inputRow(i) := featureRegFile(i)
+  }
+  when(state === s_pushFeatureRowIntoFIFO){
+    state := s_resp
   }
 
   when(state === s_storeResultData){
@@ -175,13 +190,11 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   when(state === s_loadFeatureDataDMA && !featureRegDmaPending.reduce(_ || _)){
     state := s_resp
   }
-  // when(state === s_storeResultData && !resultRegDmaPending.reduce(_ || _)){
-  //   state := s_resp
-  // }
 
   when(state === s_fetchResultData){
     // io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
-    resultStore_rd_data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
+    // resultStore_rd_data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
+    resultStore_rd_data := Cat(featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(1)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(0)).asUInt)
     // resultStore_rd_data := 0x47.U(32.W)
     // resultStore_rd_data := Cat(0.U(24.W), resultRegFileAddr(0))
     state := s_resp

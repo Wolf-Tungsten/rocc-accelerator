@@ -10,6 +10,7 @@
 
 #define k_DO_LOAD_FEATURE_ROW 0
 #define k_DO_LOAD_FEATURE_ROW_DMA 1
+#define k_DO_PUSH_FEATURE_ROW_INTO_FIFO 3
 #define k_DO_FETCH_RESULT 5
 #define k_DO_STORE_RESULT 6
 //   val doLoadFeatureRow = funct === UInt(0)
@@ -23,8 +24,12 @@ uint32_t empty;
 
 #define doLoadFeatureRow(addr_rs1, data_rs2)                                       \
   ROCC_INSTRUCTION_SS(XCUSTOM_CONV, addr_rs1, data_rs2, k_DO_LOAD_FEATURE_ROW);
-#define doLoadFeatureRowDma(addr_rs1)                                       \
-  ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_LOAD_FEATURE_ROW_DMA);
+#define doLoadFeatureRowDma(addr_rs1)\
+  asm volatile ("fence");                                        \
+  ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_LOAD_FEATURE_ROW_DMA);\
+  asm volatile ("fence"); 
+#define doPushFeatureRowIntoFifo()                                              \
+  ROCC_INSTRUCTION(XCUSTOM_CONV, k_DO_PUSH_FEATURE_ROW_INTO_FIFO)
 #define doFetchResult(result_rd, addr_rs1)                                              \
   ROCC_INSTRUCTION_DSS(XCUSTOM_CONV, result_rd, addr_rs1, 0, k_DO_FETCH_RESULT)
 #define doStoreResult(addr_rs1)                                       \

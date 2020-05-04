@@ -6,36 +6,22 @@
 int8_t fetchOneResult(uint8_t resultAddr);
 void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size);
 void loadAndStoreTestSimple();
+void pushFIFOTest();
+int8_t fetchOneResultFIFO(uint8_t resultAddr);
 
 int main() {
 
   printf("Hello, RISCV!\n");
   //loadAndStoreTestSimple();
-  int8_t featureDataRow[256];
-  int16_t resultData[256];
-  for(int i = 0; i < 256; i++){
-    featureDataRow[i] = i - 128;
-  }
+  pushFIFOTest();
   //setStats(1);
   //loadFeatureIntoAccel(featureDataRow, 256);
   //setStats(0);
-  printf("Loading Result into Accelerator By DMA...\n");
-  doLoadFeatureRowDma(featureDataRow);
-  printf("Load Result into Accelerator By DMA Done!\n");
+  
   // printf("Storing Result from Accelerator to Mem...\n");
   // doStoreResult(resultData);
   // printf("Storing Result from Accelerator to Mem Done!\n");
-  int passed = 0;
-  int failed = 0;
-  for(int i = 0; i < 256; i++){
-    if(featureDataRow[i] == fetchOneResult(i)){
-      passed++;
-    } else {
-      printf("[ERROR] addr:%x, expect:%d, actually:%d\n",i,featureDataRow[i],fetchOneResult(i));
-      failed++;
-    }
-  }
-  printf("[INFO] passed:%d, failed:%d\n", passed, failed);
+  
 }
 
 void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){
@@ -74,7 +60,13 @@ void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){
 int8_t fetchOneResult(uint8_t resultAddr){
   int32_t result = 0;
   doFetchResult(result, resultAddr);
-  return (int8_t)(result & 0x00FF);
+  return (int8_t)((result >> 16) & 0x00FF);
+}
+
+int8_t fetchOneResultFIFO(uint8_t resultAddr){
+  int32_t result = 0;
+  doFetchResult(result, resultAddr);
+  return (int8_t)((result >> 0) & 0x00FF);
 }
 
 void loadAndStoreTestSimple(){
@@ -95,4 +87,39 @@ void loadAndStoreTestSimple(){
     printf("[INFO]Test failed!\n");
   }
   return;
+}
+
+void pushFIFOTest(){
+  printf("Preparing Test Data...\n");
+  int8_t featureDataRow[256];
+  for(int i = 0; i < 256; i++){
+    featureDataRow[i] = i - 128;
+  }
+  printf("Loading Result into Accelerator By DMA...\n");
+  doLoadFeatureRowDma(featureDataRow);
+  doLoadFeatureRowDma(featureDataRow);
+  printf("Load Result into Accelerator By DMA Done!\n");
+  int passed = 0;
+  int failed = 0;
+  for(int i = 0; i < 256; i++){
+    if(featureDataRow[i] == fetchOneResult(i)){
+      passed++;
+    } else {
+      printf("[ERROR] addr:%x, expect:%d, actually:%d\n",i,featureDataRow[i],fetchOneResult(i));
+      failed++;
+    }
+  }
+  printf("[INFO] before push passed:%d, failed:%d\n", passed, failed);
+  doPushFeatureRowIntoFifo();
+  passed = 0;
+  failed = 0;
+  for(int i = 0; i < 256; i++){
+    if(featureDataRow[i] == fetchOneResultFIFO(i)){
+      passed++;
+    } else {
+      printf("[ERROR] addr:%x, expect:%d, feature:%d, fifo:%d\n",i,featureDataRow[i],fetchOneResult(i), fetchOneResultFIFO(i));
+      failed++;
+    }
+  }
+  printf("[INFO] after push passed:%d, failed:%d\n", passed, failed);
 }
