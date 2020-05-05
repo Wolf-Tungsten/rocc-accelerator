@@ -47,8 +47,9 @@ int main() {
   printf("[INFO] Fire the hole!\n");
   doConv();
   printf("[INFO] Conv DONE\n");
+  doStoreResult(resultData)
   for(int i = 0; i < RESULT_ROW_SIZE; i++){
-    resultData[i] = fetchOneResult(i);
+    // resultData[i] = fetchOneResult(i);
     printf("[RESULT] addr:%d, data:%d\n", i, resultData[i]);
   }
   

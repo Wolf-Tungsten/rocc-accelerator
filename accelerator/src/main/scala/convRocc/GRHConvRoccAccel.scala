@@ -153,11 +153,11 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
 
   when(state === s_storeResultData){
     io.mem.req.bits.addr := resultMemBaseAddr + resultMemPtr
-    io.mem.req.bits.tag := resultMemPtr(7, 0) >> 1
+    io.mem.req.bits.tag := resultMemPtr(7, 0) >> 2
     io.mem.req.bits.cmd := M_XWR // 内存写入
-    io.mem.req.bits.size := log2Ceil(2).U // 每次写入两字节
+    io.mem.req.bits.size := log2Ceil(4).U // 每次写入四字节
     io.mem.req.bits.signed := Bool(true) // 有符号
-    io.mem.req.bits.data := Cat((featureRegFile((resultMemPtr(7, 0) >> 1)+1.U)).asUInt, (featureRegFile(resultMemPtr(7, 0) >> 1)).asUInt) // 待写入的数据
+    io.mem.req.bits.data := resultRegFile(resultMemPtr(7, 0) >> 2).asUInt
     io.mem.req.bits.phys := Bool(false)
     io.mem.req.bits.dprv := cmd.bits.status.dprv
   }
@@ -168,8 +168,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       featureMemPtr := featureMemPtr + 1.U
     }
     when(state === s_storeResultData) {
-      when( (resultMemPtr >> 1) < resultSize.U ){
-        resultMemPtr := resultMemPtr + 2.U
+      when( (resultMemPtr >> 2) < resultSize.U ){
+        resultMemPtr := resultMemPtr + 4.U
       }.otherwise{
         state := s_resp
       }
