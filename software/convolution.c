@@ -3,24 +3,54 @@
 #include "include/convolution.h"
 #include "util.h"
 
-int8_t fetchOneResult(uint8_t resultAddr);
+int32_t fetchOneResult(uint8_t resultAddr);
 void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size);
 void loadAndStoreTestSimple();
 void pushFIFOTest();
 int8_t fetchOneResultFIFO(uint8_t resultAddr);
 
+// 划分内存区域
+int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE];
+int8_t filterData[FILTER_ROW_SIZE * FILTER_ROW_SIZE];
+int32_t resultData[RESULT_ROW_SIZE * RESULT_ROW_SIZE];
+
 int main() {
 
   printf("Hello, RISCV!\n");
-  //loadAndStoreTestSimple();
-  pushFIFOTest();
-  //setStats(1);
-  //loadFeatureIntoAccel(featureDataRow, 256);
-  //setStats(0);
-  
-  // printf("Storing Result from Accelerator to Mem...\n");
-  // doStoreResult(resultData);
-  // printf("Storing Result from Accelerator to Mem Done!\n");
+  // 初始化数据
+  printf("[INFO] Init test data...\n");
+  for(int row = 0; row < FEATURE_ROW_SIZE; row++){
+    for(int col = 0; col < FEATURE_ROW_SIZE; col++){
+      featureData[row * FEATURE_ROW_SIZE + col] = col;
+    }
+  }
+  for(int row = 0; row < FILTER_ROW_SIZE; row++){
+    for(int col = 0; col < FILTER_ROW_SIZE; col++){
+      filterData[row * FILTER_ROW_SIZE + col] = 100;
+    }
+  }
+  printf("[INFO] Init test data DONE!\n");
+  printf("[INFO] Load test data...\n");
+  // 装载前两行特征数据
+  doLoadFeatureRowDma(featureData);
+  doPushFeatureRowIntoFifo();
+  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE);
+  doPushFeatureRowIntoFifo();
+  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE * 2);
+  doPushFeatureRowIntoFifo();
+  // 装载卷积核数据
+  for(int i = 0; i < FILTER_ROW_SIZE * FILTER_ROW_SIZE; i++){
+    doLoadFilterData(i, filterData[i]);
+  }
+  // 数据装载完毕
+  printf("[INFO] Load test data...\n");
+  printf("[INFO] Fire the hole!\n");
+  doConv();
+  printf("[INFO] Conv DONE\n");
+  for(int i = 0; i < RESULT_ROW_SIZE; i++){
+    resultData[i] = fetchOneResult(i);
+    printf("[RESULT] addr:%d, data:%d\n", i, resultData[i]);
+  }
   
 }
 
@@ -57,10 +87,10 @@ void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){
   }
 }
 
-int8_t fetchOneResult(uint8_t resultAddr){
+int32_t fetchOneResult(uint8_t resultAddr){
   int32_t result = 0;
   doFetchResult(result, resultAddr);
-  return (int8_t)((result >> 16) & 0x00FF);
+  return result;
 }
 
 int8_t fetchOneResultFIFO(uint8_t resultAddr){

@@ -15,7 +15,7 @@ class GRHFeatureFIFO(featureSize:Int, filterSize:Int) extends Module {
     //io.dataOut := regFile
     for(row <- 0 until filterSize){
         for(col <- 0 until featureSize){
-            io.dataOut(row)(col) := regFile(row)(col)
+            io.dataOut(row)(col) := regFile(filterSize - row - 1)(col) // 调转输出的行顺序
         }
     }
     when(io.push){
