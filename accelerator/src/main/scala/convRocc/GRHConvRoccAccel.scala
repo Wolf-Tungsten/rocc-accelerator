@@ -42,7 +42,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val filterRegFile = Mem(outer.filterSize * outer.filterSize, SInt(width = 8)) // 卷积核寄存器
   // 结果寄存器
   val resultSize = outer.featureSize - outer.filterSize + 1
-  val resultRegFile = Mem(resultSize, 47.S(16.W)) // 弄个魔法数字便于检验
+  val resultRegFile = Mem(resultSize, 47.S(32.W)) // 弄个魔法数字便于检验
   
   // 关键寄存器
   // loadFeatureRow 指令相关寄存器
@@ -56,7 +56,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val filterRegFileAddr = Mem(xLen / 8, UInt(width = 8))
   val filterRegFileData = Mem(xLen / 8, SInt(width = 8))
   // fetchResult 指令相关寄存器
-  val resultRegFileAddr = Mem(xLen / 16, UInt(width = 8)) // 锁存将要访问的结果寄存器组的地址（来自 rs1）
+  val resultRegFileAddr = RegInit(0.U(8.W))// 锁存将要访问的结果寄存器组的地址（来自 rs1）
   val resultStore_rd = RegInit(0.U(5.W)) // 锁存指令将要写入的 rd 寄存器编号
   val resultStore_rd_data = RegInit(0.U(32.W)) // 锁存要写入 rd 的数据，在 s_resp 状态时返回给 Core
   // storeResult 指令相关寄存器
@@ -65,7 +65,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val resultRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态 
 
   // 状态定义及相关信号定义
-  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_pushFeatureRowIntoFIFO::s_loadFilterData::s_fetchResultData::s_storeResultData::s_resp::Nil = Enum(Bits(), 8)
+  val s_idle::s_loadFeatureData::s_loadFeatureDataDMA::s_pushFeatureRowIntoFIFO::s_loadFilterData::s_conv::s_fetchResultData::s_storeResultData::s_resp::Nil = Enum(Bits(), 9)
   val state = Reg(init = s_idle)
   cmd.ready := (state === s_idle) // 只允许在 idle 状态接受指令
   io.busy := (state =/= s_idle) && (state =/= s_resp) // 在 idle 状态和 resp 状态时拉低 busy 信号结束指令
@@ -77,6 +77,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
 
   // 内部模块实例化
   val featureFIFO = Module(new GRHFeatureFIFO(outer.featureSize, outer.filterSize))
+  val conv2dPE = Module(new GRHConv2dPE(outer.featureSize, outer.filterSize, 3))
 
   // 状态转换逻辑
   when(cmd.fire()){
@@ -92,11 +93,15 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       featureMemPtr := 0.U
       featureRegDmaPending.map{ _ := true.B }
       state := s_loadFeatureDataDMA
+    }.elsewhen(doLoadFilter){
+      filterRegFileAddr(0) := rs1(7, 0)
+      filterRegFileData(0) := rs2(7, 0).asSInt
+      state := s_loadFilterData
+    }.elsewhen(doConv){
+      state := s_conv
     }.elsewhen(doFetchResult){
       resultStore_rd := cmd.bits.inst.rd
-      for(i <- 0 until (xLen / 16)){ // i <- 0,1
-        resultRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7, 0) (15, 8)
-      }
+      resultRegFileAddr := rs1(7, 0)
       state := s_fetchResultData
     }.elsewhen(doPushFeatureRowIntoFIFO){
       state := s_pushFeatureRowIntoFIFO
@@ -137,10 +142,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.dprv := cmd.bits.status.dprv
   }
 
+  // 特征fifo相关数据通路和逻辑
   featureFIFO.io.push := (state === s_pushFeatureRowIntoFIFO)
-  // featureFIFO.io.inputRow.zipWithIndex.map{
-  //   case(dataInput, index) => dataInput := featureRegFile(index)
-  // }
   for(i <- 0 until outer.featureSize){
     featureFIFO.io.inputRow(i) := featureRegFile(i)
   }
@@ -170,7 +173,6 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       }.otherwise{
         state := s_resp
       }
-      
     }
   }
 
@@ -191,15 +193,37 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     state := s_resp
   }
 
+  // 载入 filter 数据
+  when(state === s_loadFilterData){
+    filterRegFile(filterRegFileAddr(0)) := filterRegFileData(0)
+    state := s_resp
+  }
+
   when(state === s_fetchResultData){
     // io.resp.bits.data := Cat(resultRegFile(resultRegFileAddr(1)), resultRegFile(resultRegFileAddr(0)))
     // resultStore_rd_data := Cat(0.U(16.W) ,featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt)
-    resultStore_rd_data := Cat(featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(1)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(0)).asUInt)
+    // resultStore_rd_data := Cat(featureRegFile(resultRegFileAddr(1)).asUInt, featureRegFile(resultRegFileAddr(0)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(1)).asUInt, featureFIFO.io.dataOut(2)(resultRegFileAddr(0)).asUInt)
     // resultStore_rd_data := 0x47.U(32.W)
     // resultStore_rd_data := Cat(0.U(24.W), resultRegFileAddr(0))
+    resultStore_rd_data := resultRegFile(resultRegFileAddr).asUInt
     state := s_resp
   }
-  
+
+  // Conv2D 计算
+  // 特征输入
+  conv2dPE.io.featureIn := featureFIFO.io.dataOut
+  // 卷积核输入
+  for(row <- 0 until outer.filterSize){
+    for(col <- 0 until outer.filterSize){
+      conv2dPE.io.filterIn(row)(col) := filterRegFile(row * outer.filterSize + col)
+    }
+  }
+  when(state === s_conv){
+    for(i <- 0 until resultSize){
+      resultRegFile(i) := conv2dPE.io.output(i)
+    }
+    state := s_resp
+  }
   // when(state === s_loadFeatureData){
   //   io.mem.req.valid := true.B
   //   io.mem.req.bits.addr := r_featureLoadPtr

@@ -17,7 +17,7 @@ import freechips.rocketchip.subsystem._
 class WithGRHRocc extends Config((site, here, up) => {
   case BuildRoCC => List(
     (p: Parameters) => {
-        val accel = LazyModule(new GRHConvRoccAccel(OpcodeSet.custom0, featureSize = 256, filterSize = 3, mulStage = 3)(p))
+        val accel = LazyModule(new GRHConvRoccAccel(OpcodeSet.custom0, featureSize = 64, filterSize = 3, mulStage = 3)(p))
         //val accel = LazyModule(new AccumulatorExample(OpcodeSet.custom0, n = 4)(p))
         accel
     },

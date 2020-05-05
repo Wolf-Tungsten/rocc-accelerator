@@ -27,9 +27,7 @@ class Mul8bitCombSim extends Module {
   io.p := io.a * io.b
 }
 
-class GRHConvolutionPe(featureSize:Int, filterSize:Int, mulStage:Int) extends Module {
-    assert(featureSize >= filterSize)
-    assert(mulStage >= 0)
+class GRHConv2dPE(featureSize:Int, filterSize:Int, mulStage:Int) extends Module {
     val io = IO(new Bundle {
         val sclr = Input(Bool())
         val featureIn = Input(Vec(filterSize, Vec(featureSize, SInt(8.W))))
@@ -56,6 +54,6 @@ class GRHConvolutionPe(featureSize:Int, filterSize:Int, mulStage:Int) extends Mo
                 mulResult(posRow * filterSize + posCol) := currentMul.io.p
             }
         }
-        io.output := mulResult.reduce(_ + _)
+        io.output(featureCol) := mulResult.reduce(_ + _)
     }
 }
