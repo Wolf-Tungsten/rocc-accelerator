@@ -29,12 +29,12 @@ class Mul8bitCombSim extends Module {
 
 class Mul8bit extends BlackBox {
     val io = IO(new Bundle {
-        val a = Input(SInt(8.W))
-        val b = Input(SInt(8.W))
-        val clk = Input(Clock())
-        val ce = Input(Bool())
-        val sclr = Input(Bool())
-        val p = Output(SInt(16.W))
+        val A = Input(SInt(8.W))
+        val B = Input(SInt(8.W))
+        val CLK = Input(Clock())
+        val CE = Input(Bool())
+        val SCLR = Input(Bool())
+        val P = Output(SInt(16.W))
     })
 }
 
@@ -61,12 +61,12 @@ class GRHConv2dPE(featureSize:Int, filterSize:Int, mulStage:Int) extends Module 
         for(posRow <- 0 until filterSize){
             for(posCol <- 0 until filterSize){
                 val currentMul = mulIP(posRow)(posCol)
-                currentMul.io.sclr := io.sclr
-                currentMul.io.clk := clock
-                currentMul.io.ce := io.ce
-                currentMul.io.a := io.featureIn(posRow)(featureCol+posCol)
-                currentMul.io.b := io.filterIn(posRow)(posCol)
-                mulResult(posRow * filterSize + posCol) := currentMul.io.p
+                currentMul.io.SCLR := io.sclr
+                currentMul.io.CLK := clock
+                currentMul.io.CE := io.ce
+                currentMul.io.A := io.featureIn(posRow)(featureCol+posCol)
+                currentMul.io.B := io.filterIn(posRow)(posCol)
+                mulResult(posRow * filterSize + posCol) := currentMul.io.P
             }
         }
         io.output(featureCol) := mulResult.reduce(_ + _)
