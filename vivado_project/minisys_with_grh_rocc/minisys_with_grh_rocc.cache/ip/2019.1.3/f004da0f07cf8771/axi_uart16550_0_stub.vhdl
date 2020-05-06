@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1.3 (lin64) Build 2644227 Wed Sep  4 09:44:18 MDT 2019
--- Date        : Wed May  6 10:25:01 2020
+-- Date        : Wed May  6 19:01:54 2020
 -- Host        : wolf-virtual-machine running 64-bit Ubuntu 18.04.3 LTS
 -- Command     : write_vhdl -force -mode synth_stub -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
 --               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ axi_uart16550_0_stub.vhdl

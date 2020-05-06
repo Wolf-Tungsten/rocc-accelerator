@@ -27,7 +27,7 @@ set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/wt [current_project]
 set_property parent.project_path /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.xpr [current_project]
-set_property XPM_LIBRARIES XPM_CDC [current_project]
+set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_output_repo /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/ip [current_project]

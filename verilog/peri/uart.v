@@ -11,7 +11,7 @@ module uart(
     input  [1:0]  uart_axi4_aw_burst, 
     output        uart_axi4_w_ready, 
     input         uart_axi4_w_valid, 
-    input  [63:0] uart_axi4_w_data, 
+    input  [31:0] uart_axi4_w_data, 
     input  [7:0]  uart_axi4_w_strb, 
     input         uart_axi4_w_last, 
     input         uart_axi4_b_ready, 
@@ -28,7 +28,7 @@ module uart(
     input         uart_axi4_r_ready, 
     output        uart_axi4_r_valid, 
     output [3:0]  uart_axi4_r_id, 
-    output [63:0] uart_axi4_r_data, 
+    output [31:0] uart_axi4_r_data, 
     output [1:0]  uart_axi4_r_resp, 
     output        uart_axi4_r_last,
 
