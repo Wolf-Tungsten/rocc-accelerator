@@ -25206,47 +25206,39 @@
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmiReset"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.version"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmiClock"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.part_number"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.resp.bits.resp"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.mfr_id"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.resp.bits.data"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.reset"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.resp.valid"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.jtag.TDO.driven"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.resp.ready"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.jtag.TDO.data"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.req.bits.op"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.jtag.TDI"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.req.bits.data"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.jtag.TMS"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.req.bits.addr"
-  },
-  {
-    "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.req.valid"
-  },
-  {
-    "class":"firrtl.transforms.DontTouchAnnotation",
-    "target":"~TestHarness|ExampleRocketSystem>debug.clockeddmi.dmi.req.ready"
+    "target":"~TestHarness|ExampleRocketSystem>debug.systemjtag.jtag.TCK"
   },
   {
     "class":"firrtl.transforms.DontTouchAnnotation",
@@ -25282,13 +25274,28 @@
   },
   {
     "class":"firrtl.transforms.BlackBoxResourceAnno",
-    "target":"TestHarness.SimDTM",
-    "resourceId":"/vsrc/SimDTM.v"
+    "target":"TestHarness.SimJTAG",
+    "resourceId":"/vsrc/SimJTAG.v"
   },
   {
     "class":"firrtl.transforms.BlackBoxResourceAnno",
-    "target":"TestHarness.SimDTM",
-    "resourceId":"/csrc/SimDTM.cc"
+    "target":"TestHarness.SimJTAG",
+    "resourceId":"/csrc/SimJTAG.cc"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxResourceAnno",
+    "target":"TestHarness.SimJTAG",
+    "resourceId":"/csrc/remote_bitbang.h"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxResourceAnno",
+    "target":"TestHarness.SimJTAG",
+    "resourceId":"/csrc/remote_bitbang.cc"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxResourceAnno",
+    "target":"TestHarness.plusarg_reader_48",
+    "resourceId":"/vsrc/plusarg_reader.v"
   },
   {
     "class":"firrtl.stage.RunFirrtlTransformAnnotation",
