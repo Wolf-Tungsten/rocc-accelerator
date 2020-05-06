@@ -17,6 +17,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param chipscope.maxJobs 2
 create_project -in_memory -part xc7a100tfgg484-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -93,7 +94,7 @@ set_property used_in_implementation false [get_files /home/wolf/rocc-accelerator
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
-synth_design -top chip_top -part xc7a100tfgg484-1 -flatten_hierarchy none -directive RuntimeOptimized -fsm_extraction off
+synth_design -top chip_top -part xc7a100tfgg484-1 -directive AreaOptimized_high -control_set_opt_threshold 1
 
 
 # disable binary constraint mode for synth run checkpoints

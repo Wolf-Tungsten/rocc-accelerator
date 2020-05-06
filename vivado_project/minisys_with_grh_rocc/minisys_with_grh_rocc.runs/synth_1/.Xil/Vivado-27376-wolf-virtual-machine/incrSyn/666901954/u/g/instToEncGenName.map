@@ -1,0 +1,7 @@
+/chip_top__GC0:496703232
+/dut/ExampleRocketSystem__GC0:4185809956
+/dut/tile/RocketTile__GCB1:3969420969
+/dut/tile/RocketTile__GCB0:2610937407
+/dut/tile/accel/GRHConvRoccAccel__GC0:1802590724
+/dut/tile/accel/conv2dPE/GRHConv2dPE__GB1:804813352
+/dut/tile/accel/conv2dPE/GRHConv2dPE__GB0:1493125822
