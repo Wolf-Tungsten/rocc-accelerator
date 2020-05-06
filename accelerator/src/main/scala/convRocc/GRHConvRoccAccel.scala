@@ -77,7 +77,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
 
   // 内部模块实例化
   val featureFIFO = Module(new GRHFeatureFIFO(outer.featureSize, outer.filterSize))
-  val conv2dPE = Module(new GRHConv2dPE(outer.featureSize, outer.filterSize, 3))
+  val conv2dPE = Module(new GRHConv2dPE(outer.featureSize, outer.filterSize, outer.mulStage))
 
   // 状态转换逻辑
   when(cmd.fire()){
@@ -98,6 +98,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       filterRegFileData(0) := rs2(7, 0).asSInt
       state := s_loadFilterData
     }.elsewhen(doConv){
+      conv2dPE.io.sclr := true.B // 对PE的乘法单元进行复位
       state := s_conv
     }.elsewhen(doFetchResult){
       resultStore_rd := cmd.bits.inst.rd
@@ -210,6 +211,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   }
 
   // Conv2D 计算
+  // sclr 信号
+  conv2dPE.io.ce := (state === s_conv)
   // 特征输入
   conv2dPE.io.featureIn := featureFIFO.io.dataOut
   // 卷积核输入
@@ -219,10 +222,14 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     }
   }
   when(state === s_conv){
-    for(i <- 0 until resultSize){
-      resultRegFile(i) := conv2dPE.io.output(i)
+    conv2dPE.io.sclr := false.B
+    when(conv2dPE.io.valid) {
+      // 计算完成时
+      for(i <- 0 until resultSize){
+        resultRegFile(i) := conv2dPE.io.output(i)
+      }
+      state := s_resp
     }
-    state := s_resp
   }
   // when(state === s_loadFeatureData){
   //   io.mem.req.valid := true.B

@@ -21,12 +21,12 @@ int main() {
   printf("[INFO] Init test data...\n");
   for(int row = 0; row < FEATURE_ROW_SIZE; row++){
     for(int col = 0; col < FEATURE_ROW_SIZE; col++){
-      featureData[row * FEATURE_ROW_SIZE + col] = col;
+      featureData[row * FEATURE_ROW_SIZE + col] = 127;
     }
   }
   for(int row = 0; row < FILTER_ROW_SIZE; row++){
     for(int col = 0; col < FILTER_ROW_SIZE; col++){
-      filterData[row * FILTER_ROW_SIZE + col] = 100;
+      filterData[row * FILTER_ROW_SIZE + col] = 127;
     }
   }
   printf("[INFO] Init test data DONE!\n");
