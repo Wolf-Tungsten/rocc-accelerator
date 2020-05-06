@@ -1,0 +1,892 @@
+#-----------------------------------------------------------
+# Vivado v2019.1.3 (64-bit)
+# SW Build 2644227 on Wed Sep  4 09:44:18 MDT 2019
+# IP Build 2633630 on Wed Sep  4 12:30:14 MDT 2019
+# Start of session at: Wed May  6 11:09:24 2020
+# Process ID: 16319
+# Current directory: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1
+# Command line: vivado -log chip_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source chip_top.tcl
+# Log file: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/chip_top.vds
+# Journal file: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source chip_top.tcl -notrace
+Command: synth_design -top chip_top -part xc7a100tfgg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tfgg484-1
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 16356 
+WARNING: [Synth 8-2490] overwriting previous definition of module uart [/home/wolf/rocc-accelerator/verilog/peri/uart.v:1]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:04 . Memory (MB): peak = 1849.438 ; gain = 183.652 ; free physical = 1579 ; free virtual = 4436
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'chip_top' [/home/wolf/rocc-accelerator/verilog/grh_chip_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-16319-wolf-virtual-machine/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (1#1) [/home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-16319-wolf-virtual-machine/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'ExampleRocketSystem' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:233861]
+INFO: [Synth 8-6157] synthesizing module 'IntXbar' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'IntXbar' (2#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:1]
+INFO: [Synth 8-6157] synthesizing module 'SimpleClockGroupSource' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:10]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleClockGroupSource' (3#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:10]
+INFO: [Synth 8-6157] synthesizing module 'SystemBus' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:43892]
+INFO: [Synth 8-6157] synthesizing module 'ClockGroupAggregator' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:39]
+INFO: [Synth 8-6155] done synthesizing module 'ClockGroupAggregator' (4#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:39]
+INFO: [Synth 8-6157] synthesizing module 'ClockGroup' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:78]
+INFO: [Synth 8-6155] done synthesizing module 'ClockGroup' (5#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:78]
+INFO: [Synth 8-6157] synthesizing module 'FixedClockBroadcast' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:87]
+INFO: [Synth 8-6155] done synthesizing module 'FixedClockBroadcast' (6#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:87]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:7795]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:8424]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:96]
+INFO: [Synth 8-6157] synthesizing module 'plusarg_reader' [/home/wolf/rocc-accelerator/verilog/utils/plusarg_reader.v:9]
+	Parameter FORMAT bound to: tilelink_timeout=%d - type: string 
+	Parameter DEFAULT bound to: 0 - type: integer 
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'plusarg_reader' (7#1) [/home/wolf/rocc-accelerator/verilog/utils/plusarg_reader.v:9]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor' (8#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:96]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:8446]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:3132]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_1' (9#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:3132]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar' (10#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:7795]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12664]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12537]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12601]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_2' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:9451]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_2' (11#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:9451]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget' (12#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12537]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule' (13#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12664]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:16021]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:15873]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:15951]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12837]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_3' (14#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:12837]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget_1' (15#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:15873]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_1' (16#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:16021]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_2' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:20917]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget_2' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:20703]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:20811]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:16250]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_4' (17#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:16250]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget_2' (18#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:20703]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_2' (19#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:20917]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31006]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:25873]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:25995]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_5' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:21210]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_5' (20#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:21210]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer' (21#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:25873]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:30771]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:30893]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_6' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:26108]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_6' (22#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:26108]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer' (23#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:30771]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_3' (24#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31006]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:42612]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Buffer' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32415]
+INFO: [Synth 8-6157] synthesizing module 'Queue' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31573]
+INFO: [Synth 8-6155] done synthesizing module 'Queue' (25#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31573]
+INFO: [Synth 8-6157] synthesizing module 'Queue_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31896]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_1' (26#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:31896]
+INFO: [Synth 8-6157] synthesizing module 'Queue_2' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32069]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_2' (27#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32069]
+INFO: [Synth 8-6157] synthesizing module 'Queue_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32217]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_4' (28#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32217]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Buffer' (29#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32415]
+INFO: [Synth 8-6157] synthesizing module 'AXI4UserYanker' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:33020]
+INFO: [Synth 8-6157] synthesizing module 'QueueCompatibility' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32756]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_tl_state_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_tl_state_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_tl_state_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_tl_state_source_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'QueueCompatibility' (30#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32756]
+INFO: [Synth 8-6157] synthesizing module 'QueueCompatibility_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32872]
+INFO: [Synth 8-6155] done synthesizing module 'QueueCompatibility_1' (31#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:32872]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4UserYanker' (32#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:33020]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Deinterleaver' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:34076]
+INFO: [Synth 8-6157] synthesizing module 'QueueCompatibility_10' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:33828]
+INFO: [Synth 8-6155] done synthesizing module 'QueueCompatibility_10' (33#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:33828]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Deinterleaver' (34#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:34076]
+INFO: [Synth 8-6157] synthesizing module 'AXI4IdIndexer' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:35307]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4IdIndexer' (35#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:35307]
+INFO: [Synth 8-6157] synthesizing module 'TLToAXI4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38737]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:39055]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_7' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:35445]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_7' (36#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:35445]
+INFO: [Synth 8-6157] synthesizing module 'Queue_5' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38201]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_data_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_data_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_strb_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_strb_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_last_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_last_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_5' (37#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38201]
+INFO: [Synth 8-6157] synthesizing module 'Queue_6' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38358]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_id_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_addr_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_addr_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_len_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_len_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_burst_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_burst_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_lock_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_lock_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_cache_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_cache_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_prot_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_prot_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_qos_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_qos_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_echo_tl_state_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_echo_tl_state_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_echo_tl_state_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_echo_tl_state_source_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_wen_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_wen_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_6' (38#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38358]
+INFO: [Synth 8-6155] done synthesizing module 'TLToAXI4' (39#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:38737]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:42476]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:42548]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_8' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:39720]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_8' (40#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:39720]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget_3' (41#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:42476]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_4' (42#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:42612]
+INFO: [Synth 8-6155] done synthesizing module 'SystemBus' (43#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:43892]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:234845]
+INFO: [Synth 8-6157] synthesizing module 'PeripheryBus' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45459]
+INFO: [Synth 8-6157] synthesizing module 'ClockGroupAggregator_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45450]
+INFO: [Synth 8-6155] done synthesizing module 'ClockGroupAggregator_1' (44#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45450]
+INFO: [Synth 8-6155] done synthesizing module 'PeripheryBus' (45#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45459]
+INFO: [Synth 8-6157] synthesizing module 'FrontBus' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68085]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:48536]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:48614]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_9' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45500]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_9' (46#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:45500]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_3' (47#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:48536]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52491]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52627]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_10' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:48684]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_10' (48#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:48684]
+INFO: [Synth 8-6157] synthesizing module 'Queue_7' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:51720]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_7' (49#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:51720]
+INFO: [Synth 8-6157] synthesizing module 'Queue_8' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52193]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_8' (50#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52193]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_3' (51#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52491]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_5' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:66860]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:55826]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:55962]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_11' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52790]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_11' (52#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:52790]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_4' (53#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:55826]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_2' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:59161]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:59367]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_12' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:56125]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_12' (54#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:56125]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_2' (55#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:59161]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63190]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63340]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_13' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:59849]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_13' (56#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:59849]
+INFO: [Synth 8-6157] synthesizing module 'Repeater' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:62935]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater' (57#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:62935]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget_4' (58#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63190]
+INFO: [Synth 8-6157] synthesizing module 'AXI4ToTL' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63894]
+INFO: [Synth 8-6157] synthesizing module 'Queue_11' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63580]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_id_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_data_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_data_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_resp_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_resp_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_last_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_last_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_11' (59#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63580]
+INFO: [Synth 8-6157] synthesizing module 'Queue_12' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63762]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_id_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_resp_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_resp_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_12' (60#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63762]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4ToTL' (61#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:63894]
+INFO: [Synth 8-6157] synthesizing module 'AXI4UserYanker_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65020]
+INFO: [Synth 8-6157] synthesizing module 'QueueCompatibility_15' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:64872]
+INFO: [Synth 8-6155] done synthesizing module 'QueueCompatibility_15' (62#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:64872]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4UserYanker_1' (63#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65020]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Fragmenter' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65803]
+INFO: [Synth 8-6157] synthesizing module 'Queue_13' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65364]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_id_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_addr_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_addr_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_len_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_len_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_burst_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_burst_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_cache_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_cache_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_prot_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_prot_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_echo_extra_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_echo_extra_id_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_13' (64#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65364]
+INFO: [Synth 8-6157] synthesizing module 'Queue_15' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65646]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_data_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_data_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_strb_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_strb_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_last_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_last_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_15' (65#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65646]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Fragmenter' (66#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:65803]
+INFO: [Synth 8-6157] synthesizing module 'AXI4IdIndexer_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:66752]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4IdIndexer_1' (67#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:66752]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_5' (68#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:66860]
+INFO: [Synth 8-6155] done synthesizing module 'FrontBus' (69#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68085]
+INFO: [Synth 8-6157] synthesizing module 'PeripheryBus_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:109770]
+INFO: [Synth 8-6157] synthesizing module 'ClockGroupAggregator_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68660]
+INFO: [Synth 8-6155] done synthesizing module 'ClockGroupAggregator_3' (70#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68660]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_3' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:71721]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:71933]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_14' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68675]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_14' (71#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:68675]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_3' (72#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:71721]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_4' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:75514]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:75578]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_15' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:72428]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_15' (73#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:72428]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_4' (74#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:75514]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_5' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:78687]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:78981]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_16' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:75641]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_16' (75#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:75641]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_5' (76#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:78687]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_5' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:83058]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:83166]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_17' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:79382]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_17' (77#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:79382]
+INFO: [Synth 8-6157] synthesizing module 'Queue_16' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:82462]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_16' (78#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:82462]
+INFO: [Synth 8-6157] synthesizing module 'Queue_17' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:82760]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_17' (79#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:82760]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_5' (80#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:83058]
+INFO: [Synth 8-6157] synthesizing module 'TLAtomicAutomata_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:86387]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:86713]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_18' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:83301]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_18' (81#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:83301]
+INFO: [Synth 8-6155] done synthesizing module 'TLAtomicAutomata_1' (82#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:86387]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_6' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93920]
+INFO: [Synth 8-6157] synthesizing module 'TLError' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90146]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90227]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_19' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:87295]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_19' (83#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:87295]
+INFO: [Synth 8-6157] synthesizing module 'Queue_18' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90005]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_opcode_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_opcode_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_source_reg" dissolved into registers
+INFO: [Synth 8-6155] done synthesizing module 'Queue_18' (84#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90005]
+INFO: [Synth 8-6155] done synthesizing module 'TLError' (85#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90146]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_6' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93689]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93789]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_20' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90390]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_20' (86#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:90390]
+INFO: [Synth 8-6157] synthesizing module 'Queue_19' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93416]
+INFO: [Synth 8-6155] done synthesizing module 'Queue_19' (87#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93416]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_6' (88#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93689]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_6' (89#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:93920]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_7' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:97178]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:97242]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_21' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:94092]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_21' (90#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:94092]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_7' (91#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:97178]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_8' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:100411]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:99985]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:100132]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_22' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:97305]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_22' (92#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:97305]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:99824]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_1' (93#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:99824]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter' (94#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:99985]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_8' (95#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:100411]
+INFO: [Synth 8-6157] synthesizing module 'SimpleLazyModule_9' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103624]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_1' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103198]
+INFO: [Common 17-14] Message 'Synth 8-6157' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103345]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_23' (96#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:100552]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_2' (97#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103037]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_1' (98#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103198]
+INFO: [Synth 8-6155] done synthesizing module 'SimpleLazyModule_9' (99#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103624]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:106556]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_24' (100#1) [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:103765]
+INFO: [Common 17-14] Message 'Synth 8-6155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:109407]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:113570]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:116049]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_tl_state_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_tl_state_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_tl_state_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_tl_state_source_reg" dissolved into registers
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:120085]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_id_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_id_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_addr_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_addr_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_len_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_len_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_burst_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_burst_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_lock_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_lock_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_cache_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_cache_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_prot_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_prot_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_qos_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_qos_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_echo_tl_state_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_echo_tl_state_size_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_echo_tl_state_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_echo_tl_state_source_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_wen_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_wen_reg" dissolved into registers
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:123048]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:130938]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:134412]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:137035]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:139514]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:143239]
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_read_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_read_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_index_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_index_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_data_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_data_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_mask_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_mask_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_extra_tlrr_extra_source_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_extra_tlrr_extra_source_reg" dissolved into registers
+WARNING: [Synth 8-4767] Trying to implement RAM '_T_extra_tlrr_extra_size_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: Write port has constant address. 
+	2: No valid read/write found for RAM. 
+	2: Only 1 word in RAM 
+RAM "_T_extra_tlrr_extra_size_reg" dissolved into registers
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:146162]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:148501]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:150294]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:152871]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:155347]
+WARNING: [Synth 8-6014] Unused sequential element _T_27_reg was removed.  [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:155381]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:158909]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:167107]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:167125]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:179021]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:179061]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:89]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:90]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:115]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:119]
+WARNING: [Synth 8-689] width (22) of port connection 'RW0_rdata' does not match port width (88) of module 'tag_array_ext' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:242256]
+WARNING: [Synth 8-7023] instance 'tag_array_ext' of module 'tag_array_ext' has 7 connections declared, but only 6 given [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:242250]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+WARNING: [Synth 8-639] system function call 'random' not supported [/home/wolf/rocc-accelerator/verilog/utils/sram_modified.v:29]
+INFO: [Common 17-14] Message 'Synth 8-639' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-689] width (10) of port connection 'RW0_addr' does not match port width (9) of module 'data_arrays_0_ext' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:242213]
+WARNING: [Synth 8-689] width (32) of port connection 'RW0_rdata' does not match port width (256) of module 'data_arrays_0_ext' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:242218]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191009]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191010]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191011]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191012]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191013]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191014]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191015]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191017]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191018]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191019]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191020]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191021]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191022]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_1' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191023]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191025]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191026]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191027]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191028]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191029]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191030]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_2' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191031]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191033]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191034]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191035]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191036]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191037]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191038]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_3' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191039]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191041]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191042]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191043]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191044]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191045]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191046]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_4' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191047]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191049]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191050]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191051]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191052]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191053]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191054]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_5' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191055]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191057]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191058]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191059]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191060]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191061]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191062]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_6' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191063]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191065]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191066]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191067]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191068]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191069]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191070]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_7' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191071]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191073]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191074]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191075]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191076]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191077]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191078]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_8' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191079]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191081]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191082]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191083]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191084]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191085]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191086]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_9' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191087]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191089]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191090]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191091]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191092]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191093]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191094]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_10' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191095]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191097]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191098]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191099]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191100]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191101]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191102]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_11' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191103]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191105]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191106]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191107]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191108]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191109]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191110]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_12' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191111]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191113]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191114]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191115]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191116]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191117]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191118]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_13' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191119]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191121]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191122]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191123]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191124]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191125]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191126]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_14' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191127]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191129]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191130]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191131]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191132]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191133]
+ERROR: [Synth 8-448] named port connection 'sclr' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191134]
+ERROR: [Synth 8-448] named port connection 'p' does not exist for instance 'Mul8bit_15' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191135]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191137]
+ERROR: [Synth 8-448] named port connection 'a' does not exist for instance 'Mul8bit_16' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191138]
+ERROR: [Synth 8-448] named port connection 'b' does not exist for instance 'Mul8bit_16' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191139]
+ERROR: [Synth 8-448] named port connection 'clk' does not exist for instance 'Mul8bit_16' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191140]
+ERROR: [Synth 8-448] named port connection 'ce' does not exist for instance 'Mul8bit_16' of module 'Mul8bit' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191141]
+INFO: [Common 17-14] Message 'Synth 8-448' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191145]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191153]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191161]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191169]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191177]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191185]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191193]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191201]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191209]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191217]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191225]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191233]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191241]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191249]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191257]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191265]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191273]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191281]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191289]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191297]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191305]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191313]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191321]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191329]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191337]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191345]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191353]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191361]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191369]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191377]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191385]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191393]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191401]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191409]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191417]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191425]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:191433]
+INFO: [Common 17-14] Message 'Synth 8-4446' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+ERROR: [Synth 8-6156] failed synthesizing module 'GRHConv2dPE' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:186394]
+ERROR: [Synth 8-6156] failed synthesizing module 'GRHConvRoccAccel' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:199369]
+ERROR: [Synth 8-6156] failed synthesizing module 'RocketTile' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:224100]
+ERROR: [Synth 8-6156] failed synthesizing module 'ExampleRocketSystem' [/home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v:233861]
+ERROR: [Synth 8-6156] failed synthesizing module 'chip_top' [/home/wolf/rocc-accelerator/verilog/grh_chip_top.v:3]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:11 . Memory (MB): peak = 2115.211 ; gain = 449.426 ; free physical = 1239 ; free virtual = 4095
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+INFO: [Common 17-83] Releasing license: Synthesis
+208 Infos, 263 Warnings, 0 Critical Warnings and 106 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+INFO: [Common 17-206] Exiting Vivado at Wed May  6 11:09:46 2020...
