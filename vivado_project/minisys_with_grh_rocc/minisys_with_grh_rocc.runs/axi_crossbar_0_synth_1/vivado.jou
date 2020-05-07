@@ -1,12 +1,12 @@
 #-----------------------------------------------------------
-# Vivado v2019.1.3 (64-bit)
-# SW Build 2644227 on Wed Sep  4 09:44:18 MDT 2019
-# IP Build 2633630 on Wed Sep  4 12:30:14 MDT 2019
-# Start of session at: Wed May  6 19:01:25 2020
-# Process ID: 3836
-# Current directory: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Thu May  7 14:31:33 2020
+# Process ID: 49243
+# Current directory: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1
 # Command line: vivado -log axi_crossbar_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source axi_crossbar_0.tcl
-# Log file: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1/axi_crossbar_0.vds
-# Journal file: /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1/vivado.jou
+# Log file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1/axi_crossbar_0.vds
+# Journal file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/axi_crossbar_0_synth_1/vivado.jou
 #-----------------------------------------------------------
 source axi_crossbar_0.tcl -notrace

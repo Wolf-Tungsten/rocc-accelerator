@@ -14,8 +14,8 @@ module chip_top
   output jtag_tdo,
   input jtag_reset,
   //----UART
-  output  uart_TX,
-  input   uart_RX,
+//  output  uart_TX,
+//  input   uart_RX,
   
   //----DDR
   inout  [15:0] ddr3_dq,
@@ -32,14 +32,14 @@ module chip_top
   output        ddr3_cs_n,
   output  [1:0] ddr3_dm,
   output        ddr3_odt,
-  output        ddr3_reset_n,
+  output        ddr3_reset_n
   
   //----SD on spi
-  inout         spi_cs,
-  inout         spi_sclock,
-  inout         spi_mosi,
-  inout         spi_miso,
-  output        sd_poweroff
+//  inout         spi_cs,
+//  inout         spi_sclock,
+//  inout         spi_mosi,
+//  inout         spi_miso,
+//  output        sd_poweroff
   
   // position for peris ... TBA
 );
@@ -47,6 +47,7 @@ module chip_top
   wire  clock30; //30m
   wire  clock200; //200m
   wire  clock100mem; //100m for mig sys_clk_i
+  wire  clock50;
   
   //dut wires
   wire  dut_clock; 
@@ -154,7 +155,7 @@ module chip_top
   wire [3:0] dut_l2_frontend_bus_axi4_0_aw_qos; 
   wire  dut_l2_frontend_bus_axi4_0_w_ready; 
   wire  dut_l2_frontend_bus_axi4_0_w_valid; 
-  wire [63:0] dut_l2_frontend_bus_axi4_0_w_data; // 改31位
+  wire [31:0] dut_l2_frontend_bus_axi4_0_w_data; // 改32位
   wire [7:0] dut_l2_frontend_bus_axi4_0_w_strb; 
   wire  dut_l2_frontend_bus_axi4_0_w_last; 
   wire  dut_l2_frontend_bus_axi4_0_b_ready; 
@@ -175,7 +176,7 @@ module chip_top
   wire  dut_l2_frontend_bus_axi4_0_r_ready; 
   wire  dut_l2_frontend_bus_axi4_0_r_valid; 
   wire [7:0] dut_l2_frontend_bus_axi4_0_r_id; 
-  wire [63:0] dut_l2_frontend_bus_axi4_0_r_data; // 改31位
+  wire [31:0] dut_l2_frontend_bus_axi4_0_r_data; // 改32位
   wire [1:0] dut_l2_frontend_bus_axi4_0_r_resp; 
   wire  dut_l2_frontend_bus_axi4_0_r_last; 
   // above: those wires connected to the dut module
@@ -269,6 +270,7 @@ module chip_top
     .clk_out1(clock30),   //30m
     .clk_out2(clock200), //200m
     .clk_out3(clock100mem), //100m for mig
+    .clk_out4(clock50),
     .resetn(~buttonresetn),
     .locked(pll_locked) // we use pll locked signal as resetn for ddr ctrl.
   );
@@ -405,6 +407,7 @@ module chip_top
     .clock(mem_clock),
     .clock100(clock100mem), // sys_clk_i 100MHz
     .clock200(clock200), // clk_ref_i 200MHz
+    .clock50(clock50),
     .reset(mem_reset),
 
     .io_axi4_0_aw_ready(mem_io_axi4_0_aw_ready),
@@ -488,68 +491,68 @@ module chip_top
 `endif
 
   
-  AXIMmio mmio ( 
-    .clock(mmio_clock),
-    .reset(mmio_reset),
+//  AXIMmio mmio ( 
+//    .clock(mmio_clock),
+//    .reset(mmio_reset),
     
-    .io_axi4_0_aw_ready(mmio_io_axi4_0_aw_ready),
-    .io_axi4_0_aw_valid(mmio_io_axi4_0_aw_valid),
-    .io_axi4_0_aw_id(mmio_io_axi4_0_aw_id),
-    .io_axi4_0_aw_addr(mmio_io_axi4_0_aw_addr),
-    .io_axi4_0_aw_len(mmio_io_axi4_0_aw_len),
-    .io_axi4_0_aw_size(mmio_io_axi4_0_aw_size),
-    .io_axi4_0_aw_burst(mmio_io_axi4_0_aw_burst),
-    .io_axi4_0_w_ready(mmio_io_axi4_0_w_ready),
-    .io_axi4_0_w_valid(mmio_io_axi4_0_w_valid),
-    .io_axi4_0_w_data(mmio_io_axi4_0_w_data),
-    .io_axi4_0_w_strb(mmio_io_axi4_0_w_strb),
-    .io_axi4_0_w_last(mmio_io_axi4_0_w_last),
-    .io_axi4_0_b_ready(mmio_io_axi4_0_b_ready),
-    .io_axi4_0_b_valid(mmio_io_axi4_0_b_valid),
-    .io_axi4_0_b_id(mmio_io_axi4_0_b_id),
-    .io_axi4_0_b_resp(mmio_io_axi4_0_b_resp),
-    .io_axi4_0_ar_ready(mmio_io_axi4_0_ar_ready),
-    .io_axi4_0_ar_valid(mmio_io_axi4_0_ar_valid),
-    .io_axi4_0_ar_id(mmio_io_axi4_0_ar_id),
-    .io_axi4_0_ar_addr(mmio_io_axi4_0_ar_addr),
-    .io_axi4_0_ar_len(mmio_io_axi4_0_ar_len),
-    .io_axi4_0_ar_size(mmio_io_axi4_0_ar_size),
-    .io_axi4_0_ar_burst(mmio_io_axi4_0_ar_burst),
-    .io_axi4_0_r_ready(mmio_io_axi4_0_r_ready),
-    .io_axi4_0_r_valid(mmio_io_axi4_0_r_valid),
-    .io_axi4_0_r_id(mmio_io_axi4_0_r_id),
-    .io_axi4_0_r_data(mmio_io_axi4_0_r_data),
-    .io_axi4_0_r_resp(mmio_io_axi4_0_r_resp),
-    .io_axi4_0_r_last(mmio_io_axi4_0_r_last),
+//    .io_axi4_0_aw_ready(mmio_io_axi4_0_aw_ready),
+//    .io_axi4_0_aw_valid(mmio_io_axi4_0_aw_valid),
+//    .io_axi4_0_aw_id(mmio_io_axi4_0_aw_id),
+//    .io_axi4_0_aw_addr(mmio_io_axi4_0_aw_addr),
+//    .io_axi4_0_aw_len(mmio_io_axi4_0_aw_len),
+//    .io_axi4_0_aw_size(mmio_io_axi4_0_aw_size),
+//    .io_axi4_0_aw_burst(mmio_io_axi4_0_aw_burst),
+//    .io_axi4_0_w_ready(mmio_io_axi4_0_w_ready),
+//    .io_axi4_0_w_valid(mmio_io_axi4_0_w_valid),
+//    .io_axi4_0_w_data(mmio_io_axi4_0_w_data),
+//    .io_axi4_0_w_strb(mmio_io_axi4_0_w_strb),
+//    .io_axi4_0_w_last(mmio_io_axi4_0_w_last),
+//    .io_axi4_0_b_ready(mmio_io_axi4_0_b_ready),
+//    .io_axi4_0_b_valid(mmio_io_axi4_0_b_valid),
+//    .io_axi4_0_b_id(mmio_io_axi4_0_b_id),
+//    .io_axi4_0_b_resp(mmio_io_axi4_0_b_resp),
+//    .io_axi4_0_ar_ready(mmio_io_axi4_0_ar_ready),
+//    .io_axi4_0_ar_valid(mmio_io_axi4_0_ar_valid),
+//    .io_axi4_0_ar_id(mmio_io_axi4_0_ar_id),
+//    .io_axi4_0_ar_addr(mmio_io_axi4_0_ar_addr),
+//    .io_axi4_0_ar_len(mmio_io_axi4_0_ar_len),
+//    .io_axi4_0_ar_size(mmio_io_axi4_0_ar_size),
+//    .io_axi4_0_ar_burst(mmio_io_axi4_0_ar_burst),
+//    .io_axi4_0_r_ready(mmio_io_axi4_0_r_ready),
+//    .io_axi4_0_r_valid(mmio_io_axi4_0_r_valid),
+//    .io_axi4_0_r_id(mmio_io_axi4_0_r_id),
+//    .io_axi4_0_r_data(mmio_io_axi4_0_r_data),
+//    .io_axi4_0_r_resp(mmio_io_axi4_0_r_resp),
+//    .io_axi4_0_r_last(mmio_io_axi4_0_r_last),
     
-    //external interrupt connecting
-    .interrupt_uart(interrupt_uart),
-    .interrupt_spi(interrupt_spi),
+//    //external interrupt connecting
+//    .interrupt_uart(interrupt_uart),
+//    .interrupt_spi(interrupt_spi),
     
-    //HW devices' pins
-    .uart_TX(uart_TX),
-    .uart_RX(uart_RX),
+//    //HW devices' pins
+//    .uart_TX(uart_TX),
+//    .uart_RX(uart_RX),
 
-    .spi_cs(spi_cs),
-    .spi_sclock(spi_sclock),
-    .spi_mosi(spi_mosi),
-    .spi_miso(spi_miso),
-    .sd_poweroff(sd_poweroff)
-  );
+//    .spi_cs(spi_cs),
+//    .spi_sclock(spi_sclock),
+//    .spi_mosi(spi_mosi),
+//    .spi_miso(spi_miso),
+//    .sd_poweroff(sd_poweroff)
+//  );
   
   //////////////////////////////////debug
   
-  assign LED[13] = uart_TX;
-  assign LED[12] = uart_RX;
+//  assign LED[13] = uart_TX;
+//  assign LED[12] = uart_RX;
   
   assign LED[15] = dut_reset;
   assign LED[14] = dut_clock;
   
-  assign LED[4] = spi_miso;
-  assign LED[3] = spi_mosi;
-  assign LED[2] = spi_sclock;
-  assign LED[1] = spi_cs;
-  assign LED[0] = sd_poweroff;    
+//  assign LED[4] = spi_miso;
+//  assign LED[3] = spi_mosi;
+//  assign LED[2] = spi_sclock;
+//  assign LED[1] = spi_cs;
+//  assign LED[0] = sd_poweroff;    
   //////////////////////////////////jtag
 
   assign dut_debug_systemjtag_mfr_id = 11'h7f;
@@ -623,6 +626,7 @@ module chip_top
   assign mem_io_axi4_0_r_ready = dut_mem_axi4_0_r_ready; 
   
 
+/*
   //  ***** mmio module *****
   // CR inheritance 
   assign mmio_clock = clock30; 
@@ -658,7 +662,37 @@ module chip_top
   assign mmio_io_axi4_0_ar_size = dut_mmio_axi4_0_ar_size; 
   assign mmio_io_axi4_0_ar_burst = dut_mmio_axi4_0_ar_burst; 
   assign mmio_io_axi4_0_r_ready = dut_mmio_axi4_0_r_ready; 
+  */
+  // mmio
+  
+  assign dut_mmio_axi4_0_aw_valid = 1'h0; 
+  assign dut_mmio_axi4_0_aw_id = 8'h0;
+  assign dut_mmio_axi4_0_aw_addr = 32'h0;
+  assign dut_mmio_axi4_0_aw_len = 8'h0;
+  assign dut_mmio_axi4_0_aw_size = 3'h0;
+  assign dut_mmio_axi4_0_aw_burst = 2'h0;
+  assign dut_mmio_axi4_0_aw_lock = 1'h0;
+  assign dut_mmio_axi4_0_aw_cache = 4'h0;
+  assign dut_mmio_axi4_0_aw_prot = 3'h0;
+  assign dut_mmio_axi4_0_aw_qos = 4'h0;
+  assign dut_mmio_axi4_0_w_valid = 1'h0;
+  assign dut_mmio_axi4_0_w_data = 32'h0;
+  assign dut_mmio_axi4_0_w_strb = 8'h0;
+  assign dut_mmio_axi4_0_w_last = 1'h0;
+  assign dut_mmio_axi4_0_b_ready = 1'h0; 
+  assign dut_mmio_axi4_0_ar_valid = 1'h0;
+  assign dut_mmio_axi4_0_ar_id = 8'h0;
+  assign dut_mmio_axi4_0_ar_addr = 32'h0;
+  assign dut_mmio_axi4_0_ar_len = 8'h0;
+  assign dut_mmio_axi4_0_ar_size = 3'h0;
+  assign dut_mmio_axi4_0_ar_burst = 2'h0;
+  assign dut_mmio_axi4_0_ar_lock = 1'h0;
+  assign dut_mmio_axi4_0_ar_cache = 4'h0;
+  assign dut_mmio_axi4_0_ar_prot = 3'h0;
+  assign dut_mmio_axi4_0_ar_qos = 4'h0;
+  assign dut_mmio_axi4_0_r_ready = 1'h0; 
 
+  
 
   //  ***** l2 frontend define - grounded *****
   assign dut_l2_frontend_bus_axi4_0_aw_valid = 1'h0; 
@@ -672,7 +706,7 @@ module chip_top
   assign dut_l2_frontend_bus_axi4_0_aw_prot = 3'h0;
   assign dut_l2_frontend_bus_axi4_0_aw_qos = 4'h0;
   assign dut_l2_frontend_bus_axi4_0_w_valid = 1'h0;
-  assign dut_l2_frontend_bus_axi4_0_w_data = 64'h0;
+  assign dut_l2_frontend_bus_axi4_0_w_data = 32'h0;
   assign dut_l2_frontend_bus_axi4_0_w_strb = 8'h0;
   assign dut_l2_frontend_bus_axi4_0_w_last = 1'h0;
   assign dut_l2_frontend_bus_axi4_0_b_ready = 1'h0; 

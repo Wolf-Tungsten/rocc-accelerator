@@ -1084,10 +1084,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 -------------------------------------------------------------------------------
--- axi_uart16550_v2_0_21 library is used for axi_uart16550_v2_0_21 
+-- axi_uart16550_v2_0_22 library is used for axi_uart16550_v2_0_22 
 -- component declarations
 -------------------------------------------------------------------------------
-library axi_uart16550_v2_0_21;
+library axi_uart16550_v2_0_22;
 
 -------------------------------------------------------------------------------
 -- proc common package of the proc common library is used for different 
@@ -1151,7 +1151,7 @@ begin
   -----------------------------------------------------------------------------
   -- Instantiating rx_fifo_control module
   -----------------------------------------------------------------------------
-  rx_fifo_control_1 : entity axi_uart16550_v2_0_21.rx_fifo_control
+  rx_fifo_control_1 : entity axi_uart16550_v2_0_22.rx_fifo_control
   generic map (
       C_FAMILY         =>  C_FAMILY )
     port map (
@@ -2241,15 +2241,15 @@ use ieee.std_logic_unsigned."-";
 use ieee.std_logic_unsigned.all;
 
 -------------------------------------------------------------------------------
--- axi_uart16550_v2_0_21 library is used for axi_uart16550_v2_0_21 
+-- axi_uart16550_v2_0_22 library is used for axi_uart16550_v2_0_22 
 -- component declarations
 -------------------------------------------------------------------------------
-library axi_uart16550_v2_0_21;
-use axi_uart16550_v2_0_21.xuart_tx_load_sm;
-use axi_uart16550_v2_0_21.rx16550;
-use axi_uart16550_v2_0_21.tx16550;
-use axi_uart16550_v2_0_21.tx_fifo_block;
-use axi_uart16550_v2_0_21.rx_fifo_block;
+library axi_uart16550_v2_0_22;
+use axi_uart16550_v2_0_22.xuart_tx_load_sm;
+use axi_uart16550_v2_0_22.rx16550;
+use axi_uart16550_v2_0_22.tx16550;
+use axi_uart16550_v2_0_22.tx_fifo_block;
+use axi_uart16550_v2_0_22.rx_fifo_block;
 
 -------------------------------------------------------------------------------
 -- proc common package of the proc common library is used for different 
@@ -2272,7 +2272,8 @@ entity uart16550 is
     C_HAS_EXTERNAL_XIN    : BOOLEAN  := FALSE; -- External XIN  
     C_S_AXI_CLK_FREQ_HZ   : integer  := 100_000_000; -- AXI Clock Frequency
     C_EXTERNAL_XIN_CLK_HZ : integer  := 50_000_000;  -- XIN Clock Frequency
-    C_FAMILY              : string   := "virtex7"); -- XILINX FPGA family
+    C_FAMILY              : string   := "virtex7"; -- XILINX FPGA family
+    C_SIM_DEVICE          : string   := "VERSAL_AI_CORE_ES1"); -- SIM DEVICE 
   port (
     Din           : in  std_logic_vector (7 downto 0);  -- data bus in
     Dout          : out std_logic_vector (7 downto 0);  -- data bus out
@@ -2725,7 +2726,7 @@ begin  -- implementation
     end if;
   end process THR_WRITE;
 
-  xuart_tx_load_sm_1 : entity axi_uart16550_v2_0_21.xuart_tx_load_sm
+  xuart_tx_load_sm_1 : entity axi_uart16550_v2_0_22.xuart_tx_load_sm
     port map (
       Rst       => Rst,
       Sys_clk   => Sys_clk,
@@ -3387,7 +3388,7 @@ begin  -- implementation
 
                         BAUD_FF: ODDRE1
                           generic map (
-                           SIM_DEVICE => "VERSAL"
+                           SIM_DEVICE => C_SIM_DEVICE
                            )
                           port map (
                             Q   => BaudoutN ,       --[out]
@@ -3404,7 +3405,7 @@ begin  -- implementation
 
                         BAUD_FF: ODDRE1
                           generic map (
-                           SIM_DEVICE => "VERSAL_ES1"
+                           SIM_DEVICE => C_SIM_DEVICE
                            )
                           port map (
                             Q   => BaudoutN ,       --[out]
@@ -3421,7 +3422,7 @@ begin  -- implementation
 
                         BAUD_FF: ODDRE1
                           generic map (
-                           SIM_DEVICE => "VERSAL_ES2"
+                           SIM_DEVICE => C_SIM_DEVICE
                            )
                           port map (
                             Q   => BaudoutN ,       --[out]
@@ -3499,7 +3500,7 @@ begin  -- implementation
 -------------------------------------------------------------------------------
 -- receiver instantiation
 -------------------------------------------------------------------------------  
-  rx16550_1 : entity axi_uart16550_v2_0_21.rx16550
+  rx16550_1 : entity axi_uart16550_v2_0_22.rx16550
     port map (
       Sys_clk            => Sys_clk,
       Rclk               => Rclk,
@@ -3522,7 +3523,7 @@ begin  -- implementation
 -------------------------------------------------------------------------------
 -- transmitter instantiation
 -------------------------------------------------------------------------------
-  tx16550_1 : entity axi_uart16550_v2_0_21.tx16550
+  tx16550_1 : entity axi_uart16550_v2_0_22.tx16550
     port map (
       Sys_clk          => Sys_clk,
       Rst              => Rst,
@@ -3668,7 +3669,7 @@ begin  -- implementation
     ---------------------------------------------------------------------------
     -- transmitter fifo instantiation
     ---------------------------------------------------------------------------
-    tx_fifo_block_1 : entity axi_uart16550_v2_0_21.tx_fifo_block
+    tx_fifo_block_1 : entity axi_uart16550_v2_0_22.tx_fifo_block
      generic map (
         C_FAMILY         => C_FAMILY )
       port map (
@@ -3710,7 +3711,7 @@ begin  -- implementation
     ---------------------------------------------------------------------------
     -- receiver fifo instantiation
     ---------------------------------------------------------------------------
-    rx_fifo_block_1 : entity axi_uart16550_v2_0_21.rx_fifo_block
+    rx_fifo_block_1 : entity axi_uart16550_v2_0_22.rx_fifo_block
        generic map (
         C_FAMILY           =>  C_FAMILY )
        port map (
@@ -4139,12 +4140,12 @@ use ieee.std_logic_1164.all;
 library lib_cdc_v1_0_2;
 
 -------------------------------------------------------------------------------
--- axi_uart16550_v2_0_21 library is used for axi_uart16550_v2_0_21 
+-- axi_uart16550_v2_0_22 library is used for axi_uart16550_v2_0_22 
 -- component declarations
 -------------------------------------------------------------------------------
-library axi_uart16550_v2_0_21;
-use axi_uart16550_v2_0_21.uart16550;
-use axi_uart16550_v2_0_21.ipic_if;
+library axi_uart16550_v2_0_22;
+use axi_uart16550_v2_0_22.uart16550;
+use axi_uart16550_v2_0_22.ipic_if;
 
 
 -------------------------------------------------------------------------------
@@ -4209,6 +4210,7 @@ entity xuart is
   
   generic (
     C_FAMILY                : string;
+    C_SIM_DEVICE            : string;
     C_S_AXI_CLK_FREQ_HZ     : integer                 := 100_000_000;
     AXI_DATA_WIDTH          : integer  range 32 to 32 := 32;
     AXI_ADDR_WIDTH          : integer                 := 32; 
@@ -4293,9 +4295,10 @@ attribute DowngradeIPIdentifiedWarnings of imp : architecture is "yes";
     -- Entity UART instantiation
   -----------------------------------------------------------------------------
        
-   UART16550_I_1 : entity axi_uart16550_v2_0_21.uart16550
+   UART16550_I_1 : entity axi_uart16550_v2_0_22.uart16550
     generic map (
       C_FAMILY              => C_FAMILY,
+      C_SIM_DEVICE          => C_SIM_DEVICE,
       C_S_AXI_CLK_FREQ_HZ   => C_S_AXI_CLK_FREQ_HZ,
       C_IS_A_16550          => C_IS_A_16550,
       C_HAS_EXTERNAL_XIN    => C_HAS_EXTERNAL_XIN,
@@ -4347,7 +4350,7 @@ attribute DowngradeIPIdentifiedWarnings of imp : architecture is "yes";
     -- Entity IPIC_IC instantiation
   -----------------------------------------------------------------------------
   
-  IPIC_IF_I_1 : entity axi_uart16550_v2_0_21.ipic_if 
+  IPIC_IF_I_1 : entity axi_uart16550_v2_0_22.ipic_if 
     port map
        (
        Bus2IP_Clk             => Bus2IP_Clk,
@@ -4563,11 +4566,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 -------------------------------------------------------------------------------
--- axi_uart16550_v2_0_21 library is used for axi_uart16550_v2_0_21 
+-- axi_uart16550_v2_0_22 library is used for axi_uart16550_v2_0_22 
 -- component declarations
 -------------------------------------------------------------------------------
-library axi_uart16550_v2_0_21;
-    use axi_uart16550_v2_0_21.xuart;
+library axi_uart16550_v2_0_22;
+    use axi_uart16550_v2_0_22.xuart;
 
 -------------------------------------------------------------------------------
 -- axi_lite_ipif_v2_0 library is used for AXI Lite IPIF 
@@ -4662,6 +4665,7 @@ entity axi_uart16550 is
 
 --  -- System Parameter
     C_FAMILY              : string                        := "virtex7";
+    C_SIM_DEVICE          : string                        := "VERSAL_AI_CORE_ES1";
     C_S_AXI_ACLK_FREQ_HZ  : integer                       := 100_000_000;
 --  -- AXI Parameters
     C_S_AXI_ADDR_WIDTH    : integer                       := 13;
@@ -4857,13 +4861,14 @@ attribute DowngradeIPIdentifiedWarnings of rtl : architecture is "yes";
     -- Instantiate UART16550
     --------------------------------------------------------------------------
 
-    XUART_I_1 : entity axi_uart16550_v2_0_21.xuart
+    XUART_I_1 : entity axi_uart16550_v2_0_22.xuart
     generic map (
       C_IS_A_16550          => C_IS_A_16550 /= 0,         -- default TRUE
       C_HAS_EXTERNAL_XIN    => C_HAS_EXTERNAL_XIN /= 0,   -- default TRUE
       C_HAS_EXTERNAL_RCLK   => C_HAS_EXTERNAL_RCLK /= 0,  -- default TRUE
       C_EXTERNAL_XIN_CLK_HZ => C_EXTERNAL_XIN_CLK_HZ,
       C_FAMILY              => C_FAMILY,
+      C_SIM_DEVICE          => C_SIM_DEVICE,
       C_S_AXI_CLK_FREQ_HZ   => C_S_AXI_ACLK_FREQ_HZ,
       AXI_ADDR_WIDTH        => 13,
       AXI_DATA_WIDTH        => C_S_AXI_DATA_WIDTH

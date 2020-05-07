@@ -56,9 +56,10 @@
 //  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
-// clk_out1____30.000______0.000______50.0______147.931_____87.180
-// clk_out2___200.000______0.000______50.0______102.086_____87.180
-// clk_out3___100.000______0.000______50.0______115.831_____87.180
+// clk_out1__30.00000______0.000______50.0______147.931_____87.180
+// clk_out2__200.00000______0.000______50.0______102.086_____87.180
+// clk_out3__100.00000______0.000______50.0______115.831_____87.180
+// clk_out4__50.00000______0.000______50.0______132.683_____87.180
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -74,6 +75,7 @@ module clk_wiz_0_clk_wiz
   output        clk_out1,
   output        clk_out2,
   output        clk_out3,
+  output        clk_out4,
   // Status and control signals
   input         resetn,
   output        locked,
@@ -112,7 +114,6 @@ wire clk_in2_clk_wiz_0;
   wire        clkfbout_clk_wiz_0;
   wire        clkfbout_buf_clk_wiz_0;
   wire        clkfboutb_unused;
-   wire clkout3_unused;
    wire clkout4_unused;
   wire        clkout5_unused;
   wire        clkout6_unused;
@@ -136,6 +137,9 @@ wire clk_in2_clk_wiz_0;
     .CLKOUT2_DIVIDE       (12),
     .CLKOUT2_PHASE        (0.000),
     .CLKOUT2_DUTY_CYCLE   (0.500),
+    .CLKOUT3_DIVIDE       (24),
+    .CLKOUT3_PHASE        (0.000),
+    .CLKOUT3_DUTY_CYCLE   (0.500),
     .CLKIN1_PERIOD        (10.000))
   plle2_adv_inst
     // Output clocks
@@ -144,7 +148,7 @@ wire clk_in2_clk_wiz_0;
     .CLKOUT0             (clk_out1_clk_wiz_0),
     .CLKOUT1             (clk_out2_clk_wiz_0),
     .CLKOUT2             (clk_out3_clk_wiz_0),
-    .CLKOUT3             (clkout3_unused),
+    .CLKOUT3             (clk_out4_clk_wiz_0),
     .CLKOUT4             (clkout4_unused),
     .CLKOUT5             (clkout5_unused),
      // Input clock control
@@ -194,6 +198,10 @@ wire clk_in2_clk_wiz_0;
   BUFG clkout3_buf
    (.O   (clk_out3),
     .I   (clk_out3_clk_wiz_0));
+
+  BUFG clkout4_buf
+   (.O   (clk_out4),
+    .I   (clk_out4_clk_wiz_0));
 
 
 

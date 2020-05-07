@@ -147,103 +147,103 @@
    //0x60000000 - 0x60001fff
    
    
-  assign peribundle_axi4_aw_ready[0]=0;
-//       .uart_axi4_aw_valid (peribundle_axi4_aw_valid[0]    ),
-//       .uart_axi4_aw_id    (peribundle_axi4_aw_id[3:0]     ),
-//       .uart_axi4_aw_addr  (peribundle_axi4_aw_addr[30:0]  ),
-//       .uart_axi4_aw_len   (peribundle_axi4_aw_len[7:0]    ),
-//       .uart_axi4_aw_size  (peribundle_axi4_aw_size[2:0]   ),
-//       .uart_axi4_aw_burst (peribundle_axi4_aw_burst[1:0]  ),
-  assign peribundle_axi4_w_ready[0]=0;
-//       .uart_axi4_w_valid  (peribundle_axi4_w_valid[0]     ),
-//       .uart_axi4_w_data   (peribundle_axi4_w_data[31:0]   ),
-//       .uart_axi4_w_strb   (peribundle_axi4_w_strb[7:0]    ),
-//       .uart_axi4_w_last   (peribundle_axi4_w_last[0]      ),
-//       .uart_axi4_b_ready  (peribundle_axi4_b_ready[0]     ),
-  assign peribundle_axi4_b_valid[0]=0;
-  assign peribundle_axi4_b_id[3:0]=0;
-  assign peribundle_axi4_b_resp[1:0]=0;
-  assign peribundle_axi4_ar_ready[0]=0;
-//       .uart_axi4_ar_valid (peribundle_axi4_ar_valid[0]    ),
-//       .uart_axi4_ar_id    (peribundle_axi4_ar_id[3:0]     ),
-//       .uart_axi4_ar_addr  (peribundle_axi4_ar_addr[30:0]  ),
-//       .uart_axi4_ar_len   (peribundle_axi4_ar_len[7:0]    ),
-//       .uart_axi4_ar_size  (peribundle_axi4_ar_size[2:0]   ),
-//       .uart_axi4_ar_burst (peribundle_axi4_ar_burst[1:0]  ),
-//       .uart_axi4_r_ready  (peribundle_axi4_r_ready[0]     ),
-  assign peribundle_axi4_r_valid[0]=0;
-  assign peribundle_axi4_r_id[3:0]=0;
-  assign peribundle_axi4_r_data[31:0]=0;
-  assign peribundle_axi4_r_resp[1:0]=0;
-  assign peribundle_axi4_r_last[0]=0;
+//  assign peribundle_axi4_aw_ready[0]=0;
+////       .uart_axi4_aw_valid (peribundle_axi4_aw_valid[0]    ),
+////       .uart_axi4_aw_id    (peribundle_axi4_aw_id[3:0]     ),
+////       .uart_axi4_aw_addr  (peribundle_axi4_aw_addr[30:0]  ),
+////       .uart_axi4_aw_len   (peribundle_axi4_aw_len[7:0]    ),
+////       .uart_axi4_aw_size  (peribundle_axi4_aw_size[2:0]   ),
+////       .uart_axi4_aw_burst (peribundle_axi4_aw_burst[1:0]  ),
+//  assign peribundle_axi4_w_ready[0]=0;
+////       .uart_axi4_w_valid  (peribundle_axi4_w_valid[0]     ),
+////       .uart_axi4_w_data   (peribundle_axi4_w_data[31:0]   ),
+////       .uart_axi4_w_strb   (peribundle_axi4_w_strb[7:0]    ),
+////       .uart_axi4_w_last   (peribundle_axi4_w_last[0]      ),
+////       .uart_axi4_b_ready  (peribundle_axi4_b_ready[0]     ),
+//  assign peribundle_axi4_b_valid[0]=0;
+//  assign peribundle_axi4_b_id[3:0]=0;
+//  assign peribundle_axi4_b_resp[1:0]=0;
+//  assign peribundle_axi4_ar_ready[0]=0;
+////       .uart_axi4_ar_valid (peribundle_axi4_ar_valid[0]    ),
+////       .uart_axi4_ar_id    (peribundle_axi4_ar_id[3:0]     ),
+////       .uart_axi4_ar_addr  (peribundle_axi4_ar_addr[30:0]  ),
+////       .uart_axi4_ar_len   (peribundle_axi4_ar_len[7:0]    ),
+////       .uart_axi4_ar_size  (peribundle_axi4_ar_size[2:0]   ),
+////       .uart_axi4_ar_burst (peribundle_axi4_ar_burst[1:0]  ),
+////       .uart_axi4_r_ready  (peribundle_axi4_r_ready[0]     ),
+//  assign peribundle_axi4_r_valid[0]=0;
+//  assign peribundle_axi4_r_id[3:0]=0;
+//  assign peribundle_axi4_r_data[31:0]=0;
+//  assign peribundle_axi4_r_resp[1:0]=0;
+//  assign peribundle_axi4_r_last[0]=0;
 
 
-//   uart uart_inst(
+   uart uart_inst(
 
-//       .uart_axi4_aw_ready (peribundle_axi4_aw_ready[0]    ),
-//       .uart_axi4_aw_valid (peribundle_axi4_aw_valid[0]    ),
-//       .uart_axi4_aw_id    (peribundle_axi4_aw_id[3:0]     ),
-//       .uart_axi4_aw_addr  (peribundle_axi4_aw_addr[30:0]  ),
-//       .uart_axi4_aw_len   (peribundle_axi4_aw_len[7:0]    ),
-//       .uart_axi4_aw_size  (peribundle_axi4_aw_size[2:0]   ),
-//       .uart_axi4_aw_burst (peribundle_axi4_aw_burst[1:0]  ),
-//       .uart_axi4_w_ready  (peribundle_axi4_w_ready[0]     ),
-//       .uart_axi4_w_valid  (peribundle_axi4_w_valid[0]     ),
-//       .uart_axi4_w_data   (peribundle_axi4_w_data[31:0]   ),
-//       .uart_axi4_w_strb   (peribundle_axi4_w_strb[7:0]    ),
-//       .uart_axi4_w_last   (peribundle_axi4_w_last[0]      ),
-//       .uart_axi4_b_ready  (peribundle_axi4_b_ready[0]     ),
-//       .uart_axi4_b_valid  (peribundle_axi4_b_valid[0]     ),
-//       .uart_axi4_b_id     (peribundle_axi4_b_id[3:0]      ),
-//       .uart_axi4_b_resp   (peribundle_axi4_b_resp[1:0]    ),
-//       .uart_axi4_ar_ready (peribundle_axi4_ar_ready[0]    ),
-//       .uart_axi4_ar_valid (peribundle_axi4_ar_valid[0]    ),
-//       .uart_axi4_ar_id    (peribundle_axi4_ar_id[3:0]     ),
-//       .uart_axi4_ar_addr  (peribundle_axi4_ar_addr[30:0]  ),
-//       .uart_axi4_ar_len   (peribundle_axi4_ar_len[7:0]    ),
-//       .uart_axi4_ar_size  (peribundle_axi4_ar_size[2:0]   ),
-//       .uart_axi4_ar_burst (peribundle_axi4_ar_burst[1:0]  ),
-//       .uart_axi4_r_ready  (peribundle_axi4_r_ready[0]     ),
-//       .uart_axi4_r_valid  (peribundle_axi4_r_valid[0]     ),
-//       .uart_axi4_r_id     (peribundle_axi4_r_id[3:0]      ),
-//       .uart_axi4_r_data   (peribundle_axi4_r_data[31:0]   ),
-//       .uart_axi4_r_resp   (peribundle_axi4_r_resp[1:0]    ),
-//       .uart_axi4_r_last   (peribundle_axi4_r_last[0]      ),
+       .uart_axi4_aw_ready (peribundle_axi4_aw_ready[0]    ),
+       .uart_axi4_aw_valid (peribundle_axi4_aw_valid[0]    ),
+       .uart_axi4_aw_id    (peribundle_axi4_aw_id[3:0]     ),
+       .uart_axi4_aw_addr  (peribundle_axi4_aw_addr[30:0]  ),
+       .uart_axi4_aw_len   (peribundle_axi4_aw_len[7:0]    ),
+       .uart_axi4_aw_size  (peribundle_axi4_aw_size[2:0]   ),
+       .uart_axi4_aw_burst (peribundle_axi4_aw_burst[1:0]  ),
+       .uart_axi4_w_ready  (peribundle_axi4_w_ready[0]     ),
+       .uart_axi4_w_valid  (peribundle_axi4_w_valid[0]     ),
+       .uart_axi4_w_data   (peribundle_axi4_w_data[31:0]   ),
+       .uart_axi4_w_strb   (peribundle_axi4_w_strb[7:0]    ),
+       .uart_axi4_w_last   (peribundle_axi4_w_last[0]      ),
+       .uart_axi4_b_ready  (peribundle_axi4_b_ready[0]     ),
+       .uart_axi4_b_valid  (peribundle_axi4_b_valid[0]     ),
+       .uart_axi4_b_id     (peribundle_axi4_b_id[3:0]      ),
+       .uart_axi4_b_resp   (peribundle_axi4_b_resp[1:0]    ),
+       .uart_axi4_ar_ready (peribundle_axi4_ar_ready[0]    ),
+       .uart_axi4_ar_valid (peribundle_axi4_ar_valid[0]    ),
+       .uart_axi4_ar_id    (peribundle_axi4_ar_id[3:0]     ),
+       .uart_axi4_ar_addr  (peribundle_axi4_ar_addr[30:0]  ),
+       .uart_axi4_ar_len   (peribundle_axi4_ar_len[7:0]    ),
+       .uart_axi4_ar_size  (peribundle_axi4_ar_size[2:0]   ),
+       .uart_axi4_ar_burst (peribundle_axi4_ar_burst[1:0]  ),
+       .uart_axi4_r_ready  (peribundle_axi4_r_ready[0]     ),
+       .uart_axi4_r_valid  (peribundle_axi4_r_valid[0]     ),
+       .uart_axi4_r_id     (peribundle_axi4_r_id[3:0]      ),
+       .uart_axi4_r_data   (peribundle_axi4_r_data[31:0]   ),
+       .uart_axi4_r_resp   (peribundle_axi4_r_resp[1:0]    ),
+       .uart_axi4_r_last   (peribundle_axi4_r_last[0]      ),
 
-//       .clock(clock),
-//       .resetn(resetn),
-//       .uart_TX(uart_TX),
-//       .uart_RX(uart_RX),
+       .clock(clock),
+       .resetn(resetn),
+       .uart_TX(uart_TX),
+       .uart_RX(uart_RX),
        
-//       .interrupt(interrupt_uart)
+       .interrupt(interrupt_uart)
 
-//       );
+       );
        
    
   assign peribundle_axi4_aw_ready[1] = 0;
-  // assign peribundle_axi4_aw_valid[1] = 0;
-  // assign peribundle_axi4_aw_id[7:4]  = 0;
-  // assign peribundle_axi4_aw_addr[61:31]= 0;
-  // assign peribundle_axi4_aw_len[15:8]  = 0;
-  // assign peribundle_axi4_aw_size[5:3]  = 0;
-  // assign peribundle_axi4_aw_burst[3:2] = 0;
+   assign peribundle_axi4_aw_valid[1] = 0;
+   assign peribundle_axi4_aw_id[7:4]  = 0;
+   assign peribundle_axi4_aw_addr[61:31]= 0;
+   assign peribundle_axi4_aw_len[15:8]  = 0;
+   assign peribundle_axi4_aw_size[5:3]  = 0;
+   assign peribundle_axi4_aw_burst[3:2] = 0;
   assign peribundle_axi4_w_ready[1] = 0;
-  // assign peribundle_axi4_w_valid[1] = 0;
-  // assign peribundle_axi4_w_data[127:64] = 0;
-  // assign peribundle_axi4_w_strb[15:8]=0;
-  // assign peribundle_axi4_w_last[1]=0;
-  // assign peribundle_axi4_b_ready[1]=0;
-  assign peribundle_axi4_b_valid[1]=0;
-  assign peribundle_axi4_b_id[7:4]=0;
-  assign peribundle_axi4_b_resp[3:2]=0;
+   assign peribundle_axi4_w_valid[1] = 0;
+   assign peribundle_axi4_w_data[127:64] = 0;
+   assign peribundle_axi4_w_strb[15:8]=0;
+   assign peribundle_axi4_w_last[1]=0;
+//   assign peribundle_axi4_b_ready[1]=0;
+//  assign peribundle_axi4_b_valid[1]=0;
+//  assign peribundle_axi4_b_id[7:4]=0;
+//  assign peribundle_axi4_b_resp[3:2]=0;
   assign peribundle_axi4_ar_ready[1]=0;
-  //assign peribundle_axi4_ar_valid[1]=0;
-  //assign peribundle_axi4_ar_id[7:4]=0;
-  //assign peribundle_axi4_ar_addr[61:31]=0;
-  //assign peribundle_axi4_ar_len[15:8]=0;
-  //assign peribundle_axi4_ar_size[5:3]=0;
-  //assign peribundle_axi4_ar_burst[3:2]=0;
-  //assign peribundle_axi4_r_ready[1]=0;
+  assign peribundle_axi4_ar_valid[1]=0;
+  assign peribundle_axi4_ar_id[7:4]=0;
+  assign peribundle_axi4_ar_addr[61:31]=0;
+  assign peribundle_axi4_ar_len[15:8]=0;
+  assign peribundle_axi4_ar_size[5:3]=0;
+  assign peribundle_axi4_ar_burst[3:2]=0;
+  assign peribundle_axi4_r_ready[1]=0;
   assign peribundle_axi4_r_valid[1]=0;
   assign peribundle_axi4_r_id[7:4]=0;
   assign peribundle_axi4_r_data[127:64]=0;
@@ -293,29 +293,29 @@
   //  //TBA for the SPI-SD based at 0x60020000, a lesson is "ground all your unused signals", or the stupid vivado simulator will go insane 
 
   assign peribundle_axi4_aw_ready[2]=0;
-  //assign peribundle_axi4_aw_valid[2]=0;
-  //assign peribundle_axi4_aw_id[11:8]=0;
-  //assign peribundle_axi4_aw_addr[92:62]=0;
-  //assign peribundle_axi4_aw_len[23:16]=0;
-  //assign peribundle_axi4_aw_size[8:6]=0;
-  //assign peribundle_axi4_aw_burst[5:4]=0;
+  assign peribundle_axi4_aw_valid[2]=0;
+  assign peribundle_axi4_aw_id[11:8]=0;
+  assign peribundle_axi4_aw_addr[92:62]=0;
+  assign peribundle_axi4_aw_len[23:16]=0;
+  assign peribundle_axi4_aw_size[8:6]=0;
+  assign peribundle_axi4_aw_burst[5:4]=0;
   assign peribundle_axi4_w_ready[2]=0;
-  //assign peribundle_axi4_w_valid[2]=0;
-  //assign peribundle_axi4_w_data[191:128]=0;
-  //assign peribundle_axi4_w_strb[23:16]=0;
-  //assign peribundle_axi4_w_last[2]=0;
-  //assign peribundle_axi4_b_ready[2]=0;
-  assign peribundle_axi4_b_valid[2]=0;
-  assign peribundle_axi4_b_id[11:8]=0;
-  assign peribundle_axi4_b_resp[5:4]=0;
+  assign peribundle_axi4_w_valid[2]=0;
+  assign peribundle_axi4_w_data[191:128]=0;
+  assign peribundle_axi4_w_strb[23:16]=0;
+  assign peribundle_axi4_w_last[2]=0;
+//  assign peribundle_axi4_b_ready[2]=0;
+//  assign peribundle_axi4_b_valid[2]=0;
+//  assign peribundle_axi4_b_id[11:8]=0;
+//  assign peribundle_axi4_b_resp[5:4]=0;
   assign peribundle_axi4_ar_ready[2]=0;
-  //assign peribundle_axi4_ar_valid[2]=0;
-  //assign peribundle_axi4_ar_id[11:8]=0;
-  //assign peribundle_axi4_ar_addr[92:62]=0;
-  //assign peribundle_axi4_ar_len[23:16]=0;
-  //assign peribundle_axi4_ar_size[8:6]=0;
-  //assign peribundle_axi4_ar_burst[5:4]=0;
-  //assign peribundle_axi4_r_ready[2]=0;
+  assign peribundle_axi4_ar_valid[2]=0;
+  assign peribundle_axi4_ar_id[11:8]=0;
+  assign peribundle_axi4_ar_addr[92:62]=0;
+  assign peribundle_axi4_ar_len[23:16]=0;
+  assign peribundle_axi4_ar_size[8:6]=0;
+  assign peribundle_axi4_ar_burst[5:4]=0;
+  assign peribundle_axi4_r_ready[2]=0;
   assign peribundle_axi4_r_valid[2]=0;
   assign peribundle_axi4_r_id[11:8]=0;
   assign peribundle_axi4_r_data[191:128]=0;

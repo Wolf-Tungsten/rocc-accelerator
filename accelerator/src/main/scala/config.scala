@@ -68,6 +68,6 @@ class With1TinyRV32Core extends Config((site, here, up) => {
 })
 
 class GRHRV32EmulatorConfig extends Config(new WithGRHRocc ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
-class GRHRV32FPGAConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
+class GRHRV32FPGAConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new WithRV32 ++ new WithNBigCores(1)  ++ new WithCoherentBusTopology ++ new BaseConfig)
 class GRHRV32RBBConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
 

@@ -1,0 +1,100 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May  7 13:00:11 2020
+| Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xc7a100tfgg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'clk_wiz_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of clk_wiz_0 (xilinx.com:ip:clk_wiz:6.0) from (Rev. 3) to (Rev. 4)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May  7 13:00:07 2020
+| Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xc7a100tfgg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'axi_uart16550_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of axi_uart16550_0 (xilinx.com:ip:axi_uart16550:2.0) from (Rev. 21) to (Rev. 22)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May  7 13:00:07 2020
+| Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xc7a100tfgg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'axi_crossbar_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of axi_crossbar_0 (xilinx.com:ip:axi_crossbar:2.1) from (Rev. 20) to (Rev. 21)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May  7 13:00:05 2020
+| Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xc7a100tfgg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'axi_clock_converter_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of axi_clock_converter_0 (xilinx.com:ip:axi_clock_converter:2.1) from (Rev. 18) to (Rev. 19)
+
+
+
+
+
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu May  7 13:00:05 2020
+| Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
+| Command      : upgrade_ip
+| Device       : xc7a100tfgg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'Mul8bit'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of Mul8bit (xilinx.com:ip:mult_gen:12.0) from (Rev. 15) to (Rev. 16)
+

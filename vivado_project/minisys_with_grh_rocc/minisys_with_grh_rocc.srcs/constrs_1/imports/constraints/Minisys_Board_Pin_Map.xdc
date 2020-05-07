@@ -25,11 +25,11 @@ set_property -dict { PACKAGE_PIN M15   IOSTANDARD LVCMOS33 } [get_ports { LED[13
 set_property -dict { PACKAGE_PIN M16   IOSTANDARD LVCMOS33 } [get_ports { LED[14] }];
 set_property -dict { PACKAGE_PIN M17   IOSTANDARD LVCMOS33 } [get_ports { LED[15] }];
 
-set_property -dict { PACKAGE_PIN N19    IOSTANDARD LVCMOS33 } [get_ports { sd_poweroff }]; 
-set_property -dict { PACKAGE_PIN M22    IOSTANDARD LVCMOS33 } [get_ports { spi_sclock }]; 
-set_property -dict { PACKAGE_PIN N22    IOSTANDARD LVCMOS33 } [get_ports { spi_mosi }]; 
-set_property -dict { PACKAGE_PIN L18    IOSTANDARD LVCMOS33 } [get_ports { spi_miso }]; 
-set_property -dict { PACKAGE_PIN L20    IOSTANDARD LVCMOS33 } [get_ports { spi_cs }]; 
+#set_property -dict { PACKAGE_PIN N19    IOSTANDARD LVCMOS33 } [get_ports { sd_poweroff }]; 
+#set_property -dict { PACKAGE_PIN M22    IOSTANDARD LVCMOS33 } [get_ports { spi_sclock }]; 
+#set_property -dict { PACKAGE_PIN N22    IOSTANDARD LVCMOS33 } [get_ports { spi_mosi }]; 
+#set_property -dict { PACKAGE_PIN L18    IOSTANDARD LVCMOS33 } [get_ports { spi_miso }]; 
+#set_property -dict { PACKAGE_PIN L20    IOSTANDARD LVCMOS33 } [get_ports { spi_cs }]; 
 
 set_property -dict { PACKAGE_PIN N5    IOSTANDARD LVCMOS15 } [get_ports { jtag_tck }]; 
 set_property CLOCK_DEDICATED_ROUTE FALSE  [get_nets jtag_tck_IBUF];

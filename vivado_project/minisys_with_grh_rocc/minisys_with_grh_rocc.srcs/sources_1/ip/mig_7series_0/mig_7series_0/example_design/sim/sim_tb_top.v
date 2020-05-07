@@ -130,7 +130,7 @@ module sim_tb_top;
    // The following parameters are multiplier and divisor factors for PLLE2.
    // Based on the selected design frequency these parameters vary.
    //***************************************************************************
-   parameter CLKIN_PERIOD          = 10000;
+   parameter CLKIN_PERIOD          = 20000;
                                      // Input Clock Period
 
 

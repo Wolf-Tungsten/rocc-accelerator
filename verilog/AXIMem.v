@@ -5,6 +5,7 @@ module AXIMem (
       input clock,		
       input clock100, // 100m Hz to drive DDR ctrl
       input clock200, // 200m Hz to Ref
+      input clock50,
       input reset,    
     
       output        io_axi4_0_aw_ready, 
@@ -234,8 +235,8 @@ module AXIMem (
       .ddr3_odt       ( ddr_odt     ),
       .ddr3_reset_n   ( ddr_reset_n ),
 
-      .sys_clk_i      ( clock200  ), // 100m
-      //.clk_ref_i      ( clock200  ),
+      .sys_clk_i      ( clock50  ), // 50m
+      .clk_ref_i      ( clock200  ),
       .sys_rst        ( reset    ),
 
       //.device_temp_i  ( 0           ),  // we do not need XADC just ground it       

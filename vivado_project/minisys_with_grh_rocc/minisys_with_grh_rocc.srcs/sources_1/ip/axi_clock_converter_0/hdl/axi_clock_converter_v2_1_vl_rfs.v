@@ -60,7 +60,7 @@
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_clock_converter_v2_1_18_axic_sync_clock_converter # (
+module axi_clock_converter_v2_1_19_axic_sync_clock_converter # (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -356,7 +356,7 @@ endmodule
 `default_nettype none
 
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_clock_converter_v2_1_18_axic_sample_cycle_ratio # (
+module axi_clock_converter_v2_1_19_axic_sample_cycle_ratio # (
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -514,7 +514,7 @@ endmodule // axisc_sample_cycle_ratio
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_clock_converter_v2_1_18_lite_async #(
+module axi_clock_converter_v2_1_19_lite_async #(
   parameter integer C_DEST_SYNC_FF = 3,
   parameter integer C_SRC_SYNC_FF  = 3,
   parameter integer C_WIDTH        = 1
@@ -651,7 +651,7 @@ endmodule
 
 
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_clock_converter_v2_1_18_axi_clock_converter #
+module axi_clock_converter_v2_1_19_axi_clock_converter #
   (parameter         C_FAMILY = "virtex7",
    parameter integer C_AXI_ID_WIDTH = 5,                    // Width of all ID signals on SI and MI side.
                                                             // Range: >= 1.
@@ -1185,7 +1185,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
       
       if ((C_AXI_IS_ACLK_ASYNC) && (C_AXI_PROTOCOL!=P_AXILITE)) begin : gen_async_conv
         
-        fifo_generator_v13_2_4 #(
+        fifo_generator_v13_2_5 #(
           .C_EN_SAFETY_CKT(0),
           .C_SELECT_XPM(0),
           .C_INTERFACE_TYPE(2),
@@ -1690,7 +1690,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
           .s_rpayload      ( s_rpayload  ) 
         );
 
-        axi_clock_converter_v2_1_18_lite_async #(
+        axi_clock_converter_v2_1_19_lite_async #(
           .C_DEST_SYNC_FF (C_SYNCHRONIZER_STAGE),
           .C_SRC_SYNC_FF  (C_SYNCHRONIZER_STAGE),
           .C_WIDTH        (G_AXI_AWPAYLOAD_WIDTH)
@@ -1707,7 +1707,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
           .m_payld  (m_awpayload)
         );
 
-        axi_clock_converter_v2_1_18_lite_async #(
+        axi_clock_converter_v2_1_19_lite_async #(
           .C_DEST_SYNC_FF (C_SYNCHRONIZER_STAGE),
           .C_SRC_SYNC_FF  (C_SYNCHRONIZER_STAGE),
           .C_WIDTH        (G_AXI_ARPAYLOAD_WIDTH)
@@ -1724,7 +1724,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
           .m_payld  (m_arpayload)
         );
 
-        axi_clock_converter_v2_1_18_lite_async #(
+        axi_clock_converter_v2_1_19_lite_async #(
           .C_DEST_SYNC_FF (C_SYNCHRONIZER_STAGE),
           .C_SRC_SYNC_FF  (C_SYNCHRONIZER_STAGE),
           .C_WIDTH        (G_AXI_WPAYLOAD_WIDTH)
@@ -1741,7 +1741,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
           .m_payld  (m_wpayload)
         );
 
-        axi_clock_converter_v2_1_18_lite_async #(
+        axi_clock_converter_v2_1_19_lite_async #(
           .C_DEST_SYNC_FF (C_SYNCHRONIZER_STAGE),
           .C_SRC_SYNC_FF  (C_SYNCHRONIZER_STAGE),
           .C_WIDTH        (G_AXI_BPAYLOAD_WIDTH)
@@ -1758,7 +1758,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
           .m_payld  (s_bpayload)
         );
 
-        axi_clock_converter_v2_1_18_lite_async #(
+        axi_clock_converter_v2_1_19_lite_async #(
           .C_DEST_SYNC_FF (C_SYNCHRONIZER_STAGE),
           .C_SRC_SYNC_FF  (C_SYNCHRONIZER_STAGE),
           .C_WIDTH        (G_AXI_RPAYLOAD_WIDTH)
@@ -1842,7 +1842,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
     
         // Sample cycle used to determine when to assert a signal on a fast clock
         // to be flopped onto a slow clock.
-        axi_clock_converter_v2_1_18_axic_sample_cycle_ratio #(
+        axi_clock_converter_v2_1_19_axic_sample_cycle_ratio #(
           .C_RATIO ( P_ACLK_RATIO )
         )
         axic_sample_cycle_inst (
@@ -1900,7 +1900,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
             assign cc_mi_awuser = m_aw_mesg[C_AWUSER_RIGHT+:C_AWUSER_WIDTH];
           end
     
-          axi_clock_converter_v2_1_18_axic_sync_clock_converter #(
+          axi_clock_converter_v2_1_19_axic_sync_clock_converter #(
             .C_FAMILY         ( C_FAMILY ) ,
             .C_PAYLOAD_WIDTH ( C_AW_WIDTH ) ,
             .C_S_ACLK_RATIO   ( P_SI_LT_MI ? 1 : P_ACLK_RATIO ) ,
@@ -1941,7 +1941,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
             assign cc_mi_wuser = m_w_mesg[C_WUSER_RIGHT+:C_WUSER_WIDTH];
           end
     
-          axi_clock_converter_v2_1_18_axic_sync_clock_converter #(
+          axi_clock_converter_v2_1_19_axic_sync_clock_converter #(
             .C_FAMILY         ( C_FAMILY ) ,
             .C_PAYLOAD_WIDTH  ( C_W_WIDTH ) ,
             .C_S_ACLK_RATIO   ( P_SI_LT_MI ? 1 : P_ACLK_RATIO ) ,
@@ -1975,7 +1975,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
             assign si_cc_buser  = s_b_mesg[C_BUSER_RIGHT+:C_BUSER_WIDTH];
           end
     
-          axi_clock_converter_v2_1_18_axic_sync_clock_converter #(
+          axi_clock_converter_v2_1_19_axic_sync_clock_converter #(
             .C_FAMILY         ( C_FAMILY ) ,
             .C_PAYLOAD_WIDTH ( C_B_WIDTH ) ,
             .C_M_ACLK_RATIO   ( P_SI_LT_MI ? 1 : P_ACLK_RATIO ) ,
@@ -2080,7 +2080,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
             assign cc_mi_aruser = m_ar_mesg[C_ARUSER_RIGHT+:C_ARUSER_WIDTH];
           end
     
-          axi_clock_converter_v2_1_18_axic_sync_clock_converter #(
+          axi_clock_converter_v2_1_19_axic_sync_clock_converter #(
             .C_FAMILY         ( C_FAMILY ) ,
             .C_PAYLOAD_WIDTH ( C_AR_WIDTH ) ,
             .C_S_ACLK_RATIO   ( P_SI_LT_MI ? 1 : P_ACLK_RATIO ) ,
@@ -2118,7 +2118,7 @@ module axi_clock_converter_v2_1_18_axi_clock_converter #
             assign si_cc_ruser  = s_r_mesg[C_RUSER_RIGHT+:C_RUSER_WIDTH];
           end
     
-          axi_clock_converter_v2_1_18_axic_sync_clock_converter #(
+          axi_clock_converter_v2_1_19_axic_sync_clock_converter #(
             .C_FAMILY         ( C_FAMILY ) ,
             .C_PAYLOAD_WIDTH ( C_R_WIDTH ) ,
             .C_M_ACLK_RATIO   ( P_SI_LT_MI ? 1 : P_ACLK_RATIO ) ,

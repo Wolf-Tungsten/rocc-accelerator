@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:/home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc rfile:../../../minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc rfile:../../../minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN Y18    IOSTANDARD LVCMOS33 } [get_ports { clock100 }];
 set_property src_info {type:XDC file:1 line:4 export:INPUT save:INPUT read:READ} [current_design]
@@ -39,16 +39,6 @@ set_property src_info {type:XDC file:1 line:25 export:INPUT save:INPUT read:READ
 set_property -dict { PACKAGE_PIN M16   IOSTANDARD LVCMOS33 } [get_ports { LED[14] }];
 set_property src_info {type:XDC file:1 line:26 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN M17   IOSTANDARD LVCMOS33 } [get_ports { LED[15] }];
-set_property src_info {type:XDC file:1 line:28 export:INPUT save:INPUT read:READ} [current_design]
-set_property -dict { PACKAGE_PIN N19    IOSTANDARD LVCMOS33 } [get_ports { sd_poweroff }];
-set_property src_info {type:XDC file:1 line:29 export:INPUT save:INPUT read:READ} [current_design]
-set_property -dict { PACKAGE_PIN M22    IOSTANDARD LVCMOS33 } [get_ports { spi_sclock }];
-set_property src_info {type:XDC file:1 line:30 export:INPUT save:INPUT read:READ} [current_design]
-set_property -dict { PACKAGE_PIN N22    IOSTANDARD LVCMOS33 } [get_ports { spi_mosi }];
-set_property src_info {type:XDC file:1 line:31 export:INPUT save:INPUT read:READ} [current_design]
-set_property -dict { PACKAGE_PIN L18    IOSTANDARD LVCMOS33 } [get_ports { spi_miso }];
-set_property src_info {type:XDC file:1 line:32 export:INPUT save:INPUT read:READ} [current_design]
-set_property -dict { PACKAGE_PIN L20    IOSTANDARD LVCMOS33 } [get_ports { spi_cs }];
 set_property src_info {type:XDC file:1 line:34 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN N5    IOSTANDARD LVCMOS15 } [get_ports { jtag_tck }];
 set_property src_info {type:XDC file:1 line:35 export:INPUT save:INPUT read:READ} [current_design]

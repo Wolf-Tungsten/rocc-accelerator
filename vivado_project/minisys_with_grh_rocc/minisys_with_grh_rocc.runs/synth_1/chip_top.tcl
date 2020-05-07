@@ -24,61 +24,60 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/wt [current_project]
-set_property parent.project_path /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.xpr [current_project]
+set_property webtalk.parent_dir /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/wt [current_project]
+set_property parent.project_path /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/ip [current_project]
+set_property ip_output_repo /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
-read_verilog /home/wolf/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_request.vh
+read_verilog /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_request.vh
 read_verilog -library xil_defaultlib -sv {
-  /home/wolf/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv
-  /home/wolf/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_bridge.sv
-  /home/wolf/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_bridge.sv
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv
 }
 read_verilog -library xil_defaultlib {
-  /home/wolf/rocc-accelerator/verilog/utils/sram_modified.v
-  /home/wolf/rocc-accelerator/verilog/AXIMem.v
-  /home/wolf/rocc-accelerator/verilog/testbench/dut_top_tb.v
-  /home/wolf/rocc-accelerator/verilog/uart.v
-  /home/wolf/rocc-accelerator/verilog/peri/DTModule.v
-  /home/wolf/rocc-accelerator/verilog/grh_chip_top.v
-  /home/wolf/rocc-accelerator/verilog/peri/uart.v
-  /home/wolf/rocc-accelerator/verilog/peri/spi.v
-  /home/wolf/rocc-accelerator/verilog/utils/AsyncResetReg.v
-  /home/wolf/rocc-accelerator/verilog/utils/narrower.v
-  /home/wolf/rocc-accelerator/verilog/peri/bram_storage.v
-  /home/wolf/rocc-accelerator/verilog/utils/EICG_wrapper.v
-  /home/wolf/rocc-accelerator/verilog/freechips.rocketchip.system.GRHRV32FPGAConfig.v
-  /home/wolf/rocc-accelerator/verilog/AXIMmio.v
-  /home/wolf/rocc-accelerator/verilog/utils/plusarg_reader.v
-  /home/wolf/rocc-accelerator/verilog/peri/bram.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/sram_modified.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/AXIMem.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/testbench/dut_top_tb.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/peri/uart.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/peri/DTModule.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/peri/spi.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/AsyncResetReg.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/narrower.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/peri/bram_storage.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/EICG_wrapper.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/AXIMmio.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/utils/plusarg_reader.v
+  /home/wolf/rocket-chip/rocc-accelerator/verilog/peri/bram.v
 }
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0.xci
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0/user_design/constraints/mig_7series_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0/user_design/constraints/mig_7series_0.xdc]
 
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_crossbar_0/axi_crossbar_0.xci
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_crossbar_0/axi_crossbar_0_ooc.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit.xci
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit_ooc.xdc]
 
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xci
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_crossbar_0/axi_crossbar_0.xci
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_crossbar_0/axi_crossbar_0_ooc.xdc]
 
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0.xci
-set_property used_in_synthesis false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_ooc.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xci
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xdc]
 
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0.xci
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0/user_design/constraints/mig_7series_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0/user_design/constraints/mig_7series_0.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
 
-read_ip -quiet /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit.xci
-set_property used_in_implementation false [get_files -all /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit_ooc.xdc]
+read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0.xci
+set_property used_in_synthesis false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -88,13 +87,13 @@ set_property used_in_implementation false [get_files -all /home/wolf/rocc-accele
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc
-set_property used_in_implementation false [get_files /home/wolf/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc]
+read_xdc /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc
+set_property used_in_implementation false [get_files /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
-synth_design -top chip_top -part xc7a100tfgg484-1 -directive AreaOptimized_high -control_set_opt_threshold 1
+synth_design -top chip_top -part xc7a100tfgg484-1
 
 
 # disable binary constraint mode for synth run checkpoints

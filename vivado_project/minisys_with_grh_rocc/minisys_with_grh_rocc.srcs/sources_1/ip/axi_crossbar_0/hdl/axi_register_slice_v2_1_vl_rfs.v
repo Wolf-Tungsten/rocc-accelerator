@@ -1,3 +1,983 @@
+//  (c) Copyright 2019 Xilinx, Inc. All rights reserved.
+//
+//  This file contains confidential and proprietary information
+//  of Xilinx, Inc. and is protected under U.S. and
+//  international copyright and other intellectual property
+//  laws.
+//
+//  DISCLAIMER
+//  This disclaimer is not a license and does not grant any
+//  rights to the materials distributed herewith. Except as
+//  otherwise provided in a valid license issued to you by
+//  Xilinx, and to the maximum extent permitted by applicable
+//  law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+//  WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES
+//  AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING
+//  BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-
+//  INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+//  (2) Xilinx shall not be liable (whether in contract or tort,
+//  including negligence, or under any other theory of
+//  liability) for any loss or damage of any kind or nature
+//  related to, arising under or in connection with these
+//  materials, including for any direct, or any indirect,
+//  special, incidental, or consequential loss or damage
+//  (including loss of data, profits, goodwill, or any type of
+//  loss or damage suffered as a result of any action brought
+//  by a third party) even if such damage or loss was
+//  reasonably foreseeable or Xilinx had been advised of the
+//  possibility of the same.
+//
+//  CRITICAL APPLICATIONS
+//  Xilinx products are not designed or intended to be fail-
+//  safe, or for use in any application requiring fail-safe
+//  performance, such as life-support or safety devices or
+//  systems, Class III medical devices, nuclear facilities,
+//  applications related to the deployment of airbags, or any
+//  other applications that could lead to death, personal
+//  injury, or severe property or environmental damage
+//  (individually and collectively, "Critical
+//  Applications"). Customer assumes the sole risk and
+//  liability of any use of Xilinx products in Critical
+//  Applications, subject only to applicable laws and
+//  regulations governing limitations on product liability.
+//
+//  THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
+//  PART OF THIS FILE AT ALL TIMES. 
+//-----------------------------------------------------------------------------
+
+`timescale 1ps/1ps
+
+module axi_register_slice_v2_1_20_test_master #
+  (
+   parameter integer C_AXI_ID_WIDTH = 0,
+   parameter integer C_AXI_ADDR_WIDTH = 32,
+   parameter integer C_AXI_DATA_WIDTH = 32,
+   parameter integer C_AXI_PROTOCOL = 0,
+   parameter integer C_AXI_AWUSER_WIDTH = 0,
+   parameter integer C_AXI_ARUSER_WIDTH = 0,
+   parameter integer C_AXI_WUSER_WIDTH = 0,
+   parameter integer C_AXI_RUSER_WIDTH = 0,
+   parameter integer C_AXI_BUSER_WIDTH = 0,
+   parameter integer C_SUPPORTS_NARROW = 0,
+   parameter integer C_AXI_SUPPORTS_WRITE = 1,
+   parameter integer C_AXI_SUPPORTS_READ = 1,
+   parameter [C_AXI_ADDR_WIDTH-1:0] C_AXI_ADDR = 0,  // Base address
+   parameter integer C_NUM_ADDR = 1,  // Number of address iterations; range 1..2**16 (fixed increment = 32'h10000
+   parameter integer C_NUM_ID = 1,  // Number of ID iterations; range 1..2**C_ID_WIDTH (base = 0; fixed increment = 1)
+   parameter integer C_NUM_LEN = 1,  // Number of LEN iterations; range 1..9 (base = 0; value = 2**i - 1)
+   parameter integer C_NUM_TRANS = 1  // Number of transactions; range >=1 (read and write)
+   )
+  (
+  /**************** Write Address Channel Signals ****************/
+  (* dont_touch="true" *) output wire [C_AXI_ADDR_WIDTH-1:0]       m_axi_awaddr,
+  (* dont_touch="true" *) output reg [3-1:0]                     m_axi_awprot = 3'b0,
+  (* dont_touch="true" *) output wire                             m_axi_awvalid,
+  input  wire                            m_axi_awready,
+  (* dont_touch="true" *) output reg [3-1:0]                     m_axi_awsize = 3'b0,
+  (* dont_touch="true" *) output reg [2-1:0]                     m_axi_awburst = 2'b01,
+  (* dont_touch="true" *) output reg [4-1:0]                     m_axi_awcache = 4'b0,
+  (* dont_touch="true" *) output wire [(C_AXI_PROTOCOL==1?4:8)-1:0]        m_axi_awlen,
+  (* dont_touch="true" *) output reg [(C_AXI_PROTOCOL==1?2:1)-1:0]       m_axi_awlock = 1'b0,
+  (* dont_touch="true" *) output reg [4-1:0]                     m_axi_awqos = 4'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]         m_axi_awid = 'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_AWUSER_WIDTH==0?1:C_AXI_AWUSER_WIDTH)-1:0]    m_axi_awuser = 'b0,
+  /**************** Write Data Channel Signals ****************/
+  (* dont_touch="true" *) output wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]         m_axi_wid,
+  (* dont_touch="true" *) output wire [C_AXI_DATA_WIDTH-1:0]      m_axi_wdata,
+  (* dont_touch="true" *) output reg [C_AXI_DATA_WIDTH/8-1:0]     m_axi_wstrb = {(C_AXI_DATA_WIDTH/8){1'b1}},
+  (* dont_touch="true" *) output wire                             m_axi_wvalid,
+  input  wire                            m_axi_wready,
+  (* dont_touch="true" *) output wire                             m_axi_wlast,
+  (* dont_touch="true" *) output reg [(C_AXI_WUSER_WIDTH==0?1:C_AXI_WUSER_WIDTH)-1:0]     m_axi_wuser = 'b0,
+  /**************** Write Response Channel Signals ****************/
+  input  wire [2-1:0]                    m_axi_bresp,
+  input  wire                            m_axi_bvalid,
+  (* dont_touch="true" *) output wire                             m_axi_bready,
+  input  wire [(C_AXI_BUSER_WIDTH==0?1:C_AXI_BUSER_WIDTH)-1:0]     m_axi_buser,
+  input  wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]        m_axi_bid,
+  /**************** Read Address Channel Signals ****************/
+  (* dont_touch="true" *) output wire [C_AXI_ADDR_WIDTH-1:0]       m_axi_araddr,
+  (* dont_touch="true" *) output reg [3-1:0]                     m_axi_arprot = 3'b0,
+  (* dont_touch="true" *) output wire                             m_axi_arvalid,
+  input  wire                            m_axi_arready,
+  (* dont_touch="true" *) output reg [3-1:0]                     m_axi_arsize = 3'b0,
+  (* dont_touch="true" *) output reg [2-1:0]                     m_axi_arburst = 2'b01,
+  (* dont_touch="true" *) output reg [4-1:0]                     m_axi_arcache = 4'b0,
+  (* dont_touch="true" *) output wire [(C_AXI_PROTOCOL==1?4:8)-1:0]        m_axi_arlen,
+  (* dont_touch="true" *) output reg [(C_AXI_PROTOCOL==1?2:1)-1:0]       m_axi_arlock = 1'b0,
+  (* dont_touch="true" *) output reg [4-1:0]                     m_axi_arqos = 4'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]         m_axi_arid = 'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_ARUSER_WIDTH==0?1:C_AXI_ARUSER_WIDTH)-1:0]    m_axi_aruser = 'b0,
+  /**************** Read Data Channel Signals ****************/
+  input  wire [C_AXI_DATA_WIDTH-1:0]      m_axi_rdata,
+  input  wire [2-1:0]                    m_axi_rresp,
+  input  wire                            m_axi_rvalid,
+  (* dont_touch="true" *) output wire                             m_axi_rready,
+  input  wire                            m_axi_rlast,
+  input  wire [(C_AXI_RUSER_WIDTH==0?1:C_AXI_RUSER_WIDTH)-1:0]     m_axi_ruser,
+  input  wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]        m_axi_rid,
+  /**************** System Signals ****************/
+  input  wire                            aclk,
+  input  wire                            aresetn
+  );
+
+  function integer f_ceil_log2
+    (
+     input integer x
+     );
+    integer acc;
+    begin
+      acc=0;
+      while ((2**acc) < x)
+        acc = acc + 1;
+      f_ceil_log2 = acc;
+    end
+  endfunction
+
+  /**************** Local Parameters ****************/
+  localparam integer  P_ID_WIDTH = C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH;
+  localparam integer  P_NUM_ID_LOG = f_ceil_log2(C_NUM_ID);
+  localparam integer  P_NUM_ADDR_LOG = f_ceil_log2(C_NUM_ADDR);
+  localparam integer  P_LEN_WIDTH = (C_AXI_PROTOCOL==0 ? 8 : C_AXI_PROTOCOL==1 ? 4 : 1);
+  localparam integer  P_LOCK_WIDTH = (C_AXI_PROTOCOL == 1) ? 2 : 1;
+  localparam integer               P_M_AXI_DATA_BYTES = (C_AXI_DATA_WIDTH / 8);
+  localparam integer               P_M_AXI_DONE_WIDTH = f_ceil_log2(C_NUM_TRANS<2?2:C_NUM_TRANS);
+  localparam integer               P_M_AXI_SIZE = f_ceil_log2(C_AXI_DATA_WIDTH)-3;
+
+  /**************** Internal Wires/Regs - Global ****************/
+   wire                            done;
+    wire                            dummy ;
+  reg                         done_i;
+  reg                         done_sel;
+  wire                         done_cycle;
+  reg                          done_d1 = 1'b0;
+  reg                   areset = 1'b0;
+  reg [P_M_AXI_DONE_WIDTH:0] arcnt_i = {P_M_AXI_DONE_WIDTH{1'b0}};
+  reg [P_M_AXI_DONE_WIDTH:0] rcnt_i = {P_M_AXI_DONE_WIDTH{1'b1}};
+  reg [3:0]                    acc_r_i = 4'b0;
+  reg [P_M_AXI_DONE_WIDTH:0] awcnt_i = {P_M_AXI_DONE_WIDTH{1'b0}};
+  reg [P_M_AXI_DONE_WIDTH:0] wcnt_i = {P_M_AXI_DONE_WIDTH{1'b0}};
+  reg [P_M_AXI_DONE_WIDTH:0] bcnt_i = {P_M_AXI_DONE_WIDTH{1'b1}};
+  reg [2:0]                    acc_b_i = 3'b0;
+
+  // Register Reset
+  always @(posedge aclk) begin
+      areset <= ~aresetn;
+  end
+
+    
+    /**************** Internal Wires/Regs - Read Channels ****************/
+    wire                         read_xaction_done_i;
+    reg [C_AXI_ADDR_WIDTH-1:0]     m_axi_araddr_i = C_AXI_ADDR;
+    reg [C_NUM_ID:0]     m_axi_arid_i = 0;
+    reg [P_LEN_WIDTH-1:0]     m_axi_arlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [C_AXI_ADDR_WIDTH:0]      araddr_i = {(C_AXI_ADDR_WIDTH+1){1'b0}};
+    reg [3-1:0]                  arprot_i = 3'b0;
+    reg [3-1:0]                  arsize_i = 3'b0;
+    reg [2-1:0]                  arburst_i = 2'b0;
+    reg [4-1:0]                  arcache_i = 4'b0;
+    reg [2-1:0]                  arlock_i = 2'b0;
+    reg [P_LEN_WIDTH-1:0]     arlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [4-1:0]                  arqos_i = 4'b0;
+    reg [P_ID_WIDTH-1:0]        arid_i = {P_ID_WIDTH{1'b0}};
+    reg [C_AXI_ARUSER_WIDTH:0]    aruser_i = {(C_AXI_ARUSER_WIDTH+1){1'b0}};
+    reg [C_AXI_DATA_WIDTH-1:0]    rdata_i = {C_AXI_DATA_WIDTH{1'b0}};
+    reg [2-1:0]                  rresp_i = 2'b00;
+    reg [C_AXI_RUSER_WIDTH:0]   ruser_i = {(C_AXI_RUSER_WIDTH+1){1'b0}};
+    reg [P_ID_WIDTH:0]      rid_i = {P_ID_WIDTH{1'b0}};
+    reg                        m_axi_arvalid_i = 1'b0;
+    reg                        m_axi_rready_i = 1'b0;
+    reg [P_NUM_ADDR_LOG:0]    araddr_cnt = 0;
+  
+    /**************** Assign Read Channel Outputs ****************/
+    assign read_xaction_done_i = m_axi_rvalid && m_axi_rready_i && ((C_AXI_PROTOCOL==2)?1'b1:m_axi_rlast);
+    assign m_axi_arvalid = m_axi_arvalid_i;
+    assign m_axi_rready = m_axi_rready_i;
+    assign m_axi_araddr = m_axi_araddr_i;
+    assign m_axi_arlen = m_axi_arlen_i;
+    always @(posedge aclk) begin
+      m_axi_arprot <= dummy ? arprot_i : 3'b000;
+      m_axi_arsize <= dummy ? arsize_i : C_SUPPORTS_NARROW==0 ? P_M_AXI_SIZE : P_M_AXI_SIZE-1;
+      m_axi_arburst <= dummy ? arburst_i : 2'b01;
+      m_axi_arlock <= dummy ? arlock_i : 1'b0;
+      m_axi_arcache <= dummy ? arcache_i : 4'h3;
+      m_axi_arqos <= dummy  ? arqos_i : 4'h0;
+      m_axi_aruser <= dummy ? aruser_i : 0;
+    end
+  
+    //**********************************************
+    // Read Channel: ARVALID, ARADDR, ARLEN, RREADY
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        m_axi_arvalid_i <= 1'b0;
+        arcnt_i <= C_NUM_TRANS;
+        m_axi_arlen_i <= 0;
+        m_axi_araddr_i <= C_AXI_ADDR;
+        m_axi_arid_i <= 1;
+        araddr_cnt <= C_NUM_ADDR;
+      end else if (C_AXI_SUPPORTS_READ!=0) begin
+        if (m_axi_arready & m_axi_arvalid_i) begin
+          arcnt_i <= arcnt_i - 1;
+          if (araddr_cnt == 1) begin
+            m_axi_araddr_i <= dummy ? araddr_i : C_AXI_ADDR;
+            araddr_cnt <= C_NUM_ADDR;
+          end else begin
+            m_axi_araddr_i <= m_axi_araddr_i + 32'h10000;
+            araddr_cnt <= araddr_cnt - 1;
+          end
+          if (C_NUM_LEN<2 || |(m_axi_arlen_i>>(C_NUM_LEN-2))) begin
+            m_axi_arlen_i <= dummy ? arlen_i : 0;
+          end else begin
+            m_axi_arlen_i <= (m_axi_arlen_i<<1) | 1'b1;
+          end
+          if (C_NUM_ID<2 || (m_axi_arid_i == C_NUM_ID)) begin
+            m_axi_arid <= dummy ? arid_i : 0;
+            m_axi_arid_i <= 1;
+          end else begin
+            m_axi_arid <= m_axi_arid_i;
+            m_axi_arid_i <= m_axi_arid_i + 1;
+          end
+          if (arcnt_i == 1) begin
+            m_axi_arvalid_i <= 1'b0;
+          end
+        end else if (arcnt_i != 0) begin
+          m_axi_arvalid_i <= 1'b1;
+        end
+      end
+    end
+  
+    //**********************************************
+    // Read Channel: Random outputs
+    //**********************************************
+    always @(posedge aclk) begin
+      araddr_i <= {araddr_i, ~araddr_i[C_AXI_ADDR_WIDTH]};
+      arprot_i <= {arprot_i, ~arprot_i[3-1]};
+      arlen_i <= {arlen_i, ~arlen_i[P_LEN_WIDTH-1]};
+      arsize_i <= {arsize_i, ~arsize_i[3-1]};
+      arburst_i <= {arburst_i, ~arburst_i[2-1]};
+      arlock_i <= {arlock_i, ~arlock_i[2-1]};
+      arcache_i <= {arcache_i, ~arcache_i[4-1]};
+      arqos_i <= {arqos_i, ~arqos_i[4-1]};
+      aruser_i <= {aruser_i, ~aruser_i[C_AXI_ARUSER_WIDTH]};
+      arid_i <= {arid_i, ~arid_i[P_ID_WIDTH-1]};
+    end
+  
+    //**********************************************
+    // Read Channel: PROCESS INPUTS
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        m_axi_rready_i <= 1'b0;
+        rcnt_i <= C_NUM_TRANS;
+        rdata_i <= {C_AXI_DATA_WIDTH{1'b0}};
+        rresp_i <= {2{1'b0}};
+        ruser_i <= {(C_AXI_RUSER_WIDTH+1){1'b0}};
+        rid_i <= {P_ID_WIDTH{1'b0}};
+        acc_r_i <= 4'b0;
+      end else if (C_AXI_SUPPORTS_READ!=0) begin
+        if (m_axi_rvalid & m_axi_rready_i) begin
+          m_axi_rready_i <= 1'b0;
+          rdata_i <= m_axi_rdata;
+            acc_r_i[0] <= rdata_i[0];
+          rresp_i <= m_axi_rresp;
+            acc_r_i[1] <= rresp_i[0];
+          ruser_i <= m_axi_ruser;
+            acc_r_i[2] <= ruser_i[0];
+          rid_i <= m_axi_rid;
+            acc_r_i[3] <= rid_i[0];
+          if (m_axi_rlast) begin
+            rcnt_i <= rcnt_i - 1;
+          end
+        end else begin
+          rdata_i <= rdata_i>>1;
+          rresp_i <= rresp_i>>1;
+          ruser_i <= ruser_i>>1;
+          rid_i <= rid_i>>1;
+          acc_r_i <= acc_r_i>>1;
+          if (m_axi_rvalid) begin
+            m_axi_rready_i <= 1'b1;
+          end
+        end
+      end
+    end
+    
+    assign dummy = rdata_i[0];
+    
+    
+
+    /**************** Internal Wires/Regs - Write Channels ****************/
+    reg [C_AXI_ADDR_WIDTH-1:0]     m_axi_awaddr_i = C_AXI_ADDR;
+    reg [C_NUM_ID:0]     m_axi_awid_i = 0;
+    reg [P_LEN_WIDTH-1:0]     m_axi_awlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [C_AXI_DATA_WIDTH-1:0]    wdata_i = {C_AXI_DATA_WIDTH{1'b0}};
+    reg [8-1:0]                  xfer_w_i = 8'h00;
+    wire                         write_burst_done_i;
+    reg [C_AXI_ADDR_WIDTH:0]      awaddr_i = {(C_AXI_ADDR_WIDTH+1){1'b0}};
+    reg [3-1:0]                  awprot_i = 3'b0;
+    reg [P_LEN_WIDTH-1:0]     awlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [3-1:0]                  awsize_i = 3'b0;
+    reg [2-1:0]                  awburst_i = 2'b0;
+    reg [4-1:0]                  awcache_i = 4'b0;
+    reg [2-1:0]                  awlock_i = 2'b0;
+    reg [4-1:0]                  awqos_i = 4'b0;
+    reg [P_ID_WIDTH:0]        awid_i = {P_ID_WIDTH{1'b0}};
+    reg [C_AXI_AWUSER_WIDTH:0]    awuser_i = {(C_AXI_AWUSER_WIDTH+1){1'b0}};
+    reg [P_M_AXI_DATA_BYTES-1:0] wstrb_i = {P_M_AXI_DATA_BYTES{1'b1}};
+    reg [C_AXI_WUSER_WIDTH:0]     wuser_i = {(C_AXI_WUSER_WIDTH+1){1'b0}};
+    reg [P_ID_WIDTH:0]        wid_i = {P_ID_WIDTH{1'b0}};
+    reg [2-1:0]                  bresp_i = 2'b00;
+    reg [C_AXI_BUSER_WIDTH:0]   buser_i = {(C_AXI_BUSER_WIDTH+1){1'b0}};
+    reg [P_ID_WIDTH:0]      bid_i = {P_ID_WIDTH{1'b0}};
+    reg                        m_axi_awvalid_i = 1'b0;
+    reg                        m_axi_wvalid_i = 1'b0;
+    reg                        m_axi_bready_i = 1'b0;
+    reg                        m_axi_wlast_i = 1'b0;
+    reg                        m_axi_wid_i = {P_ID_WIDTH{1'b0}};
+    reg [P_LEN_WIDTH-1:0]     wlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [P_NUM_ADDR_LOG:0]    awaddr_cnt = 0;
+  
+    /**************** Assign Write Channel Outputs ****************/
+    assign m_axi_wdata = {wdata_i, done};
+    assign write_burst_done_i = m_axi_wready && m_axi_wvalid_i && ((C_AXI_PROTOCOL==2) || m_axi_wlast_i);
+    assign m_axi_awvalid = m_axi_awvalid_i;
+    assign m_axi_wvalid = m_axi_wvalid_i;
+    assign m_axi_bready = m_axi_bready_i;
+    assign m_axi_wlast = m_axi_wlast_i;
+    assign m_axi_awaddr = m_axi_awaddr_i;
+    assign m_axi_awlen = m_axi_awlen_i;
+    assign m_axi_wid = m_axi_wid_i;
+    always @(posedge aclk) begin
+      m_axi_awprot <= dummy ? awprot_i : 3'b000;
+      m_axi_awsize <= dummy ? awsize_i : C_SUPPORTS_NARROW==0 ? P_M_AXI_SIZE : P_M_AXI_SIZE-1;
+      m_axi_awburst <= dummy ? awburst_i : 2'b01;
+      m_axi_awlock <= dummy ? awlock_i : 1'b0;
+      m_axi_awcache <= dummy ? awcache_i : 4'h3;
+      m_axi_awqos <= dummy ? awqos_i : 4'h0;
+      m_axi_wstrb <= dummy ? wstrb_i : {P_M_AXI_DATA_BYTES{1'b1}};
+      m_axi_awuser <= dummy ?  awuser_i : 0;
+      m_axi_wuser <= dummy ?  wuser_i : 0;
+    end
+  
+    //**********************************************
+    // Write Channel: AWVALID, AWADDR, AWLEN, WVALID, WLAST, BREADY
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        m_axi_awvalid_i <= 1'b0;
+        m_axi_wvalid_i <= 1'b0;
+        awcnt_i <= C_NUM_TRANS;
+        wcnt_i <= C_NUM_TRANS;
+        xfer_w_i <= 8'h00;
+        m_axi_awlen_i <= 0;
+        m_axi_awaddr_i <= C_AXI_ADDR;
+        m_axi_awid_i <= 1;
+        m_axi_wid_i <= 0;
+        m_axi_wlast_i <= 1'b0;
+        wlen_i <= 0;
+        wid_i <= 0;
+        awaddr_cnt <= C_NUM_ADDR;
+      end else if (C_AXI_SUPPORTS_WRITE!=0) begin
+        if (m_axi_awready & m_axi_awvalid_i) begin
+          m_axi_awvalid_i <= 1'b0;
+          awcnt_i <= awcnt_i - 1;
+          if (awaddr_cnt == 1) begin
+            m_axi_awaddr_i <= dummy ? awaddr_i : C_AXI_ADDR;
+            awaddr_cnt <= C_NUM_ADDR;
+          end else begin
+            m_axi_awaddr_i <= m_axi_awaddr_i + 32'h10000;
+            awaddr_cnt <= awaddr_cnt - 1;
+          end
+          if (C_NUM_LEN<2 || |(m_axi_awlen_i>>(C_NUM_LEN-2))) begin
+            m_axi_awlen_i <= dummy ? awlen_i : 0;
+          end else begin
+            m_axi_awlen_i <= (m_axi_awlen_i<<1) | 1'b1;
+          end
+          if (C_NUM_ID<2 || (m_axi_awid_i == C_NUM_ID)) begin
+            m_axi_awid <= dummy ? awid_i : 0;
+            m_axi_awid_i <= 1;
+          end else begin
+            m_axi_awid <= m_axi_awid_i;
+            m_axi_awid_i <= m_axi_awid_i + 1;
+          end
+        end else if (~m_axi_wvalid_i) begin
+          if (awcnt_i != 0) begin
+            m_axi_awvalid_i <= 1'b1;
+          end
+        end
+  
+        /**************** Write Data Channel ****************/
+
+        if (m_axi_wready && m_axi_wvalid_i) begin
+          xfer_w_i <= xfer_w_i - 1'b1;
+          if (m_axi_wlast_i) begin
+            m_axi_wvalid_i <= 1'b0;
+            wcnt_i <= wcnt_i - 1'b1;
+          end else begin
+            m_axi_wlast_i <=  (xfer_w_i == 1);
+          end
+        end else if (m_axi_awready & m_axi_awvalid_i) begin
+          m_axi_wvalid_i <= 1'b1;
+          xfer_w_i <= m_axi_awlen_i;
+          m_axi_wlast_i <= (m_axi_awlen_i==0);
+          m_axi_wid_i <= m_axi_awid_i;
+        end
+      end
+    end
+  
+    //**********************************************
+    // Write Channel: WDATA
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        wdata_i <= {C_AXI_DATA_WIDTH{1'b0}};
+      end else begin
+        wdata_i <= (m_axi_wvalid_i && m_axi_wready) ? {wdata_i[C_AXI_DATA_WIDTH-2 : 0], ~wdata_i[C_AXI_DATA_WIDTH-1]} : wdata_i;
+      end
+    end
+  
+    //**********************************************
+    // Write Channel: Random outputs
+    //**********************************************
+    always @(posedge aclk) begin
+      awaddr_i <= {awaddr_i, ~awaddr_i[C_AXI_ADDR_WIDTH]};
+      awprot_i <= {awprot_i[3-2:0], ~awprot_i[3-1]};
+      wstrb_i <= {wstrb_i, ~wstrb_i[C_AXI_DATA_WIDTH/8-1]};
+      awlen_i <= {awlen_i, ~awlen_i[P_LEN_WIDTH-1]};
+      awsize_i <= {awsize_i, ~awsize_i[3-1]};
+      awburst_i <= {awburst_i, ~awburst_i[2-1]};
+      awlock_i <= {awlock_i, ~awlock_i[2-1]};
+      awcache_i <= {awcache_i, ~awcache_i[4-1]};
+      awqos_i <= {awqos_i, ~awqos_i[4-1]};
+      awid_i <= {awid_i, ~awid_i[P_ID_WIDTH-1]};
+      awuser_i <= {awuser_i, ~awuser_i[C_AXI_AWUSER_WIDTH]};
+      wuser_i <= {wuser_i, ~wuser_i[C_AXI_WUSER_WIDTH]};
+    end
+  
+    //**********************************************
+    // Write Channel: PROCESS INPUTS
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        m_axi_bready_i <= 1'b0;
+        bcnt_i <= C_NUM_TRANS;
+        bresp_i <= {2{1'b0}};
+        buser_i <= {(C_AXI_BUSER_WIDTH+1){1'b0}};
+        bid_i <= {P_ID_WIDTH{1'b0}};
+        acc_b_i <= 3'b0;
+      end else if (C_AXI_SUPPORTS_WRITE!=0) begin
+        if (m_axi_bvalid & m_axi_bready_i) begin
+          m_axi_bready_i <= 1'b0;
+          bresp_i <= m_axi_bresp;
+            acc_b_i[0] <= bresp_i[0];
+          buser_i <= m_axi_buser;
+            acc_b_i[1] <= buser_i[0];
+          bid_i <= m_axi_bid;
+            acc_b_i[2] <= bid_i[0];
+          bcnt_i <= bcnt_i - 1;
+        end else begin
+          bresp_i <= bresp_i>>1;
+          buser_i <= buser_i>>1;
+          bid_i <= bid_i>>1;
+          acc_b_i <= acc_b_i>>1;
+          if (m_axi_bvalid) begin
+            m_axi_bready_i <= 1'b1;
+          end
+        end
+      end
+    end
+
+
+  //**********************************************
+  // Assert Done
+  //**********************************************
+  always @(posedge aclk) begin
+    if (~aresetn) begin
+      done_d1 <= 1'b0;
+    end else begin
+      done_d1 <= done_i;
+    end
+  end
+
+  assign done = done_sel ? done_i : done_d1;
+  assign done_cycle = done_i & ~done_d1;
+  
+  always @ * begin
+    if (C_AXI_SUPPORTS_WRITE == 0) begin : gen_readonly_done
+       done_i = rcnt_i==0;
+       done_sel = acc_r_i[0];
+    end else if (C_AXI_SUPPORTS_READ == 0) begin : gen_writeonly_done
+       done_i = bcnt_i==0;
+       done_sel = acc_b_i[0];
+    end else begin : gen_readwrite_done
+       done_i = (rcnt_i==0) && (bcnt_i==0);
+       done_sel = acc_r_i[0] ^ acc_b_i[0];
+    end
+  end
+  
+endmodule
+
+`default_nettype wire
+
+
+//  (c) Copyright 2019 Xilinx, Inc. All rights reserved.
+//
+//  This file contains confidential and proprietary information
+//  of Xilinx, Inc. and is protected under U.S. and
+//  international copyright and other intellectual property
+//  laws.
+//
+//  DISCLAIMER
+//  This disclaimer is not a license and does not grant any
+//  rights to the materials distributed herewith. Except as
+//  otherwise provided in a valid license issued to you by
+//  Xilinx, and to the maximum extent permitted by applicable
+//  law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+//  WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES
+//  AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING
+//  BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-
+//  INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+//  (2) Xilinx shall not be liable (whether in contract or tort,
+//  including negligence, or under any other theory of
+//  liability) for any loss or damage of any kind or nature
+//  related to, arising under or in connection with these
+//  materials, including for any direct, or any indirect,
+//  special, incidental, or consequential loss or damage
+//  (including loss of data, profits, goodwill, or any type of
+//  loss or damage suffered as a result of any action brought
+//  by a third party) even if such damage or loss was
+//  reasonably foreseeable or Xilinx had been advised of the
+//  possibility of the same.
+//
+//  CRITICAL APPLICATIONS
+//  Xilinx products are not designed or intended to be fail-
+//  safe, or for use in any application requiring fail-safe
+//  performance, such as life-support or safety devices or
+//  systems, Class III medical devices, nuclear facilities,
+//  applications related to the deployment of airbags, or any
+//  other applications that could lead to death, personal
+//  injury, or severe property or environmental damage
+//  (individually and collectively, "Critical
+//  Applications"). Customer assumes the sole risk and
+//  liability of any use of Xilinx products in Critical
+//  Applications, subject only to applicable laws and
+//  regulations governing limitations on product liability.
+//
+//  THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
+//  PART OF THIS FILE AT ALL TIMES. 
+//-----------------------------------------------------------------------------
+
+`timescale 1ps/1ps
+
+module axi_register_slice_v2_1_20_test_slave #
+  (
+   parameter integer C_AXI_ID_WIDTH = 0,
+   parameter integer C_AXI_ADDR_WIDTH = 32,
+   parameter integer C_AXI_DATA_WIDTH = 32,
+   parameter integer C_AXI_PROTOCOL = 0,
+   parameter integer C_AXI_AWUSER_WIDTH = 0,
+   parameter integer C_AXI_ARUSER_WIDTH = 0,
+   parameter integer C_AXI_WUSER_WIDTH = 0,
+   parameter integer C_AXI_RUSER_WIDTH = 0,
+   parameter integer C_AXI_BUSER_WIDTH = 0,
+   parameter integer C_AXI_SUPPORTS_WRITE = 1,
+   parameter integer C_AXI_SUPPORTS_READ = 1
+   )
+  (
+  /**************** Write Address Channel Signals ****************/
+  input  wire [C_AXI_ADDR_WIDTH-1:0]     s_axi_awaddr,
+  input  wire [3-1:0]                   s_axi_awprot,
+  input  wire                           s_axi_awvalid,
+  (* dont_touch="true" *) output wire                            s_axi_awready,
+  input  wire [3-1:0]                   s_axi_awsize,
+  input  wire [2-1:0]                   s_axi_awburst,
+  input  wire [4-1:0]                   s_axi_awcache,
+  input  wire [((C_AXI_PROTOCOL == 1) ? 4 : 8)-1:0]      s_axi_awlen,
+  input  wire [((C_AXI_PROTOCOL == 1) ? 2 : 1)-1:0]     s_axi_awlock,
+  input  wire [4-1:0]                   s_axi_awqos,
+  input  wire [4-1:0]                   s_axi_awregion,
+  input  wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]       s_axi_awid,
+  input  wire [(C_AXI_AWUSER_WIDTH==0?1:C_AXI_AWUSER_WIDTH)-1:0]   s_axi_awuser,
+  /**************** Write Data Channel Signals ****************/
+  input  wire [C_AXI_DATA_WIDTH-1:0]     s_axi_wdata,
+  input  wire [C_AXI_DATA_WIDTH/8-1:0]   s_axi_wstrb,
+  input  wire                           s_axi_wvalid,
+  (* dont_touch="true" *) output wire                            s_axi_wready,
+  input  wire                           s_axi_wlast,
+  input  wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]       s_axi_wid,
+  input  wire [(C_AXI_WUSER_WIDTH==0?1:C_AXI_WUSER_WIDTH)-1:0]    s_axi_wuser,
+  /**************** Write Response Channel Signals ****************/
+  (* dont_touch="true" *) output reg [2-1:0]                    s_axi_bresp = 2'b0,
+  (* dont_touch="true" *) output wire                            s_axi_bvalid,
+  input  wire                           s_axi_bready,
+  (* dont_touch="true" *) output reg [(C_AXI_BUSER_WIDTH==0?1:C_AXI_BUSER_WIDTH)-1:0]    s_axi_buser = 'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]        s_axi_bid = 'b0,
+  /**************** Read Address Channel Signals ****************/
+  input  wire [C_AXI_ADDR_WIDTH-1:0]     s_axi_araddr,
+  input  wire [3-1:0]                   s_axi_arprot,
+  input  wire                           s_axi_arvalid,
+  (* dont_touch="true" *) output wire                            s_axi_arready,
+  input  wire [3-1:0]                   s_axi_arsize,
+  input  wire [2-1:0]                   s_axi_arburst,
+  input  wire [4-1:0]                   s_axi_arcache,
+  input  wire [((C_AXI_PROTOCOL == 1) ? 2 : 1)-1:0]     s_axi_arlock,
+  input  wire [((C_AXI_PROTOCOL == 1) ? 4 : 8)-1:0]      s_axi_arlen,
+  input  wire [4-1:0]                   s_axi_arqos,
+  input  wire [4-1:0]                   s_axi_arregion,
+  input  wire [(C_AXI_ARUSER_WIDTH==0?1:C_AXI_ARUSER_WIDTH)-1:0]   s_axi_aruser,
+  input  wire [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]       s_axi_arid,
+  /**************** Read Data Channel Signals ****************/
+  (* dont_touch="true" *) output wire [C_AXI_DATA_WIDTH-1:0]     s_axi_rdata,
+  (* dont_touch="true" *) output reg [2-1:0]                    s_axi_rresp = 2'b0,
+  (* dont_touch="true" *) output wire                            s_axi_rvalid,
+  input  wire                           s_axi_rready,
+  (* dont_touch="true" *) output wire                            s_axi_rlast,
+  (* dont_touch="true" *) output reg [(C_AXI_RUSER_WIDTH==0?1:C_AXI_RUSER_WIDTH)-1:0]    s_axi_ruser = 'b0,
+  (* dont_touch="true" *) output reg [(C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH)-1:0]        s_axi_rid = 'b0,
+  /**************** System Signals ****************/
+  input  wire                           aclk,
+  input  wire                           aresetn
+   );
+
+  /**************** Local Parameters ****************/
+  localparam integer  P_LEN_WIDTH = (C_AXI_PROTOCOL == 1) ? 4 : 8;
+  localparam integer  P_LOCK_WIDTH = (C_AXI_PROTOCOL == 1) ? 2 : 1;
+  localparam integer P_S_AXI_DATA_BYTES = 32/8;
+  localparam integer P_ID_WIDTH = C_AXI_ID_WIDTH==0?1:C_AXI_ID_WIDTH;
+
+  /**************** Internal Wires/Regs - Global ****************/
+  reg                   areset = 1'b0;
+  always @(posedge aclk) begin
+      areset <= ~aresetn;
+  end
+
+    /**************** Internal Wires/Regs - Read Channels ****************/
+    reg [8-1:0]                   xfer_r_cnt = 8'h00;
+    reg [16-1:0]                  arcnt_i = 16'h0000;
+    wire                          read_xaction_done_i;
+    reg [C_AXI_DATA_WIDTH-1:0]     rdata_i = {C_AXI_DATA_WIDTH{1'b0}};
+    reg [P_LEN_WIDTH-1:0]      arlen_i = {P_LEN_WIDTH{1'b0}};
+    reg                           arvalid_i = 1'b0;
+    reg [C_AXI_ADDR_WIDTH-1:0]     araddr_i = {C_AXI_ADDR_WIDTH{1'b0}};
+    reg [3-1:0]                   arprot_i = 3'b000;
+    reg [3-1:0]                   arsize_i = 3'b000;
+    reg [2-1:0]                   arburst_i = 2'b00;
+    reg [4-1:0]                   arcache_i = 4'b0000;
+    reg [1-1:0]     arlock_i = 1'b0;
+    reg [4-1:0]                   arqos_i = 4'b0000;
+    reg [4-1:0]                   arregion_i = 4'b0000;
+    reg [C_AXI_ARUSER_WIDTH:0]    aruser_i = {(C_AXI_ARUSER_WIDTH+1){1'b0}};
+    reg [C_AXI_RUSER_WIDTH:0]     ruser_i = {(C_AXI_RUSER_WIDTH+1){1'b0}};
+    reg [8:0]                     acc_ar_i = 9'b0;
+    reg                           s_axi_rvalid_i = 1'b0;
+    reg                           s_axi_arready_i = 1'b0;
+    reg                           s_axi_rlast_i = 1'b0;
+  
+    /**************** Assign Read Channel Outputs ****************/
+    assign s_axi_rdata = rdata_i;
+    assign read_xaction_done_i = (s_axi_rready && s_axi_rvalid_i && s_axi_rlast_i);
+    assign s_axi_rvalid = s_axi_rvalid_i;
+    assign s_axi_arready = s_axi_arready_i;
+    assign s_axi_rlast = s_axi_rlast_i;
+    //**********************************************
+    // Read Channel: ARREADY, RVALID, RLAST, RID
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        s_axi_arready_i <= 1'b0;
+        s_axi_rvalid_i <= 1'b0;
+        xfer_r_cnt <= 8'h00;
+        arcnt_i <= 16'h0000;
+        arlen_i <= {P_LEN_WIDTH{1'b0}};
+        s_axi_rlast_i <= 1'b0;
+      end else begin
+        /**************** Read Address Channel ****************/
+        // arready
+        if(s_axi_arready_i && s_axi_arvalid) begin
+          s_axi_arready_i <= 1'b0;
+          arcnt_i <= arcnt_i + 1'b1;
+        end else if (~s_axi_rvalid_i) begin
+          s_axi_arready_i <= 1'b1;
+        end
+  
+        /**************** Read Data Channel ****************/
+        // rvalid
+        if(s_axi_arready_i && s_axi_arvalid) begin
+          s_axi_rvalid_i <= 1'b1;
+          s_axi_rid <= s_axi_arid;
+          s_axi_ruser <= ruser_i;
+        end else if(read_xaction_done_i) begin
+          s_axi_rvalid_i <= 1'b0;
+        end
+  
+        // rlast
+        if(s_axi_rready && s_axi_rvalid_i) begin
+          xfer_r_cnt <= xfer_r_cnt - 1;
+          if(xfer_r_cnt == 1) begin
+            s_axi_rlast_i <= 1'b1;
+          end
+        end else if(s_axi_arready_i && s_axi_arvalid) begin
+          xfer_r_cnt <= s_axi_arlen;
+          s_axi_rlast_i <= (s_axi_arlen==0);
+        end
+      end
+    end
+  
+  
+    //**********************************************
+    // Read Channel: RDATA
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        rdata_i <= {C_AXI_DATA_WIDTH{1'b0}};
+      end else begin
+        rdata_i <= (s_axi_rready && s_axi_rvalid_i) ? {rdata_i[C_AXI_DATA_WIDTH-2 : 0], ~rdata_i[C_AXI_DATA_WIDTH-1]} : rdata_i;
+      end
+    end
+  
+    //**********************************************
+    // Read Channel: RRESP
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        s_axi_rresp <= {2{1'b0}};
+      end else if (~s_axi_rvalid_i) begin
+        s_axi_rresp <= {acc_ar_i[0], 1'b0};
+      end
+    end
+  
+    //**********************************************
+    // Read Channel: RUSER
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        ruser_i <= {(C_AXI_RUSER_WIDTH+1){1'b0}};
+      end else begin
+        ruser_i <= (s_axi_arready_i && s_axi_arvalid) ? {ruser_i, ~ruser_i[C_AXI_RUSER_WIDTH]} : 0;
+      end
+    end
+  
+    //**********************************************
+    // Read Channel: PROCESS INPUTS
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        araddr_i <= {C_AXI_ADDR_WIDTH{1'b0}};
+        arprot_i <= {3{1'b0}};
+        arsize_i <= {3{1'b0}};
+        arburst_i <= {2{1'b0}};
+        arcache_i <= {4{1'b0}};
+        arlock_i <= {1{1'b0}};
+        arqos_i <= {4{1'b0}};
+        arregion_i <= {4{1'b0}};
+        aruser_i <= {(C_AXI_ARUSER_WIDTH+1){1'b0}};
+        acc_ar_i <= 9'b0;
+      end else if (s_axi_arvalid) begin
+        // Register Inputs
+        araddr_i <= s_axi_araddr;
+          acc_ar_i[0] <= araddr_i[0];
+        arprot_i <= s_axi_arprot;
+          acc_ar_i[1] <= arprot_i[0];
+        arsize_i <= s_axi_arsize;
+          acc_ar_i[2] <= arsize_i[0];
+        arburst_i <= s_axi_arburst;
+          acc_ar_i[3] <= arburst_i[0];
+        arcache_i <= s_axi_arcache;
+          acc_ar_i[4] <= arcache_i[0];
+        arlock_i <= s_axi_arlock;
+          acc_ar_i[5] <= arlock_i[0];
+        arqos_i <= s_axi_arqos;
+          acc_ar_i[6] <= arqos_i[0];
+        arregion_i <= s_axi_arregion;
+          acc_ar_i[7] <= arregion_i[0];
+        aruser_i <= s_axi_aruser;
+          acc_ar_i[8] <= aruser_i[0];
+      end else begin
+        araddr_i <= araddr_i>>1;
+        arprot_i <= arprot_i>>1;
+        arsize_i <= arsize_i>>1;
+        arburst_i <= arburst_i>>1;
+        arcache_i <= arcache_i>>1;
+        arlock_i <= arlock_i>>1;
+        arqos_i <= arqos_i>>1;
+        arregion_i <= arregion_i>>1;
+        aruser_i <= aruser_i>>1;
+        acc_ar_i <= acc_ar_i>>1;
+      end
+    end
+  
+  
+    /**************** Internal Wires/Regs - Write Channels ****************/
+    wire                          write_burst_done_i;
+    reg [16-1:0]                  awcnt_i = 16'h0000;
+    reg                           awvalid_i = 1'b0;
+    reg [C_AXI_ADDR_WIDTH-1:0]     awaddr_i = {C_AXI_ADDR_WIDTH{1'b0}};
+    reg [3-1:0]                   awprot_i = 3'b000;
+    reg [3-1:0]                   awsize_i = 3'b000;
+    reg [2-1:0]                   awburst_i = 2'b00;
+    reg [4-1:0]                   awcache_i = 4'b0000;
+    reg [P_LEN_WIDTH-1:0]      awlen_i = {P_LEN_WIDTH{1'b0}};
+    reg [1-1:0]     awlock_i = 1'b0;
+    reg [4-1:0]                   awqos_i = 4'b0000;
+    reg [4-1:0]                   awregion_i = 4'b0000;
+    reg [C_AXI_AWUSER_WIDTH:0]     awuser_i = {(C_AXI_AWUSER_WIDTH+1){1'b0}};
+    reg                           wvalid_i = 1'b0;
+    reg [C_AXI_DATA_WIDTH-1:0]     wdata_i = {C_AXI_DATA_WIDTH{1'b0}};
+    reg [C_AXI_DATA_WIDTH/8-1:0]   wstrb_i = {(C_AXI_DATA_WIDTH/8){1'b0}};
+    reg [C_AXI_WUSER_WIDTH:0]     wuser_i = {(C_AXI_WUSER_WIDTH+1){1'b0}};
+    reg [C_AXI_BUSER_WIDTH:0]     buser_i = {(C_AXI_BUSER_WIDTH+1){1'b0}};
+    reg [8:0]                     acc_aw_i = 9'b0;
+    reg [3:0]                     acc_w_i = 4'b0;
+    reg                           s_axi_bvalid_i = 1'b0;
+    reg                           s_axi_awready_i = 1'b0;
+    reg                           s_axi_wready_i = 1'b0;
+    /**************** Assign Write Channel Outputs ****************/
+    assign write_burst_done_i =s_axi_wready_i && s_axi_wvalid && ((C_AXI_PROTOCOL == 2) ? 1'b1 : s_axi_wlast);
+    assign s_axi_bvalid = s_axi_bvalid_i;
+    assign s_axi_awready = s_axi_awready_i;
+    assign s_axi_wready = s_axi_wready_i;
+  
+    //**********************************************
+    // Write Channel: AWREADY, WREADY, BVALID, BID
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        awcnt_i <= 16'h0000;
+        s_axi_awready_i <= 1'b0;
+        s_axi_wready_i <= 1'b0;
+        s_axi_bvalid_i <= 1'b0;
+      end else begin
+        /**************** Write Address Channel ****************/
+        // awready
+        if(s_axi_awready_i && s_axi_awvalid) begin
+          s_axi_awready_i <= 1'b0;
+          awcnt_i <= awcnt_i + 1'b1;
+          s_axi_bid <= s_axi_awid;
+          s_axi_buser <= buser_i;
+        end else if(~s_axi_wready_i & ~s_axi_bvalid_i) begin
+          s_axi_awready_i <= 1'b1;
+        end
+  
+        /**************** Write Data Channel ****************/
+        // wready
+        if(write_burst_done_i) begin
+          s_axi_wready_i <= 1'b0;
+        end else if(s_axi_awready_i && s_axi_awvalid) begin
+          s_axi_wready_i <= 1'b1;
+        end
+  
+        /**************** Write Response Channel ****************/
+        // bvalid
+        if(write_burst_done_i) begin
+          s_axi_bvalid_i <= 1'b1;
+        end else if(s_axi_bready && s_axi_bvalid_i) begin
+          s_axi_bvalid_i <= 1'b0;
+        end
+      end
+    end
+  
+  
+    //**********************************************
+    // Write Channel: BRESP
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        s_axi_bresp <= {2{1'b0}};
+      end else if (~s_axi_bvalid_i) begin
+        s_axi_bresp <= {(acc_aw_i[0] ^ acc_w_i[0]), 1'b0};
+      end
+    end
+  
+    //**********************************************
+    // Read Channel: BUSER
+    //**********************************************
+    always @(posedge aclk) begin
+      if (aresetn) begin
+        buser_i <= {(C_AXI_BUSER_WIDTH+1){1'b0}};
+      end else begin
+        buser_i <= (s_axi_awready_i && s_axi_awvalid) ? {buser_i, ~buser_i[C_AXI_BUSER_WIDTH]} : 0;
+      end
+    end
+  
+    //**********************************************
+    // Write Address Channel: PROCESS INPUTS
+    //**********************************************
+    always @(posedge aclk) begin
+      if (areset) begin
+        awaddr_i <= {C_AXI_ADDR_WIDTH{1'b0}};
+        awprot_i <= {3{1'b0}};
+        awsize_i <= {3{1'b0}};
+        awburst_i <= {2{1'b0}};
+        awcache_i <= {4{1'b0}};
+        awlen_i <= {P_LEN_WIDTH{1'b0}};
+        awlock_i <= {1{1'b0}};
+        awqos_i <= {4{1'b0}};
+        awregion_i <= {4{1'b0}};
+        awuser_i <= {(C_AXI_AWUSER_WIDTH+1){1'b0}};
+        acc_aw_i <= 9'b0;
+      end else if (s_axi_awvalid) begin
+        // Register Inputs
+        awaddr_i <= s_axi_awaddr;
+          acc_aw_i[0] <= awaddr_i[0];
+        awprot_i <= s_axi_awprot;
+          acc_aw_i[1] <= awprot_i[0];
+        awsize_i <= s_axi_awsize;
+          acc_aw_i[2] <= awsize_i[0];
+        awburst_i <= s_axi_awburst;
+          acc_aw_i[3] <= awburst_i[0];
+        awcache_i <= s_axi_awcache;
+          acc_aw_i[4] <= awcache_i[0];
+        awlock_i <= s_axi_awlock;
+          acc_aw_i[5] <= awlock_i[0];
+        awqos_i <= s_axi_awqos;
+          acc_aw_i[6] <= awqos_i[0];
+        awregion_i <= s_axi_awregion;
+          acc_aw_i[7] <= awregion_i[0];
+        awuser_i <= s_axi_awuser;
+          acc_aw_i[8] <= awuser_i[0];
+      end else begin
+        awaddr_i <= awaddr_i>>1;
+        awprot_i <= awprot_i>>1;
+        awsize_i <= awsize_i>>1;
+        awburst_i <= awburst_i>>1;
+        awcache_i <= awcache_i>>1;
+        awlock_i <= awlock_i>>1;
+        awqos_i <= awqos_i>>1;
+        awregion_i <= awregion_i>>1;
+        awuser_i <= awuser_i>>1;
+        acc_aw_i <= acc_aw_i>>1;
+      end
+    end
+  
+    //**********************************************
+    // Write Data Channel: PROCESS INPUTS
+    //**********************************************
+    always @(posedge aclk) begin
+      if(areset) begin
+        wdata_i <= {C_AXI_DATA_WIDTH{1'b0}};
+        wstrb_i <= {(C_AXI_DATA_WIDTH/8){1'b0}};
+        wuser_i <= {(C_AXI_WUSER_WIDTH+1){1'b0}};
+        acc_w_i <= 4'b0;
+      end else if (s_axi_wvalid) begin
+        // Register Inputs
+        wdata_i <= s_axi_wdata;
+          acc_w_i[0] <= wdata_i[0];
+        wstrb_i <= s_axi_wstrb;
+          acc_w_i[1] <= wstrb_i[0];
+        wuser_i <= s_axi_wuser;
+          acc_w_i[2] <= wuser_i[0];
+      end else begin
+        wdata_i <= wdata_i>>1;
+        wstrb_i <= wstrb_i>>1;
+        wuser_i <= wuser_i>>1;
+        acc_w_i <= acc_w_i>>1;
+      end
+    end
+  
+endmodule
+
+
+
 //  (c) Copyright 2017 Xilinx, Inc. All rights reserved.
 //
 //  This file contains confidential and proprietary information
@@ -48,7 +1028,7 @@
 `timescale 1ps/1ps
 `default_nettype none
 
-module axi_register_slice_v2_1_19_tdm_sample (
+module axi_register_slice_v2_1_20_tdm_sample (
 ///////////////////////////////////////////////////////////////////////////////
 // Port Declarations
 ///////////////////////////////////////////////////////////////////////////////
@@ -152,7 +1132,7 @@ endmodule // tdm_sample
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
 (* autopipeline_module="yes" *)
-module axi_register_slice_v2_1_19_auto_slr #
+module axi_register_slice_v2_1_20_auto_slr #
   (
    parameter integer C_DATA_WIDTH = 32
    )
@@ -202,7 +1182,7 @@ module axi_register_slice_v2_1_19_auto_slr #
     
   // Source-side submodule
     
-    axi_register_slice_v2_1_19_auto_src #
+    axi_register_slice_v2_1_20_auto_src #
       (
        .C_DATA_WIDTH (C_DATA_WIDTH)
       )
@@ -221,7 +1201,7 @@ module axi_register_slice_v2_1_19_auto_slr #
     
   // Destination-side submodule
     
-    axi_register_slice_v2_1_19_auto_dest #
+    axi_register_slice_v2_1_20_auto_dest #
       (
        .C_DATA_WIDTH (C_DATA_WIDTH)
       )
@@ -240,7 +1220,7 @@ module axi_register_slice_v2_1_19_auto_slr #
     
 endmodule  // auto_slr
 
-module axi_register_slice_v2_1_19_auto_src #
+module axi_register_slice_v2_1_20_auto_src #
   (
    parameter integer C_DATA_WIDTH = 32
   )
@@ -257,19 +1237,23 @@ module axi_register_slice_v2_1_19_auto_src #
    );
     
    (* autopipeline_group="fwd",autopipeline_limit=24,autopipeline_include="resp" *) reg  [C_DATA_WIDTH-1:0] payload_pipe_r;
-    (* keep="true" *) reg  s_areset_resp3 = 1'b0;
+    (* keep="true" *) reg [3:0] s_aresetn_resp3 = 4'b0000;
     wire s_aresetn_d;
     wire s_aresetn_q;
     wire s_handshake_d;
     wire s_ready_i;
     
     assign S_READY = s_ready_i & s_aresetn_q;
-    assign s_aresetn_d = (~s_areset_resp2 & s_areset_resp3) | s_aresetn_q;
+    assign s_aresetn_d = (~s_aresetn_resp3[3] & s_aresetn_resp3[1]) | s_aresetn_q;
     assign s_handshake_d = S_VALID & s_ready_i & s_aresetn_q;
     assign payload_pipe = payload_pipe_r;
     
-    always @(posedge ACLK) begin
-      s_areset_resp3 <= s_areset_resp2;
+    always @(posedge ACLK or posedge s_aclear) begin
+      if (s_aclear) begin
+        s_aresetn_resp3 <= 3'b000;
+      end else begin
+        s_aresetn_resp3 <= {s_aresetn_resp3[2:0], ~s_areset_resp2};
+      end
     end
     
     always @(posedge ACLK) begin
@@ -310,7 +1294,7 @@ module axi_register_slice_v2_1_19_auto_src #
     
 endmodule  // auto_src
 
-module axi_register_slice_v2_1_19_auto_dest #
+module axi_register_slice_v2_1_20_auto_dest #
   (
    parameter integer C_DATA_WIDTH = 32
    )
@@ -326,7 +1310,7 @@ module axi_register_slice_v2_1_19_auto_dest #
    output wire [C_DATA_WIDTH-1:0] M_PAYLOAD_DATA
    );
     
-    (* keep="true" *) reg  m_areset_resp3 = 1'b0;
+    (* keep="true" *) reg [3:0] m_aresetn_resp3 = 4'b0000;
     wire m_aresetn_d;
     wire m_aresetn_q;
     wire m_valid_i;
@@ -336,12 +1320,16 @@ module axi_register_slice_v2_1_19_auto_dest #
     reg  [C_DATA_WIDTH-1:0] m_payload_q;
     
     assign M_VALID = m_valid_i;
-    assign m_aresetn_d = (~m_areset_resp2 & m_areset_resp3) | m_aresetn_q;
+    assign m_aresetn_d = (~m_aresetn_resp3[3] & m_aresetn_resp3[1]) | m_aresetn_q;
     assign m_ready_d = (M_READY | ~m_valid_i) & m_aresetn_q;
     assign pop     = M_READY & m_valid_i;
     
-    always @(posedge ACLK) begin
-      m_areset_resp3 <= m_areset_resp2;
+    always @(posedge ACLK or posedge m_aclear) begin
+      if (m_aclear) begin
+        m_aresetn_resp3 <= 3'b000;
+      end else begin
+        m_aresetn_resp3 <= {m_aresetn_resp3[2:0], ~m_areset_resp2};
+      end
     end
     
     always @(posedge ACLK) begin
@@ -380,7 +1368,7 @@ module axi_register_slice_v2_1_19_auto_dest #
         .D   (m_ready_d)
      );
     
-    axi_register_slice_v2_1_19_axic_reg_srl_fifo #
+    axi_register_slice_v2_1_20_axic_reg_srl_fifo #
       (
        .C_FIFO_WIDTH (C_DATA_WIDTH), 
        .C_FIFO_SIZE  (5)  
@@ -461,7 +1449,7 @@ endmodule  // auto_dest
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_srl_rtl #
+module axi_register_slice_v2_1_20_srl_rtl #
   (
    parameter         C_A_WIDTH = 2          // Address Width (>= 1)
    )
@@ -485,7 +1473,7 @@ endmodule  // srl_rtl
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_axic_register_slice #
+module axi_register_slice_v2_1_20_axic_register_slice #
   (
    parameter C_FAMILY     = "virtex6",
    parameter C_DATA_WIDTH = 32,
@@ -688,7 +1676,7 @@ module axi_register_slice_v2_1_19_axic_register_slice #
     //---------------------------------------------------------------------------
       genvar i;
       for (i=0;i<C_DATA_WIDTH;i=i+1) begin : gen_srls
-        axi_register_slice_v2_1_19_srl_rtl #
+        axi_register_slice_v2_1_20_srl_rtl #
           (
            .C_A_WIDTH (2)
           )
@@ -1188,7 +2176,7 @@ endmodule // axic_register_slice
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_multi_slr #
+module axi_register_slice_v2_1_20_multi_slr #
   (
    parameter C_FAMILY     = "virtex6",
    parameter integer C_DATA_WIDTH = 32,
@@ -1228,7 +2216,7 @@ module axi_register_slice_v2_1_19_multi_slr #
   
   if (C_NUM_SLR_CROSSINGS==0) begin : single_slr
     
-    axi_register_slice_v2_1_19_single_slr # (
+    axi_register_slice_v2_1_20_single_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
       .C_PIPELINES  (C_PIPELINES_MASTER) 
@@ -1253,7 +2241,7 @@ module axi_register_slice_v2_1_19_multi_slr #
     wire dummy_reset;
         
     if (C_CHANNEL==P_FORWARD) begin : fwd
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1275,7 +2263,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1299,7 +2287,7 @@ module axi_register_slice_v2_1_19_multi_slr #
       );
       
     end else begin : resp
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1321,7 +2309,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1359,7 +2347,7 @@ module axi_register_slice_v2_1_19_multi_slr #
     wire dummy_reset2;
         
     if (C_CHANNEL==P_FORWARD) begin : fwd
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1381,7 +2369,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1403,7 +2391,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( dest_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1427,7 +2415,7 @@ module axi_register_slice_v2_1_19_multi_slr #
       );
       
     end else begin : resp
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1449,7 +2437,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1471,7 +2459,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( dest_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1514,7 +2502,7 @@ module axi_register_slice_v2_1_19_multi_slr #
     wire dummy_reset3;
         
     if (C_CHANNEL==P_FORWARD) begin : fwd
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1536,7 +2524,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1558,7 +2546,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( mid_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1580,7 +2568,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( dest_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1604,7 +2592,7 @@ module axi_register_slice_v2_1_19_multi_slr #
       );
       
     end else begin : resp
-      axi_register_slice_v2_1_19_source_region_slr # (
+      axi_register_slice_v2_1_20_source_region_slr # (
         .C_FAMILY     ( C_FAMILY ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_SLR_WIDTH  ( C_DATA_WIDTH ),
@@ -1626,7 +2614,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( src_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1648,7 +2636,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( mid_ready   )
       );
       
-      axi_register_slice_v2_1_19_middle_region_slr #(
+      axi_register_slice_v2_1_20_middle_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_DATA_WIDTH ( C_DATA_WIDTH ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1670,7 +2658,7 @@ module axi_register_slice_v2_1_19_multi_slr #
         .laguna_m_ready     ( dest_ready   )
       );
       
-      axi_register_slice_v2_1_19_dest_region_slr #(
+      axi_register_slice_v2_1_20_dest_region_slr #(
         .C_FAMILY     ( C_FAMILY         ) ,
         .C_REG_CONFIG ( P_REG_CONFIG ) ,
         .C_CHANNEL    ( C_CHANNEL ),
@@ -1700,7 +2688,7 @@ endmodule  // multi_slr
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_middle_region_slr #
+module axi_register_slice_v2_1_20_middle_region_slr #
   (
    parameter C_FAMILY     = "virtex6",
    parameter integer C_DATA_WIDTH = 32,
@@ -1841,7 +2829,7 @@ endmodule  // middle_region_slr
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_source_region_slr #
+module axi_register_slice_v2_1_20_source_region_slr #
   (
    parameter C_FAMILY     = "virtex6",
    parameter integer C_REG_CONFIG = 12,
@@ -1921,7 +2909,7 @@ module axi_register_slice_v2_1_19_source_region_slr #
       end
     end
 
-    axi_register_slice_v2_1_19_tdm_sample tdm_sample_inst (
+    axi_register_slice_v2_1_20_tdm_sample tdm_sample_inst (
       .slow_clk     (ACLK),
       .fast_clk     (ACLK2X),
       .sample_cycle (sample_cycle)
@@ -2025,7 +3013,7 @@ endmodule  // source_region_slr
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axi_register_slice_v2_1_19_dest_region_slr #
+module axi_register_slice_v2_1_20_dest_region_slr #
   (
    parameter C_FAMILY     = "virtex6",
    parameter integer C_REG_CONFIG = 12,
@@ -2244,7 +3232,7 @@ module axi_register_slice_v2_1_19_dest_region_slr #
         .D   (laguna_s_handshake)
      );
         
-    axi_register_slice_v2_1_19_axic_reg_srl_fifo #
+    axi_register_slice_v2_1_20_axic_reg_srl_fifo #
       (
        .C_FIFO_WIDTH (C_DATA_WIDTH), 
        .C_FIFO_SIZE  ((C_PIPELINES+C_SOURCE_LATENCY>14) ? 6 : (C_PIPELINES+C_SOURCE_LATENCY>6) ? 5 : 4)  
@@ -2267,7 +3255,7 @@ endmodule  // dest_region_slr
 
 `timescale 1ps/1ps
 (* DowngradeIPIdentifiedWarnings="yes" *)
-module axi_register_slice_v2_1_19_single_slr #
+module axi_register_slice_v2_1_20_single_slr #
   (
    parameter C_FAMILY     = "virtex6",
    parameter integer C_DATA_WIDTH = 32,
@@ -2406,7 +3394,7 @@ module axi_register_slice_v2_1_19_single_slr #
     
     end else begin : srl_fifo
     
-      axi_register_slice_v2_1_19_axic_reg_srl_fifo #
+      axi_register_slice_v2_1_20_axic_reg_srl_fifo #
         (
          .C_FIFO_WIDTH (C_DATA_WIDTH), 
          .C_FIFO_SIZE  ((C_PIPELINES>12) ? 5 : 4)  
@@ -2429,7 +3417,7 @@ module axi_register_slice_v2_1_19_single_slr #
 endmodule  // single_slr
 
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_axic_reg_srl_fifo #
+module axi_register_slice_v2_1_20_axic_reg_srl_fifo #
   // FIFO with no s_ready back-pressure; must guarantee parent will never push beyond full
   (
    parameter integer C_FIFO_WIDTH  = 1,      // Width of s_mesg/m_mesg.
@@ -2632,7 +3620,7 @@ module axi_register_slice_v2_1_19_axic_reg_srl_fifo #
     // Instantiate SRLs
     //---------------------------------------------------------------------------
     for (i=0;i<C_FIFO_WIDTH;i=i+1) begin : srl
-      (* keep_hierarchy = "yes" *) axi_register_slice_v2_1_19_srl_rtl #
+      (* keep_hierarchy = "yes" *) axi_register_slice_v2_1_20_srl_rtl #
         (
          .C_A_WIDTH (C_FIFO_SIZE)
         )
@@ -2713,7 +3701,7 @@ endmodule  // axic_reg_srl_fifo
 `timescale 1ps/1ps
 
 (* DowngradeIPIdentifiedWarnings="yes" *) 
-module axi_register_slice_v2_1_19_axi_register_slice #
+module axi_register_slice_v2_1_20_axi_register_slice #
   (
    parameter C_FAMILY                            = "virtex6",
    parameter C_AXI_PROTOCOL                      = 0,
@@ -2745,6 +3733,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
    parameter integer C_REG_CONFIG_B  = 7,
    parameter integer C_REG_CONFIG_AR = 7,
    parameter integer C_REG_CONFIG_R  = 1,
+   parameter integer C_RESERVE_MODE = 0,
    parameter integer C_NUM_SLR_CROSSINGS = 0,
    parameter integer C_PIPELINES_MASTER_AW = 0,
    parameter integer C_PIPELINES_MASTER_W  = 0,
@@ -2900,70 +3889,304 @@ module axi_register_slice_v2_1_19_axi_register_slice #
   assign reset = ~aresetn;
   
   generate
-
-  axi_infrastructure_v1_1_0_axi2vector #( 
-    .C_AXI_PROTOCOL                ( C_AXI_PROTOCOL                ) ,
-    .C_AXI_ID_WIDTH                ( C_AXI_ID_WIDTH                ) ,
-    .C_AXI_ADDR_WIDTH              ( C_AXI_ADDR_WIDTH              ) ,
-    .C_AXI_DATA_WIDTH              ( C_AXI_DATA_WIDTH              ) ,
-    .C_AXI_SUPPORTS_USER_SIGNALS   ( C_AXI_SUPPORTS_USER_SIGNALS   ) ,
-    .C_AXI_SUPPORTS_REGION_SIGNALS ( C_AXI_SUPPORTS_REGION_SIGNALS ) ,
-    .C_AXI_AWUSER_WIDTH            ( C_AXI_AWUSER_WIDTH            ) ,
-    .C_AXI_ARUSER_WIDTH            ( C_AXI_ARUSER_WIDTH            ) ,
-    .C_AXI_WUSER_WIDTH             ( C_AXI_WUSER_WIDTH             ) ,
-    .C_AXI_RUSER_WIDTH             ( C_AXI_RUSER_WIDTH             ) ,
-    .C_AXI_BUSER_WIDTH             ( C_AXI_BUSER_WIDTH             ) ,
-    .C_AWPAYLOAD_WIDTH             ( G_AXI_AWPAYLOAD_WIDTH         ) ,
-    .C_WPAYLOAD_WIDTH              ( G_AXI_WPAYLOAD_WIDTH          ) ,
-    .C_BPAYLOAD_WIDTH              ( G_AXI_BPAYLOAD_WIDTH          ) ,
-    .C_ARPAYLOAD_WIDTH             ( G_AXI_ARPAYLOAD_WIDTH         ) ,
-    .C_RPAYLOAD_WIDTH              ( G_AXI_RPAYLOAD_WIDTH          ) 
-  )
-  axi2vector_0 ( 
-    .s_axi_awid      ( s_axi_awid      ) ,
-    .s_axi_awaddr    ( s_axi_awaddr    ) ,
-    .s_axi_awlen     ( s_axi_awlen     ) ,
-    .s_axi_awsize    ( s_axi_awsize    ) ,
-    .s_axi_awburst   ( s_axi_awburst   ) ,
-    .s_axi_awlock    ( s_axi_awlock    ) ,
-    .s_axi_awcache   ( s_axi_awcache   ) ,
-    .s_axi_awprot    ( s_axi_awprot    ) ,
-    .s_axi_awqos     ( s_axi_awqos     ) ,
-    .s_axi_awuser    ( s_axi_awuser    ) ,
-    .s_axi_awregion  ( s_axi_awregion  ) ,
-    .s_axi_wid       ( s_axi_wid       ) ,
-    .s_axi_wdata     ( s_axi_wdata     ) ,
-    .s_axi_wstrb     ( s_axi_wstrb     ) ,
-    .s_axi_wlast     ( s_axi_wlast     ) ,
-    .s_axi_wuser     ( s_axi_wuser     ) ,
-    .s_axi_bid       ( s_axi_bid       ) ,
-    .s_axi_bresp     ( s_axi_bresp     ) ,
-    .s_axi_buser     ( s_axi_buser     ) ,
-    .s_axi_arid      ( s_axi_arid      ) ,
-    .s_axi_araddr    ( s_axi_araddr    ) ,
-    .s_axi_arlen     ( s_axi_arlen     ) ,
-    .s_axi_arsize    ( s_axi_arsize    ) ,
-    .s_axi_arburst   ( s_axi_arburst   ) ,
-    .s_axi_arlock    ( s_axi_arlock    ) ,
-    .s_axi_arcache   ( s_axi_arcache   ) ,
-    .s_axi_arprot    ( s_axi_arprot    ) ,
-    .s_axi_arqos     ( s_axi_arqos     ) ,
-    .s_axi_aruser    ( s_axi_aruser    ) ,
-    .s_axi_arregion  ( s_axi_arregion  ) ,
-    .s_axi_rid       ( s_axi_rid       ) ,
-    .s_axi_rdata     ( s_axi_rdata     ) ,
-    .s_axi_rresp     ( s_axi_rresp     ) ,
-    .s_axi_rlast     ( s_axi_rlast     ) ,
-    .s_axi_ruser     ( s_axi_ruser     ) ,
-    .s_awpayload ( s_awpayload ) ,
-    .s_wpayload  ( s_wpayload  ) ,
-    .s_bpayload  ( s_bpayload  ) ,
-    .s_arpayload ( s_arpayload ) ,
-    .s_rpayload  ( s_rpayload  ) 
-  );
+  
+  if (C_RESERVE_MODE==1) begin : gen_reserve_si
+  
+    axi_register_slice_v2_1_20_test_slave #(
+      .C_AXI_ID_WIDTH(C_AXI_ID_WIDTH),
+      .C_AXI_ADDR_WIDTH(C_AXI_ADDR_WIDTH),
+      .C_AXI_DATA_WIDTH(C_AXI_DATA_WIDTH),
+      .C_AXI_PROTOCOL(C_AXI_PROTOCOL),
+      .C_AXI_AWUSER_WIDTH(C_AXI_AWUSER_WIDTH),
+      .C_AXI_ARUSER_WIDTH(C_AXI_ARUSER_WIDTH),
+      .C_AXI_WUSER_WIDTH(C_AXI_WUSER_WIDTH),
+      .C_AXI_RUSER_WIDTH(C_AXI_RUSER_WIDTH),
+      .C_AXI_BUSER_WIDTH(C_AXI_BUSER_WIDTH)
+    ) inst (
+      .s_axi_awaddr(s_axi_awaddr),
+      .s_axi_awprot(s_axi_awprot),
+      .s_axi_awvalid(s_axi_awvalid),
+      .s_axi_awready(s_axi_awready),
+      .s_axi_awsize(s_axi_awsize),
+      .s_axi_awburst(s_axi_awburst),
+      .s_axi_awcache(s_axi_awcache),
+      .s_axi_awlen(s_axi_awlen),
+      .s_axi_awlock(s_axi_awlock),
+      .s_axi_awqos(s_axi_awqos),
+      .s_axi_awregion(s_axi_awregion),
+      .s_axi_awid(s_axi_awid),
+      .s_axi_awuser(s_axi_awuser),
+      .s_axi_wdata(s_axi_wdata),
+      .s_axi_wstrb(s_axi_wstrb),
+      .s_axi_wvalid(s_axi_wvalid),
+      .s_axi_wready(s_axi_wready),
+      .s_axi_wlast(s_axi_wlast),
+      .s_axi_wid(s_axi_wid),
+      .s_axi_wuser(s_axi_wuser),
+      .s_axi_bresp(s_axi_bresp),
+      .s_axi_bvalid(s_axi_bvalid),
+      .s_axi_bready(s_axi_bready),
+      .s_axi_buser(s_axi_buser),
+      .s_axi_bid(s_axi_bid),
+      .s_axi_araddr(s_axi_araddr),
+      .s_axi_arprot(s_axi_arprot),
+      .s_axi_arvalid(s_axi_arvalid),
+      .s_axi_arready(s_axi_arready),
+      .s_axi_arsize(s_axi_arsize),
+      .s_axi_arburst(s_axi_arburst),
+      .s_axi_arcache(s_axi_arcache),
+      .s_axi_arlock(s_axi_arlock),
+      .s_axi_arlen(s_axi_arlen),
+      .s_axi_arqos(s_axi_arqos),
+      .s_axi_arregion(s_axi_arregion),
+      .s_axi_aruser(s_axi_aruser),
+      .s_axi_arid(s_axi_arid),
+      .s_axi_rdata(s_axi_rdata),
+      .s_axi_rresp(s_axi_rresp),
+      .s_axi_rvalid(s_axi_rvalid),
+      .s_axi_rready(s_axi_rready),
+      .s_axi_rlast(s_axi_rlast),
+      .s_axi_ruser(s_axi_ruser),
+      .s_axi_rid(s_axi_rid),
+      .aclk(aclk),
+      .aresetn(aresetn)
+    );
     
-  if (C_REG_CONFIG_AW <= 9) begin : aw
-    axi_register_slice_v2_1_19_axic_register_slice # (
+     assign m_axi_awid     = 0;
+     assign m_axi_awaddr   = 0;
+     assign m_axi_awlen    = 0;
+     assign m_axi_awsize   = 0;
+     assign m_axi_awburst  = 0;
+     assign m_axi_awlock   = 0;
+     assign m_axi_awcache  = 0;
+     assign m_axi_awprot   = 0;
+     assign m_axi_awregion = 0;
+     assign m_axi_awqos    = 0;
+     assign m_axi_awuser   = 0;
+     assign m_axi_awvalid  = 0;
+     assign m_axi_wid      = 0;
+     assign m_axi_wdata    = 0;
+     assign m_axi_wstrb    = 0;
+     assign m_axi_wlast    = 0;
+     assign m_axi_wuser    = 0;
+     assign m_axi_wvalid   = 0;
+     assign m_axi_bready   = 0;
+     assign m_axi_arid     = 0;
+     assign m_axi_araddr   = 0;
+     assign m_axi_arlen    = 0;
+     assign m_axi_arsize   = 0;
+     assign m_axi_arburst  = 0;
+     assign m_axi_arlock   = 0;
+     assign m_axi_arcache  = 0;
+     assign m_axi_arprot   = 0;
+     assign m_axi_arregion = 0;
+     assign m_axi_arqos    = 0;
+     assign m_axi_aruser   = 0;
+     assign m_axi_arvalid  = 0;
+     assign m_axi_rready   = 0;
+      
+  end else if (C_RESERVE_MODE==2) begin : gen_reserve_mi
+    
+    axi_register_slice_v2_1_20_test_master #(
+    .C_AXI_ID_WIDTH(C_AXI_ID_WIDTH),
+    .C_AXI_ADDR_WIDTH(C_AXI_ADDR_WIDTH),
+    .C_AXI_DATA_WIDTH(C_AXI_DATA_WIDTH),
+    .C_AXI_PROTOCOL(C_AXI_PROTOCOL),
+    .C_AXI_AWUSER_WIDTH(C_AXI_AWUSER_WIDTH),
+    .C_AXI_ARUSER_WIDTH(C_AXI_ARUSER_WIDTH),
+    .C_AXI_WUSER_WIDTH(C_AXI_WUSER_WIDTH),
+    .C_AXI_RUSER_WIDTH(C_AXI_RUSER_WIDTH),
+    .C_AXI_BUSER_WIDTH(C_AXI_BUSER_WIDTH)
+    ) inst (
+      .m_axi_awaddr(m_axi_awaddr),
+      .m_axi_awprot(m_axi_awprot),
+      .m_axi_awvalid(m_axi_awvalid),
+      .m_axi_awready(m_axi_awready),
+      .m_axi_awsize(m_axi_awsize),
+      .m_axi_awburst(m_axi_awburst),
+      .m_axi_awcache(m_axi_awcache),
+      .m_axi_awlen(m_axi_awlen),
+      .m_axi_awlock(m_axi_awlock),
+      .m_axi_awqos(m_axi_awqos),
+      .m_axi_awid(m_axi_awid),
+      .m_axi_awuser(m_axi_awuser),
+      .m_axi_wid(m_axi_wid),
+      .m_axi_wdata(m_axi_wdata),
+      .m_axi_wstrb(m_axi_wstrb),
+      .m_axi_wvalid(m_axi_wvalid),
+      .m_axi_wready(m_axi_wready),
+      .m_axi_wlast(m_axi_wlast),
+      .m_axi_wuser(m_axi_wuser),
+      .m_axi_bresp(m_axi_bresp),
+      .m_axi_bvalid(m_axi_bvalid),
+      .m_axi_bready(m_axi_bready),
+      .m_axi_buser(m_axi_buser),
+      .m_axi_bid(m_axi_bid),
+      .m_axi_araddr(m_axi_araddr),
+      .m_axi_arprot(m_axi_arprot),
+      .m_axi_arvalid(m_axi_arvalid),
+      .m_axi_arready(m_axi_arready),
+      .m_axi_arsize(m_axi_arsize),
+      .m_axi_arburst(m_axi_arburst),
+      .m_axi_arcache(m_axi_arcache),
+      .m_axi_arlen(m_axi_arlen),
+      .m_axi_arlock(m_axi_arlock),
+      .m_axi_arqos(m_axi_arqos),
+      .m_axi_arid(m_axi_arid),
+      .m_axi_aruser(m_axi_aruser),
+      .m_axi_rdata(m_axi_rdata),
+      .m_axi_rresp(m_axi_rresp),
+      .m_axi_rvalid(m_axi_rvalid),
+      .m_axi_rready(m_axi_rready),
+      .m_axi_rlast(m_axi_rlast),
+      .m_axi_ruser(m_axi_ruser),
+      .m_axi_rid(m_axi_rid),
+      .aclk(aclk),
+      .aresetn(aresetn)
+    );
+    
+     assign s_axi_awready = 0;
+     assign s_axi_wready  = 0;
+     assign s_axi_bid     = 0;
+     assign s_axi_bresp   = 0;
+     assign s_axi_buser   = 0;
+     assign s_axi_bvalid  = 0;
+     assign s_axi_arready = 0;
+     assign s_axi_rid     = 0;
+     assign s_axi_rdata   = 0;
+     assign s_axi_rresp   = 0;
+     assign s_axi_rlast   = 0;
+     assign s_axi_ruser   = 0;
+     assign s_axi_rvalid  = 0;
+
+  end else begin : gen_reg_slice  // Any normal reg-slice mode
+
+    axi_infrastructure_v1_1_0_axi2vector #( 
+      .C_AXI_PROTOCOL                ( C_AXI_PROTOCOL                ) ,
+      .C_AXI_ID_WIDTH                ( C_AXI_ID_WIDTH                ) ,
+      .C_AXI_ADDR_WIDTH              ( C_AXI_ADDR_WIDTH              ) ,
+      .C_AXI_DATA_WIDTH              ( C_AXI_DATA_WIDTH              ) ,
+      .C_AXI_SUPPORTS_USER_SIGNALS   ( C_AXI_SUPPORTS_USER_SIGNALS   ) ,
+      .C_AXI_SUPPORTS_REGION_SIGNALS ( C_AXI_SUPPORTS_REGION_SIGNALS ) ,
+      .C_AXI_AWUSER_WIDTH            ( C_AXI_AWUSER_WIDTH            ) ,
+      .C_AXI_ARUSER_WIDTH            ( C_AXI_ARUSER_WIDTH            ) ,
+      .C_AXI_WUSER_WIDTH             ( C_AXI_WUSER_WIDTH             ) ,
+      .C_AXI_RUSER_WIDTH             ( C_AXI_RUSER_WIDTH             ) ,
+      .C_AXI_BUSER_WIDTH             ( C_AXI_BUSER_WIDTH             ) ,
+      .C_AWPAYLOAD_WIDTH             ( G_AXI_AWPAYLOAD_WIDTH         ) ,
+      .C_WPAYLOAD_WIDTH              ( G_AXI_WPAYLOAD_WIDTH          ) ,
+      .C_BPAYLOAD_WIDTH              ( G_AXI_BPAYLOAD_WIDTH          ) ,
+      .C_ARPAYLOAD_WIDTH             ( G_AXI_ARPAYLOAD_WIDTH         ) ,
+      .C_RPAYLOAD_WIDTH              ( G_AXI_RPAYLOAD_WIDTH          ) 
+    )
+    axi2vector_0 ( 
+      .s_axi_awid      ( s_axi_awid      ) ,
+      .s_axi_awaddr    ( s_axi_awaddr    ) ,
+      .s_axi_awlen     ( s_axi_awlen     ) ,
+      .s_axi_awsize    ( s_axi_awsize    ) ,
+      .s_axi_awburst   ( s_axi_awburst   ) ,
+      .s_axi_awlock    ( s_axi_awlock    ) ,
+      .s_axi_awcache   ( s_axi_awcache   ) ,
+      .s_axi_awprot    ( s_axi_awprot    ) ,
+      .s_axi_awqos     ( s_axi_awqos     ) ,
+      .s_axi_awuser    ( s_axi_awuser    ) ,
+      .s_axi_awregion  ( s_axi_awregion  ) ,
+      .s_axi_wid       ( s_axi_wid       ) ,
+      .s_axi_wdata     ( s_axi_wdata     ) ,
+      .s_axi_wstrb     ( s_axi_wstrb     ) ,
+      .s_axi_wlast     ( s_axi_wlast     ) ,
+      .s_axi_wuser     ( s_axi_wuser     ) ,
+      .s_axi_bid       ( s_axi_bid       ) ,
+      .s_axi_bresp     ( s_axi_bresp     ) ,
+      .s_axi_buser     ( s_axi_buser     ) ,
+      .s_axi_arid      ( s_axi_arid      ) ,
+      .s_axi_araddr    ( s_axi_araddr    ) ,
+      .s_axi_arlen     ( s_axi_arlen     ) ,
+      .s_axi_arsize    ( s_axi_arsize    ) ,
+      .s_axi_arburst   ( s_axi_arburst   ) ,
+      .s_axi_arlock    ( s_axi_arlock    ) ,
+      .s_axi_arcache   ( s_axi_arcache   ) ,
+      .s_axi_arprot    ( s_axi_arprot    ) ,
+      .s_axi_arqos     ( s_axi_arqos     ) ,
+      .s_axi_aruser    ( s_axi_aruser    ) ,
+      .s_axi_arregion  ( s_axi_arregion  ) ,
+      .s_axi_rid       ( s_axi_rid       ) ,
+      .s_axi_rdata     ( s_axi_rdata     ) ,
+      .s_axi_rresp     ( s_axi_rresp     ) ,
+      .s_axi_rlast     ( s_axi_rlast     ) ,
+      .s_axi_ruser     ( s_axi_ruser     ) ,
+      .s_awpayload ( s_awpayload ) ,
+      .s_wpayload  ( s_wpayload  ) ,
+      .s_bpayload  ( s_bpayload  ) ,
+      .s_arpayload ( s_arpayload ) ,
+      .s_rpayload  ( s_rpayload  ) 
+    );
+    
+    axi_infrastructure_v1_1_0_vector2axi #( 
+      .C_AXI_PROTOCOL                ( C_AXI_PROTOCOL                ) ,
+      .C_AXI_ID_WIDTH                ( C_AXI_ID_WIDTH                ) ,
+      .C_AXI_ADDR_WIDTH              ( C_AXI_ADDR_WIDTH              ) ,
+      .C_AXI_DATA_WIDTH              ( C_AXI_DATA_WIDTH              ) ,
+      .C_AXI_SUPPORTS_USER_SIGNALS   ( C_AXI_SUPPORTS_USER_SIGNALS   ) ,
+      .C_AXI_SUPPORTS_REGION_SIGNALS ( C_AXI_SUPPORTS_REGION_SIGNALS ) ,
+      .C_AXI_AWUSER_WIDTH            ( C_AXI_AWUSER_WIDTH            ) ,
+      .C_AXI_ARUSER_WIDTH            ( C_AXI_ARUSER_WIDTH            ) ,
+      .C_AXI_WUSER_WIDTH             ( C_AXI_WUSER_WIDTH             ) ,
+      .C_AXI_RUSER_WIDTH             ( C_AXI_RUSER_WIDTH             ) ,
+      .C_AXI_BUSER_WIDTH             ( C_AXI_BUSER_WIDTH             ) ,
+      .C_AWPAYLOAD_WIDTH             ( G_AXI_AWPAYLOAD_WIDTH         ) ,
+      .C_WPAYLOAD_WIDTH              ( G_AXI_WPAYLOAD_WIDTH          ) ,
+      .C_BPAYLOAD_WIDTH              ( G_AXI_BPAYLOAD_WIDTH          ) ,
+      .C_ARPAYLOAD_WIDTH             ( G_AXI_ARPAYLOAD_WIDTH         ) ,
+      .C_RPAYLOAD_WIDTH              ( G_AXI_RPAYLOAD_WIDTH          ) 
+    )
+    vector2axi_0 ( 
+      .m_awpayload    ( m_awpayload    ) ,
+      .m_wpayload     ( m_wpayload     ) ,
+      .m_bpayload     ( m_bpayload     ) ,
+      .m_arpayload    ( m_arpayload    ) ,
+      .m_rpayload     ( m_rpayload     ) ,
+      .m_axi_awid     ( m_axi_awid     ) ,
+      .m_axi_awaddr   ( m_axi_awaddr   ) ,
+      .m_axi_awlen    ( m_axi_awlen    ) ,
+      .m_axi_awsize   ( m_axi_awsize   ) ,
+      .m_axi_awburst  ( m_axi_awburst  ) ,
+      .m_axi_awlock   ( m_axi_awlock   ) ,
+      .m_axi_awcache  ( m_axi_awcache  ) ,
+      .m_axi_awprot   ( m_axi_awprot   ) ,
+      .m_axi_awqos    ( m_axi_awqos    ) ,
+      .m_axi_awuser   ( m_axi_awuser   ) ,
+      .m_axi_awregion ( m_axi_awregion ) ,
+      .m_axi_wid      ( m_axi_wid      ) ,
+      .m_axi_wdata    ( m_axi_wdata    ) ,
+      .m_axi_wstrb    ( m_axi_wstrb    ) ,
+      .m_axi_wlast    ( m_axi_wlast    ) ,
+      .m_axi_wuser    ( m_axi_wuser    ) ,
+      .m_axi_bid      ( m_axi_bid      ) ,
+      .m_axi_bresp    ( m_axi_bresp    ) ,
+      .m_axi_buser    ( m_axi_buser    ) ,
+      .m_axi_arid     ( m_axi_arid     ) ,
+      .m_axi_araddr   ( m_axi_araddr   ) ,
+      .m_axi_arlen    ( m_axi_arlen    ) ,
+      .m_axi_arsize   ( m_axi_arsize   ) ,
+      .m_axi_arburst  ( m_axi_arburst  ) ,
+      .m_axi_arlock   ( m_axi_arlock   ) ,
+      .m_axi_arcache  ( m_axi_arcache  ) ,
+      .m_axi_arprot   ( m_axi_arprot   ) ,
+      .m_axi_arqos    ( m_axi_arqos    ) ,
+      .m_axi_aruser   ( m_axi_aruser   ) ,
+      .m_axi_arregion ( m_axi_arregion ) ,
+      .m_axi_rid      ( m_axi_rid      ) ,
+      .m_axi_rdata    ( m_axi_rdata    ) ,
+      .m_axi_rresp    ( m_axi_rresp    ) ,
+      .m_axi_rlast    ( m_axi_rlast    ) ,
+      .m_axi_ruser    ( m_axi_ruser    ) 
+    );
+    
+  end  // Reserve SI/MI branch
+
+  if ((C_REG_CONFIG_AW <= 9) && (C_RESERVE_MODE==0)) begin : aw
+    axi_register_slice_v2_1_20_axic_register_slice # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_AWPAYLOAD_WIDTH ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AW       ) 
@@ -2984,9 +4207,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_awready)
     );
     
-  end else if (C_REG_CONFIG_AW == 15) begin : aw15
+  end else if ((C_REG_CONFIG_AW == 15) && (C_RESERVE_MODE==0)) begin : aw15
     
-    axi_register_slice_v2_1_19_multi_slr # (
+    axi_register_slice_v2_1_20_multi_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_AWPAYLOAD_WIDTH ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3011,9 +4234,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_awready)
     );
     
-  end else if (C_REG_CONFIG_AW == 16) begin : aw16
+  end else if ((C_REG_CONFIG_AW == 16) && (C_RESERVE_MODE==0)) begin : aw16
     
-    axi_register_slice_v2_1_19_auto_slr # (
+    axi_register_slice_v2_1_20_auto_slr # (
       .C_DATA_WIDTH ( G_AXI_AWPAYLOAD_WIDTH ) 
     )
     aw_auto (
@@ -3032,7 +4255,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_awready)
     );
     
-  end else begin : aw12
+  end else if (C_RESERVE_MODE==0) begin : aw12
     
     localparam integer P_AW_EVEN_WIDTH = G_AXI_AWPAYLOAD_WIDTH[0] ? (G_AXI_AWPAYLOAD_WIDTH+1) : G_AXI_AWPAYLOAD_WIDTH;
     localparam integer P_AW_TDM_WIDTH = P_AW_EVEN_WIDTH/2;
@@ -3042,7 +4265,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     wire slr_awhandshake;
     wire slr_awready;
         
-    axi_register_slice_v2_1_19_source_region_slr #(
+    axi_register_slice_v2_1_20_source_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AW       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3064,7 +4287,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .laguna_m_ready     ( slr_awready   )
     );
 
-    axi_register_slice_v2_1_19_dest_region_slr #(
+    axi_register_slice_v2_1_20_dest_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AW       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3088,8 +4311,8 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     );
   end  // gen_aw
     
-  if (C_REG_CONFIG_W <= 9) begin : w
-    axi_register_slice_v2_1_19_axic_register_slice # (
+  if ((C_REG_CONFIG_W <= 9) && (C_RESERVE_MODE==0)) begin : w
+    axi_register_slice_v2_1_20_axic_register_slice # (
       .C_FAMILY     ( C_FAMILY             ) ,
       .C_DATA_WIDTH ( G_AXI_WPAYLOAD_WIDTH ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_W       ) 
@@ -3110,9 +4333,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_wready)
     );
     
-  end else if (C_REG_CONFIG_W == 15) begin : w15
+  end else if ((C_REG_CONFIG_W == 15) && (C_RESERVE_MODE==0)) begin : w15
     
-    axi_register_slice_v2_1_19_multi_slr # (
+    axi_register_slice_v2_1_20_multi_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_WPAYLOAD_WIDTH ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3137,9 +4360,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_wready)
     );
     
-  end else if (C_REG_CONFIG_W == 16) begin : w16
+  end else if ((C_REG_CONFIG_W == 16) && (C_RESERVE_MODE==0)) begin : w16
     
-    axi_register_slice_v2_1_19_auto_slr # (
+    axi_register_slice_v2_1_20_auto_slr # (
       .C_DATA_WIDTH ( G_AXI_WPAYLOAD_WIDTH ) 
     )
     w_auto (
@@ -3158,7 +4381,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_wready)
     );
     
-  end else begin : w12
+  end else if (C_RESERVE_MODE==0) begin : w12
     
     localparam integer P_W_EVEN_WIDTH = G_AXI_WPAYLOAD_WIDTH[0] ? (G_AXI_WPAYLOAD_WIDTH+1) : G_AXI_WPAYLOAD_WIDTH;
     localparam integer P_W_TDM_WIDTH = P_W_EVEN_WIDTH/2;
@@ -3168,7 +4391,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     wire slr_whandshake;
     wire slr_wready;
         
-    axi_register_slice_v2_1_19_source_region_slr #(
+    axi_register_slice_v2_1_20_source_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_W       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3190,7 +4413,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .laguna_m_ready     ( slr_wready   )
     );
 
-    axi_register_slice_v2_1_19_dest_region_slr #(
+    axi_register_slice_v2_1_20_dest_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_W       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3214,8 +4437,8 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     );
   end  // gen_w
 
-  if (C_REG_CONFIG_B <= 9) begin : b
-    axi_register_slice_v2_1_19_axic_register_slice # (
+  if ((C_REG_CONFIG_B <= 9) && (C_RESERVE_MODE==0)) begin : b
+    axi_register_slice_v2_1_20_axic_register_slice # (
       .C_FAMILY     ( C_FAMILY             ) ,
       .C_DATA_WIDTH ( G_AXI_BPAYLOAD_WIDTH ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_B       ) 
@@ -3236,9 +4459,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_bready)
     );
  
-  end else if (C_REG_CONFIG_B == 15) begin : b15
+  end else if ((C_REG_CONFIG_B == 15) && (C_RESERVE_MODE==0)) begin : b15
     
-    axi_register_slice_v2_1_19_multi_slr # (
+    axi_register_slice_v2_1_20_multi_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_BPAYLOAD_WIDTH ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3263,9 +4486,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_bready)
     );
     
-  end else if (C_REG_CONFIG_B == 16) begin : b16
+  end else if ((C_REG_CONFIG_B == 16) && (C_RESERVE_MODE==0)) begin : b16
     
-    axi_register_slice_v2_1_19_auto_slr # (
+    axi_register_slice_v2_1_20_auto_slr # (
       .C_DATA_WIDTH ( G_AXI_BPAYLOAD_WIDTH ) 
     )
     b_auto (
@@ -3284,7 +4507,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_bready)
     );
     
-  end else begin : b12
+  end else if (C_RESERVE_MODE==0) begin : b12
     
     localparam integer P_B_EVEN_WIDTH = G_AXI_BPAYLOAD_WIDTH[0] ? (G_AXI_BPAYLOAD_WIDTH+1) : G_AXI_BPAYLOAD_WIDTH;
     localparam integer P_B_TDM_WIDTH = P_B_EVEN_WIDTH/2;
@@ -3294,7 +4517,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     wire slr_bhandshake;
     wire slr_bready;
         
-    axi_register_slice_v2_1_19_source_region_slr #(
+    axi_register_slice_v2_1_20_source_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_B       ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3316,7 +4539,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .laguna_m_ready     ( slr_bready   )
     );
 
-    axi_register_slice_v2_1_19_dest_region_slr #(
+    axi_register_slice_v2_1_20_dest_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_B       ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3340,8 +4563,8 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     );
   end  // gen_b
 
-  if (C_REG_CONFIG_AR <= 9) begin : ar
-    axi_register_slice_v2_1_19_axic_register_slice # (
+  if ((C_REG_CONFIG_AR <= 9) && (C_RESERVE_MODE==0)) begin : ar
+    axi_register_slice_v2_1_20_axic_register_slice # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_ARPAYLOAD_WIDTH ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AR       ) 
@@ -3362,9 +4585,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_arready)
     );
     
-  end else if (C_REG_CONFIG_AR == 15) begin : ar15
+  end else if ((C_REG_CONFIG_AR == 15) && (C_RESERVE_MODE==0)) begin : ar15
     
-    axi_register_slice_v2_1_19_multi_slr # (
+    axi_register_slice_v2_1_20_multi_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_ARPAYLOAD_WIDTH ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3389,9 +4612,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_arready)
     );
     
-  end else if (C_REG_CONFIG_AR == 16) begin : ar16
+  end else if ((C_REG_CONFIG_AR == 16) && (C_RESERVE_MODE==0)) begin : ar16
     
-    axi_register_slice_v2_1_19_auto_slr # (
+    axi_register_slice_v2_1_20_auto_slr # (
       .C_DATA_WIDTH ( G_AXI_ARPAYLOAD_WIDTH ) 
     )
     ar_auto (
@@ -3410,7 +4633,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(m_axi_arready)
     );
     
-  end else begin : ar12
+  end else if (C_RESERVE_MODE==0) begin : ar12
     
     localparam integer P_AR_EVEN_WIDTH = G_AXI_ARPAYLOAD_WIDTH[0] ? (G_AXI_ARPAYLOAD_WIDTH+1) : G_AXI_ARPAYLOAD_WIDTH;
     localparam integer P_AR_TDM_WIDTH = P_AR_EVEN_WIDTH/2;
@@ -3420,7 +4643,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     wire slr_arhandshake;
     wire slr_arready;
         
-    axi_register_slice_v2_1_19_source_region_slr #(
+    axi_register_slice_v2_1_20_source_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AR       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3442,7 +4665,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .laguna_m_ready     ( slr_arready   )
     );
 
-    axi_register_slice_v2_1_19_dest_region_slr #(
+    axi_register_slice_v2_1_20_dest_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_AR       ) ,
       .C_CHANNEL    ( P_FORWARD ),
@@ -3466,8 +4689,8 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     );
   end  // gen_ar
         
-  if (C_REG_CONFIG_R <= 9) begin : r
-    axi_register_slice_v2_1_19_axic_register_slice # (
+  if ((C_REG_CONFIG_R <= 9) && (C_RESERVE_MODE==0)) begin : r
+    axi_register_slice_v2_1_20_axic_register_slice # (
       .C_FAMILY     ( C_FAMILY             ) ,
       .C_DATA_WIDTH ( G_AXI_RPAYLOAD_WIDTH ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_R       ) 
@@ -3488,9 +4711,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_rready)
     );
     
-  end else if (C_REG_CONFIG_R == 15) begin : r15
+  end else if ((C_REG_CONFIG_R == 15) && (C_RESERVE_MODE==0)) begin : r15
     
-    axi_register_slice_v2_1_19_multi_slr # (
+    axi_register_slice_v2_1_20_multi_slr # (
       .C_FAMILY     ( C_FAMILY              ) ,
       .C_DATA_WIDTH ( G_AXI_RPAYLOAD_WIDTH ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3515,9 +4738,9 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_rready)
     );
     
-  end else if (C_REG_CONFIG_R == 16) begin : r16
+  end else if ((C_REG_CONFIG_R == 16) && (C_RESERVE_MODE==0)) begin : r16
     
-    axi_register_slice_v2_1_19_auto_slr # (
+    axi_register_slice_v2_1_20_auto_slr # (
       .C_DATA_WIDTH ( G_AXI_RPAYLOAD_WIDTH ) 
     )
     r_auto (
@@ -3536,7 +4759,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY(s_axi_rready)
     );
     
-  end else begin : r12
+  end else if (C_RESERVE_MODE==0) begin : r12
     
     localparam integer P_R_EVEN_WIDTH = G_AXI_RPAYLOAD_WIDTH[0] ? (G_AXI_RPAYLOAD_WIDTH+1) : G_AXI_RPAYLOAD_WIDTH;
     localparam integer P_R_TDM_WIDTH = P_R_EVEN_WIDTH/2;
@@ -3546,7 +4769,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
     wire slr_rhandshake;
     wire slr_rready;
         
-    axi_register_slice_v2_1_19_source_region_slr #(
+    axi_register_slice_v2_1_20_source_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_R       ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3568,7 +4791,7 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .laguna_m_ready     ( slr_rready   )
     );
 
-    axi_register_slice_v2_1_19_dest_region_slr #(
+    axi_register_slice_v2_1_20_dest_region_slr #(
       .C_FAMILY     ( C_FAMILY         ) ,
       .C_REG_CONFIG ( C_REG_CONFIG_R       ) ,
       .C_CHANNEL    ( P_RESPONSE ),
@@ -3591,67 +4814,6 @@ module axi_register_slice_v2_1_19_axi_register_slice #
       .M_READY        ( s_axi_rready   )
     );
   end  // gen_r
-
-  axi_infrastructure_v1_1_0_vector2axi #( 
-    .C_AXI_PROTOCOL                ( C_AXI_PROTOCOL                ) ,
-    .C_AXI_ID_WIDTH                ( C_AXI_ID_WIDTH                ) ,
-    .C_AXI_ADDR_WIDTH              ( C_AXI_ADDR_WIDTH              ) ,
-    .C_AXI_DATA_WIDTH              ( C_AXI_DATA_WIDTH              ) ,
-    .C_AXI_SUPPORTS_USER_SIGNALS   ( C_AXI_SUPPORTS_USER_SIGNALS   ) ,
-    .C_AXI_SUPPORTS_REGION_SIGNALS ( C_AXI_SUPPORTS_REGION_SIGNALS ) ,
-    .C_AXI_AWUSER_WIDTH            ( C_AXI_AWUSER_WIDTH            ) ,
-    .C_AXI_ARUSER_WIDTH            ( C_AXI_ARUSER_WIDTH            ) ,
-    .C_AXI_WUSER_WIDTH             ( C_AXI_WUSER_WIDTH             ) ,
-    .C_AXI_RUSER_WIDTH             ( C_AXI_RUSER_WIDTH             ) ,
-    .C_AXI_BUSER_WIDTH             ( C_AXI_BUSER_WIDTH             ) ,
-    .C_AWPAYLOAD_WIDTH             ( G_AXI_AWPAYLOAD_WIDTH         ) ,
-    .C_WPAYLOAD_WIDTH              ( G_AXI_WPAYLOAD_WIDTH          ) ,
-    .C_BPAYLOAD_WIDTH              ( G_AXI_BPAYLOAD_WIDTH          ) ,
-    .C_ARPAYLOAD_WIDTH             ( G_AXI_ARPAYLOAD_WIDTH         ) ,
-    .C_RPAYLOAD_WIDTH              ( G_AXI_RPAYLOAD_WIDTH          ) 
-  )
-  vector2axi_0 ( 
-    .m_awpayload    ( m_awpayload    ) ,
-    .m_wpayload     ( m_wpayload     ) ,
-    .m_bpayload     ( m_bpayload     ) ,
-    .m_arpayload    ( m_arpayload    ) ,
-    .m_rpayload     ( m_rpayload     ) ,
-    .m_axi_awid     ( m_axi_awid     ) ,
-    .m_axi_awaddr   ( m_axi_awaddr   ) ,
-    .m_axi_awlen    ( m_axi_awlen    ) ,
-    .m_axi_awsize   ( m_axi_awsize   ) ,
-    .m_axi_awburst  ( m_axi_awburst  ) ,
-    .m_axi_awlock   ( m_axi_awlock   ) ,
-    .m_axi_awcache  ( m_axi_awcache  ) ,
-    .m_axi_awprot   ( m_axi_awprot   ) ,
-    .m_axi_awqos    ( m_axi_awqos    ) ,
-    .m_axi_awuser   ( m_axi_awuser   ) ,
-    .m_axi_awregion ( m_axi_awregion ) ,
-    .m_axi_wid      ( m_axi_wid      ) ,
-    .m_axi_wdata    ( m_axi_wdata    ) ,
-    .m_axi_wstrb    ( m_axi_wstrb    ) ,
-    .m_axi_wlast    ( m_axi_wlast    ) ,
-    .m_axi_wuser    ( m_axi_wuser    ) ,
-    .m_axi_bid      ( m_axi_bid      ) ,
-    .m_axi_bresp    ( m_axi_bresp    ) ,
-    .m_axi_buser    ( m_axi_buser    ) ,
-    .m_axi_arid     ( m_axi_arid     ) ,
-    .m_axi_araddr   ( m_axi_araddr   ) ,
-    .m_axi_arlen    ( m_axi_arlen    ) ,
-    .m_axi_arsize   ( m_axi_arsize   ) ,
-    .m_axi_arburst  ( m_axi_arburst  ) ,
-    .m_axi_arlock   ( m_axi_arlock   ) ,
-    .m_axi_arcache  ( m_axi_arcache  ) ,
-    .m_axi_arprot   ( m_axi_arprot   ) ,
-    .m_axi_arqos    ( m_axi_arqos    ) ,
-    .m_axi_aruser   ( m_axi_aruser   ) ,
-    .m_axi_arregion ( m_axi_arregion ) ,
-    .m_axi_rid      ( m_axi_rid      ) ,
-    .m_axi_rdata    ( m_axi_rdata    ) ,
-    .m_axi_rresp    ( m_axi_rresp    ) ,
-    .m_axi_rlast    ( m_axi_rlast    ) ,
-    .m_axi_ruser    ( m_axi_ruser    ) 
-  );
 
 endgenerate
 endmodule // axi_register_slice
