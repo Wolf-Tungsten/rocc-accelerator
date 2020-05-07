@@ -60,14 +60,108 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {Common 17-41} -limit 10000000
+
+start_step init_design
+set ACTIVE_STEP init_design
+set rc [catch {
+  create_msg_db init_design.pb
+  set_param chipscope.maxJobs 2
+  create_project -in_memory -part xc7a100tfgg484-1
+  set_property design_mode GateLvl [current_fileset]
+  set_param project.singleFileAddWarning.threshold 0
+  set_property webtalk.parent_dir /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/wt [current_project]
+  set_property parent.project_path /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.xpr [current_project]
+  set_property ip_output_repo /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/ip [current_project]
+  set_property ip_cache_permissions {read write} [current_project]
+  set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
+  add_files -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/chip_top.dcp
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/mig_7series_0/mig_7series_0.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_crossbar_0/axi_crossbar_0.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0.xci
+  read_xdc /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc
+  link_design -top chip_top -part xc7a100tfgg484-1
+  close_msg_db -file init_design.pb
+} RESULT]
+if {$rc} {
+  step_failed init_design
+  return -code error $RESULT
+} else {
+  end_step init_design
+  unset ACTIVE_STEP 
+}
+
+start_step opt_design
+set ACTIVE_STEP opt_design
+set rc [catch {
+  create_msg_db opt_design.pb
+  opt_design 
+  write_checkpoint -force chip_top_opt.dcp
+  create_report "impl_1_opt_report_drc_0" "report_drc -file chip_top_drc_opted.rpt -pb chip_top_drc_opted.pb -rpx chip_top_drc_opted.rpx"
+  close_msg_db -file opt_design.pb
+} RESULT]
+if {$rc} {
+  step_failed opt_design
+  return -code error $RESULT
+} else {
+  end_step opt_design
+  unset ACTIVE_STEP 
+}
+
+start_step place_design
+set ACTIVE_STEP place_design
+set rc [catch {
+  create_msg_db place_design.pb
+  if { [llength [get_debug_cores -quiet] ] > 0 }  { 
+    implement_debug_core 
+  } 
+  place_design 
+  write_checkpoint -force chip_top_placed.dcp
+  create_report "impl_1_place_report_io_0" "report_io -file chip_top_io_placed.rpt"
+  create_report "impl_1_place_report_utilization_0" "report_utilization -file chip_top_utilization_placed.rpt -pb chip_top_utilization_placed.pb"
+  create_report "impl_1_place_report_control_sets_0" "report_control_sets -verbose -file chip_top_control_sets_placed.rpt"
+  close_msg_db -file place_design.pb
+} RESULT]
+if {$rc} {
+  step_failed place_design
+  return -code error $RESULT
+} else {
+  end_step place_design
+  unset ACTIVE_STEP 
+}
+
+start_step route_design
+set ACTIVE_STEP route_design
+set rc [catch {
+  create_msg_db route_design.pb
+  route_design 
+  write_checkpoint -force chip_top_routed.dcp
+  create_report "impl_1_route_report_drc_0" "report_drc -file chip_top_drc_routed.rpt -pb chip_top_drc_routed.pb -rpx chip_top_drc_routed.rpx"
+  create_report "impl_1_route_report_methodology_0" "report_methodology -file chip_top_methodology_drc_routed.rpt -pb chip_top_methodology_drc_routed.pb -rpx chip_top_methodology_drc_routed.rpx"
+  create_report "impl_1_route_report_power_0" "report_power -file chip_top_power_routed.rpt -pb chip_top_power_summary_routed.pb -rpx chip_top_power_routed.rpx"
+  create_report "impl_1_route_report_route_status_0" "report_route_status -file chip_top_route_status.rpt -pb chip_top_route_status.pb"
+  create_report "impl_1_route_report_timing_summary_0" "report_timing_summary -max_paths 10 -file chip_top_timing_summary_routed.rpt -pb chip_top_timing_summary_routed.pb -rpx chip_top_timing_summary_routed.rpx -warn_on_violation "
+  create_report "impl_1_route_report_incremental_reuse_0" "report_incremental_reuse -file chip_top_incremental_reuse_routed.rpt"
+  create_report "impl_1_route_report_clock_utilization_0" "report_clock_utilization -file chip_top_clock_utilization_routed.rpt"
+  create_report "impl_1_route_report_bus_skew_0" "report_bus_skew -warn_on_violation -file chip_top_bus_skew_routed.rpt -pb chip_top_bus_skew_routed.pb -rpx chip_top_bus_skew_routed.rpx"
+  close_msg_db -file route_design.pb
+} RESULT]
+if {$rc} {
+  write_checkpoint -force chip_top_routed_error.dcp
+  step_failed route_design
+  return -code error $RESULT
+} else {
+  end_step route_design
+  unset ACTIVE_STEP 
+}
 
 start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
-  set_param chipscope.maxJobs 2
-  open_checkpoint chip_top_routed.dcp
-  set_property webtalk.parent_dir /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.cache/wt [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
   catch { write_mem_info -force chip_top.mmi }
   write_bitstream -force chip_top.bit 

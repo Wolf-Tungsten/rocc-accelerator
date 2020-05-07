@@ -279,6 +279,8 @@ module chip_top
   ExampleRocketSystem dut ( 
       .clock(dut_clock),
       .reset(dut_reset),
+      .debug_clock(dut_clock),
+      .debug_reset(dut_debug_systemjtag_reset),
       .debug_systemjtag_jtag_TCK(dut_debug_systemjtag_jtag_TCK), 
       .debug_systemjtag_jtag_TMS(dut_debug_systemjtag_jtag_TMS), 
       .debug_systemjtag_jtag_TDI(dut_debug_systemjtag_jtag_TDI),
@@ -288,6 +290,7 @@ module chip_top
       .debug_systemjtag_mfr_id(dut_debug_systemjtag_mfr_id),
       .debug_ndreset(dut_debug_ndreset),
       .debug_dmactive(dut_debug_dmactive),
+      .debug_dmactiveAck(1),
       .interrupts(dut_interrupts),
       .mem_axi4_0_aw_ready(dut_mem_axi4_0_aw_ready),
       .mem_axi4_0_aw_valid(dut_mem_axi4_0_aw_valid),
@@ -572,6 +575,8 @@ module chip_top
   assign dut_interrupts[0] = interrupt_uart;
   assign dut_interrupts[1] = interrupt_spi;  // need to be connected with interrupts
   
+  assign dut_interrupts[0] = 0;
+  assign dut_interrupts[1] = 0;
 //  assign dut_debug_clockeddmi_dmiClock = clock30; 
 //  assign dut_debug_clockeddmi_dmiReset = reset; 
 

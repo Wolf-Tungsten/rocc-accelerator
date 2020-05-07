@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="Mul8bit_synth_1" LaunchPart="xc7a100tfgg484-1" LaunchTime="1588828223">
+  <File Type="RDS-RDS" Name="Mul8bit.vds"/>
+  <File Type="REPORTS-TCL" Name="Mul8bit_reports.tcl"/>
   <File Type="RDS-UTIL-PB" Name="Mul8bit_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="Mul8bit.dcp"/>
   <File Type="PA-TCL" Name="Mul8bit.tcl"/>
   <File Type="RDS-UTIL" Name="Mul8bit_utilization_synth.rpt"/>
-  <File Type="REPORTS-TCL" Name="Mul8bit_reports.tcl"/>
-  <File Type="RDS-RDS" Name="Mul8bit.vds"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/Mul8bit">
     <File Path="$PSRCDIR/sources_1/ip/Mul8bit/Mul8bit.xci">
       <FileInfo>
