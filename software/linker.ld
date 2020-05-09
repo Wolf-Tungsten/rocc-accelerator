@@ -9,9 +9,9 @@ SECTIONS
     .sbss : { *(.sbss) }
 
 
-    . = 0x8000f000;
+    . = 0x800f0000;
     .stack : { *(.stack) }
 
-    . = 0x8000ff00;
+    . = 0x800ff000;
     .sdata : { *(.sdata) }
 }

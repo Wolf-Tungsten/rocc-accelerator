@@ -7,7 +7,7 @@
 // #define k_DO_READ 1
 // #define k_DO_LOAD 2
 // #define k_DO_ACCUM 3
-#define FEATURE_ROW_SIZE 64
+#define FEATURE_ROW_SIZE 32
 #define FILTER_ROW_SIZE 3
 #define RESULT_ROW_SIZE FEATURE_ROW_SIZE-FILTER_ROW_SIZE+1
 
@@ -43,5 +43,11 @@ uint32_t empty;
   ROCC_INSTRUCTION_DSS(XCUSTOM_CONV, result_rd, addr_rs1, 0, k_DO_FETCH_RESULT)
 #define doStoreResult(addr_rs1)                                       \
   ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_STORE_RESULT);
+
+
+int32_t fetchOneResult(uint8_t resultAddr);
+void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size);
+
+void convTest();
 
 #endif

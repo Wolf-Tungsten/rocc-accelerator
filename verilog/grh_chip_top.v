@@ -280,7 +280,7 @@ module chip_top
       .clock(dut_clock),
       .reset(dut_reset),
       .debug_clock(dut_clock),
-      .debug_reset(dut_debug_systemjtag_reset),
+      .debug_reset(dut_reset),
       .debug_systemjtag_jtag_TCK(dut_debug_systemjtag_jtag_TCK), 
       .debug_systemjtag_jtag_TMS(dut_debug_systemjtag_jtag_TMS), 
       .debug_systemjtag_jtag_TDI(dut_debug_systemjtag_jtag_TDI),
@@ -634,7 +634,7 @@ module chip_top
   //  ***** mmio module *****
   // CR inheritance 
   assign mmio_clock = clock30; 
-  assign mmio_reset = reset; 
+  assign mmio_reset = dut_reset; 
   //  drived by outside module
   assign dut_mmio_axi4_0_aw_ready = mmio_io_axi4_0_aw_ready; 
   assign dut_mmio_axi4_0_w_ready = mmio_io_axi4_0_w_ready; 
