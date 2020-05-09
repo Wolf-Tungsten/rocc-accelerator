@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date         : Thu May  7 23:28:15 2020
+| Date         : Sat May  9 10:09:06 2020
 | Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
 | Command      : report_drc -file chip_top_drc_opted.rpt -pb chip_top_drc_opted.pb -rpx chip_top_drc_opted.rpx
 | Design       : chip_top
@@ -24,17 +24,17 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 28
+             Violations found: 41
 +-----------+----------+-----------------------------------------------------+------------+
 | Rule      | Severity | Description                                         | Violations |
 +-----------+----------+-----------------------------------------------------+------------+
 | BUFC-1    | Warning  | Input Buffer Connections                            | 2          |
 | CFGBVS-1  | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1          |
-| DPIP-1    | Warning  | Input pipelining                                    | 3          |
-| DPOP-1    | Warning  | PREG Output pipelining                              | 4          |
-| DPOP-2    | Warning  | MREG Output pipelining                              | 4          |
+| DPIP-1    | Warning  | Input pipelining                                    | 7          |
+| DPOP-1    | Warning  | PREG Output pipelining                              | 8          |
+| DPOP-2    | Warning  | MREG Output pipelining                              | 8          |
 | PLCK-12   | Warning  | Clock Placer Checks                                 | 1          |
-| REQP-1571 | Warning  | connects_D                                          | 12         |
+| REQP-1571 | Warning  | connects_D                                          | 13         |
 | REQP-1709 | Warning  | Clock output buffering                              | 1          |
 +-----------+----------+-----------------------------------------------------+------------+
 
@@ -78,6 +78,26 @@ Input pipelining
 DSP dut/tile/fpuOpt/sfma/fma/_T__0 input dut/tile/fpuOpt/sfma/fma/_T__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
+DPIP-1#4 Warning
+Input pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return input mmio/uart_inst/bridge_inst/reader/lite_packet_size_return/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#5 Warning
+Input pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return input mmio/uart_inst/bridge_inst/reader/lite_packet_size_return/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#6 Warning
+Input pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return input mmio/uart_inst/bridge_inst/writer/lite_packet_size_return/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#7 Warning
+Input pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return input mmio/uart_inst/bridge_inst/writer/lite_packet_size_return/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
 DPOP-1#1 Warning
 PREG Output pipelining  
 DSP dut/tile/core/div/_T_60 output dut/tile/core/div/_T_60/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
@@ -98,6 +118,26 @@ PREG Output pipelining
 DSP dut/tile/fpuOpt/sfma/fma/_T__0 output dut/tile/fpuOpt/sfma/fma/_T__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
+DPOP-1#5 Warning
+PREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return output mmio/uart_inst/bridge_inst/reader/lite_packet_size_return/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#6 Warning
+PREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return__0 output mmio/uart_inst/bridge_inst/reader/lite_packet_size_return__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#7 Warning
+PREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return output mmio/uart_inst/bridge_inst/writer/lite_packet_size_return/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#8 Warning
+PREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return__0 output mmio/uart_inst/bridge_inst/writer/lite_packet_size_return__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
 DPOP-2#1 Warning
 MREG Output pipelining  
 DSP dut/tile/core/div/_T_60 multiplier stage dut/tile/core/div/_T_60/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
@@ -116,6 +156,26 @@ Related violations: <none>
 DPOP-2#4 Warning
 MREG Output pipelining  
 DSP dut/tile/fpuOpt/sfma/fma/_T__0 multiplier stage dut/tile/fpuOpt/sfma/fma/_T__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#5 Warning
+MREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return multiplier stage mmio/uart_inst/bridge_inst/reader/lite_packet_size_return/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#6 Warning
+MREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return__0 multiplier stage mmio/uart_inst/bridge_inst/reader/lite_packet_size_return__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#7 Warning
+MREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return multiplier stage mmio/uart_inst/bridge_inst/writer/lite_packet_size_return/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#8 Warning
+MREG Output pipelining  
+DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return__0 multiplier stage mmio/uart_inst/bridge_inst/writer/lite_packet_size_return__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 Related violations: <none>
 
 PLCK-12#1 Warning
@@ -187,6 +247,11 @@ Related violations: <none>
 REQP-1571#12 Warning
 connects_D  
 The FDRE cell mem/DDR_ctrl/u_mig_7series_0_mig/temp_mon_enabled.u_tempmon/device_temp_sync_r1_reg[9] has no driver for the D input pin. To protect against unwanted transitions in all flows, the D input pin is required to have a driver. To resolve this violation, modify the design so that the D input pin has an active signal or constant logic-level tie-off.
+Related violations: <none>
+
+REQP-1571#13 Warning
+connects_D  
+The FDRE cell mmio/uart_inst/uart16550_inst/U0/XUART_I_1/UART16550_I_1/ctsN_d_reg has no driver for the D input pin. To protect against unwanted transitions in all flows, the D input pin is required to have a driver. To resolve this violation, modify the design so that the D input pin has an active signal or constant logic-level tie-off.
 Related violations: <none>
 
 REQP-1709#1 Warning

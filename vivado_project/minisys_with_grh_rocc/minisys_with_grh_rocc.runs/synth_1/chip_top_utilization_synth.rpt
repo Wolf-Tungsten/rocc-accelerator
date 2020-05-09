@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date         : Thu May  7 23:26:11 2020
+| Date         : Sat May  9 10:06:55 2020
 | Host         : ubuntu running 64-bit Ubuntu 18.04.4 LTS
 | Command      : report_utilization -file chip_top_utilization_synth.rpt -pb chip_top_utilization_synth.pb
 | Design       : chip_top
@@ -30,16 +30,16 @@ Table of Contents
 +----------------------------+-------+-------+-----------+-------+
 |          Site Type         |  Used | Fixed | Available | Util% |
 +----------------------------+-------+-------+-----------+-------+
-| Slice LUTs*                | 25508 |     0 |     63400 | 40.23 |
-|   LUT as Logic             | 24351 |     0 |     63400 | 38.41 |
-|   LUT as Memory            |  1157 |     0 |     19000 |  6.09 |
-|     LUT as Distributed RAM |  1154 |     0 |           |       |
-|     LUT as Shift Register  |     3 |     0 |           |       |
-| Slice Registers            | 14077 |     0 |    126800 | 11.10 |
-|   Register as Flip Flop    | 14077 |     0 |    126800 | 11.10 |
+| Slice LUTs*                | 26620 |     0 |     63400 | 41.99 |
+|   LUT as Logic             | 25092 |     0 |     63400 | 39.58 |
+|   LUT as Memory            |  1528 |     0 |     19000 |  8.04 |
+|     LUT as Distributed RAM |  1522 |     0 |           |       |
+|     LUT as Shift Register  |     6 |     0 |           |       |
+| Slice Registers            | 14564 |     0 |    126800 | 11.49 |
+|   Register as Flip Flop    | 14564 |     0 |    126800 | 11.49 |
 |   Register as Latch        |     0 |     0 |    126800 |  0.00 |
-| F7 Muxes                   |   982 |     0 |     31700 |  3.10 |
-| F8 Muxes                   |    88 |     0 |     15850 |  0.56 |
+| F7 Muxes                   |   992 |     0 |     31700 |  3.13 |
+| F8 Muxes                   |    86 |     0 |     15850 |  0.54 |
 +----------------------------+-------+-------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 
@@ -57,9 +57,9 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 8     |          Yes |           - |          Set |
-| 71    |          Yes |           - |        Reset |
-| 61    |          Yes |         Set |            - |
-| 13937 |          Yes |       Reset |            - |
+| 146   |          Yes |           - |        Reset |
+| 67    |          Yes |         Set |            - |
+| 14343 |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -83,8 +83,8 @@ Table of Contents
 +----------------+------+-------+-----------+-------+
 |    Site Type   | Used | Fixed | Available | Util% |
 +----------------+------+-------+-----------+-------+
-| DSPs           |    4 |     0 |       240 |  1.67 |
-|   DSP48E1 only |    4 |       |           |       |
+| DSPs           |    8 |     0 |       240 |  3.33 |
+|   DSP48E1 only |    8 |       |           |       |
 +----------------+------+-------+-----------+-------+
 
 
@@ -94,7 +94,7 @@ Table of Contents
 +-----------------------------+------+-------+-----------+-------+
 |          Site Type          | Used | Fixed | Available | Util% |
 +-----------------------------+------+-------+-----------+-------+
-| Bonded IOB                  |   22 |     0 |       285 |  7.72 |
+| Bonded IOB                  |   24 |     0 |       285 |  8.42 |
 | Bonded IPADs                |    0 |     0 |        14 |  0.00 |
 | Bonded OPADs                |    0 |     0 |         8 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |         6 |  0.00 |
@@ -153,28 +153,28 @@ Table of Contents
 +----------+-------+---------------------+
 | Ref Name |  Used | Functional Category |
 +----------+-------+---------------------+
-| FDRE     | 13937 |        Flop & Latch |
-| LUT6     | 11936 |                 LUT |
-| LUT4     |  6470 |                 LUT |
-| LUT5     |  4559 |                 LUT |
-| LUT3     |  4393 |                 LUT |
-| LUT2     |  1548 |                 LUT |
-| CARRY4   |  1459 |          CarryLogic |
-| RAMD32   |  1160 |  Distributed Memory |
-| MUXF7    |   982 |               MuxFx |
-| RAMS32   |   366 |  Distributed Memory |
+| FDRE     | 14343 |        Flop & Latch |
+| LUT6     | 12279 |                 LUT |
+| LUT4     |  6543 |                 LUT |
+| LUT5     |  4718 |                 LUT |
+| LUT3     |  4514 |                 LUT |
+| LUT2     |  1745 |                 LUT |
+| RAMD32   |  1692 |  Distributed Memory |
+| CARRY4   |  1501 |          CarryLogic |
+| MUXF7    |   992 |               MuxFx |
+| RAMS32   |   530 |  Distributed Memory |
 | RAMD64E  |   360 |  Distributed Memory |
 | RAMB18E1 |   256 |        Block Memory |
-| LUT1     |   127 |                 LUT |
-| MUXF8    |    88 |               MuxFx |
-| FDCE     |    71 |        Flop & Latch |
-| FDSE     |    61 |        Flop & Latch |
-| OBUFT    |    14 |                  IO |
+| FDCE     |   146 |        Flop & Latch |
+| LUT1     |   140 |                 LUT |
+| MUXF8    |    86 |               MuxFx |
+| FDSE     |    67 |        Flop & Latch |
+| OBUFT    |    12 |                  IO |
 | FDPE     |     8 |        Flop & Latch |
-| IBUF     |     5 |                  IO |
-| DSP48E1  |     4 |    Block Arithmetic |
-| SRL16E   |     3 |  Distributed Memory |
-| OBUF     |     3 |                  IO |
+| DSP48E1  |     8 |    Block Arithmetic |
+| SRL16E   |     6 |  Distributed Memory |
+| OBUF     |     6 |                  IO |
+| IBUF     |     6 |                  IO |
 | BUFG     |     1 |               Clock |
 +----------+-------+---------------------+
 
@@ -188,6 +188,7 @@ Table of Contents
 | Mul8bit               |  270 |
 | mig_7series_0         |    1 |
 | clk_wiz_0             |    1 |
+| axi_uart16550_0       |    1 |
 | axi_clock_converter_0 |    1 |
 +-----------------------+------+
 

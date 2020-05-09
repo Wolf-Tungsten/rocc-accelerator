@@ -2,8 +2,8 @@
 # Vivado v2019.2 (64-bit)
 # SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
 # IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
-# Start of session at: Thu May  7 23:19:01 2020
-# Process ID: 98364
+# Start of session at: Sat May  9 09:59:37 2020
+# Process ID: 32611
 # Current directory: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1
 # Command line: vivado -log chip_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source chip_top.tcl
 # Log file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/chip_top.vds
@@ -16,13 +16,13 @@ Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Device 21-403] Loading part xc7a100tfgg484-1
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 98393 
+INFO: Helper process launched with PID 32634 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1942.777 ; gain = 237.684 ; free physical = 3614 ; free virtual = 5229
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:05 . Memory (MB): peak = 1926.562 ; gain = 237.684 ; free physical = 2050 ; free virtual = 4165
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'chip_top' [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:3]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-98364-ubuntu/realtime/clk_wiz_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (1#1) [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-98364-ubuntu/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-32611-ubuntu/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (1#1) [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/.Xil/Vivado-32611-ubuntu/realtime/clk_wiz_0_stub.v:5]
 INFO: [Synth 8-6157] synthesizing module 'ExampleRocketSystem' [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:260432]
 INFO: [Synth 8-6157] synthesizing module 'IntXbar' [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:1]
 INFO: [Synth 8-6155] done synthesizing module 'IntXbar' (2#1) [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:1]
@@ -899,19 +899,155 @@ WARNING: [Synth 8-689] width (32) of port connection 's_axi_awaddr' does not mat
 WARNING: [Synth 8-689] width (8) of port connection 's_axi_wstrb' does not match port width (4) of module 'mig_7series_0' [/home/wolf/rocket-chip/rocc-accelerator/verilog/AXIMem.v:265]
 WARNING: [Synth 8-689] width (32) of port connection 's_axi_araddr' does not match port width (29) of module 'mig_7series_0' [/home/wolf/rocket-chip/rocc-accelerator/verilog/AXIMem.v:274]
 WARNING: [Synth 8-7023] instance 'DDR_ctrl' of module 'mig_7series_0' has 68 connections declared, but only 62 given [/home/wolf/rocket-chip/rocc-accelerator/verilog/AXIMem.v:219]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_aw_ready in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:107]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_w_ready in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:118]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_b_valid in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:124]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_b_id in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:125]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_b_resp in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:126]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_ar_ready in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:127]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_r_valid in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:139]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_r_id in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:140]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_r_data in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:141]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_r_resp in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:142]
-WARNING: [Synth 8-3848] Net dut_mmio_axi4_0_r_last in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:143]
-WARNING: [Synth 8-3848] Net interrupt_spi in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:263]
-WARNING: [Synth 8-3848] Net interrupt_uart in module/entity chip_top does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/grh_chip_top.v:264]
+	Parameter MAX_TRANSACTION bound to: 1 - type: integer 
+	Parameter ID_WIDTH bound to: 4 - type: integer 
+	Parameter ADDR_WIDTH bound to: 13 - type: integer 
+	Parameter NASTI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter LITE_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter MAX_TRANSACTION bound to: 1 - type: integer 
+	Parameter ID_WIDTH bound to: 4 - type: integer 
+	Parameter ADDR_WIDTH bound to: 13 - type: integer 
+	Parameter NASTI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter LITE_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter BUF_LEN bound to: 1 - type: integer 
+	Parameter MAX_TRAN_BITS bound to: 0 - type: integer 
+	Parameter BUF_LEN_BITS bound to: 0 - type: integer 
+	Parameter NASTI_W_BITS bound to: 2 - type: integer 
+	Parameter LITE_W_BITS bound to: 2 - type: integer 
+WARNING: [Synth 8-2898] ignoring assertion [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:73]
+WARNING: [Synth 8-2898] ignoring assertion [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:75]
+WARNING: [Synth 8-5858] RAM aw_buf_reg from Abstract Data Type (record/struct) for this pattern/configuration is not supported. This will most likely be implemented in registers
+WARNING: [Synth 8-6014] Unused sequential element aw_buf_reg[0][burst] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-6014] Unused sequential element aw_buf_reg[0][lock] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-6014] Unused sequential element aw_buf_reg[0][cache] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[burst] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[lock] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[cache] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][id] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][addr] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][len] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][size] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][prot] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][qos] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][region] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register aw_buf_reg[0][user] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:140]
+WARNING: [Synth 8-5788] Register xact_req_reg[id] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[addr] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[len] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[size] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[prot] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[qos] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[region] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_req_reg[user] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:227]
+WARNING: [Synth 8-5788] Register xact_data_vec_reg[0] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:236]
+WARNING: [Synth 8-5788] Register xact_strb_vec_reg[0] in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:237]
+WARNING: [Synth 8-5788] Register xact_user_reg in module nasti_lite_writer is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:238]
+	Parameter MAX_TRANSACTION bound to: 1 - type: integer 
+	Parameter ID_WIDTH bound to: 4 - type: integer 
+	Parameter ADDR_WIDTH bound to: 13 - type: integer 
+	Parameter NASTI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter LITE_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter BUF_LEN bound to: 1 - type: integer 
+	Parameter MAX_TRAN_BITS bound to: 0 - type: integer 
+	Parameter BUF_LEN_BITS bound to: 0 - type: integer 
+	Parameter NASTI_W_BITS bound to: 2 - type: integer 
+	Parameter LITE_W_BITS bound to: 2 - type: integer 
+WARNING: [Synth 8-2898] ignoring assertion [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:64]
+WARNING: [Synth 8-2898] ignoring assertion [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:66]
+WARNING: [Synth 8-5858] RAM ar_buf_reg from Abstract Data Type (record/struct) for this pattern/configuration is not supported. This will most likely be implemented in registers
+WARNING: [Synth 8-6014] Unused sequential element nasti_r_addr_accum_reg was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:214]
+WARNING: [Synth 8-6014] Unused sequential element ar_buf_reg[0][burst] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-6014] Unused sequential element ar_buf_reg[0][lock] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-6014] Unused sequential element ar_buf_reg[0][cache] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[burst] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[lock] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-6014] Unused sequential element xact_req_reg[cache] was removed.  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][id] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][addr] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][len] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][size] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][prot] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][qos] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][region] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register ar_buf_reg[0][user] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:126]
+WARNING: [Synth 8-5788] Register xact_req_reg[id] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[addr] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[len] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[size] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[prot] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[qos] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[region] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_req_reg[user] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:160]
+WARNING: [Synth 8-5788] Register xact_data_vec_reg[0] in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:202]
+WARNING: [Synth 8-5788] Register xact_resp_reg in module nasti_lite_reader is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:203]
+WARNING: [Synth 8-7023] instance 'bridge_inst' of module 'nasti_lite_bridge' has 78 connections declared, but only 52 given [/home/wolf/rocket-chip/rocc-accelerator/verilog/peri/uart.v:85]
+WARNING: [Synth 8-7023] instance 'uart16550_inst' of module 'axi_uart16550_0' has 35 connections declared, but only 26 given [/home/wolf/rocket-chip/rocc-accelerator/verilog/peri/uart.v:143]
+WARNING: [Synth 8-3848] Net lite_r_id in module/entity uart does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/peri/uart.v:46]
+WARNING: [Synth 8-3848] Net lite_b_id in module/entity uart does not have driver. [/home/wolf/rocket-chip/rocc-accelerator/verilog/peri/uart.v:59]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_burst[1]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_burst[0]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_lock
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_cache[3]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_cache[2]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_cache[1]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port nasti_ar_cache[0]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port lite_r_id[3]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port lite_r_id[2]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port lite_r_id[1]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port lite_r_id[0]
+WARNING: [Synth 8-3331] design nasti_lite_reader has unconnected port lite_r_user[0]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_burst[1]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_burst[0]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_lock
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_cache[3]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_cache[2]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_cache[1]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_aw_cache[0]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port nasti_w_last
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port lite_b_id[3]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port lite_b_id[2]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port lite_b_id[1]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port lite_b_id[0]
+WARNING: [Synth 8-3331] design nasti_lite_writer has unconnected port lite_b_user[0]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[30]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[29]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[28]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[27]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[26]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[25]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[24]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[23]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[22]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[21]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[20]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[19]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[18]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[17]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[16]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[15]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[14]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_aw_addr[13]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[30]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[29]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[28]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[27]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[26]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[25]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[24]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[23]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[22]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[21]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[20]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[19]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[18]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[17]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[16]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[15]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[14]
+WARNING: [Synth 8-3331] design uart has unconnected port uart_axi4_ar_addr[13]
 WARNING: [Synth 8-3331] design AXIMem has unconnected port clock100
 WARNING: [Synth 8-3331] design AXIMem has unconnected port io_axi4_0_w_strb[7]
 WARNING: [Synth 8-3331] design AXIMem has unconnected port io_axi4_0_w_strb[6]
@@ -951,70 +1087,9 @@ WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_ad
 WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[14]
 WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[13]
 WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[12]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[11]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[10]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[9]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[8]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[7]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[6]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[5]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[4]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[3]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[2]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[1]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_address[0]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_mask[3]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_mask[2]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_mask[1]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_mask[0]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_a_bits_corrupt
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_ready
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_valid
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_size[1]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_size[0]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[9]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[8]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[7]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[6]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[5]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[4]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[3]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[2]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[1]
-WARNING: [Synth 8-3331] design TLMonitor_46 has unconnected port io_in_d_bits_source[0]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port clock
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port reset
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[31]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[30]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[29]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[28]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[27]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[26]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[25]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[24]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[23]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[22]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[21]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[20]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[19]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[18]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[17]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[16]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[15]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[14]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[13]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[12]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[11]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[10]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[9]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[8]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[7]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[6]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[5]
-WARNING: [Synth 8-3331] design PlusArgTimeout has unconnected port io_count[4]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 2463.145 ; gain = 758.051 ; free physical = 3247 ; free virtual = 4876
+Finished RTL Elaboration : Time (s): cpu = 00:00:15 ; elapsed = 00:00:23 . Memory (MB): peak = 2450.930 ; gain = 762.051 ; free physical = 1679 ; free virtual = 3806
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1027,12 +1102,12 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 2469.082 ; gain = 763.988 ; free physical = 3351 ; free virtual = 4980
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2456.867 ; gain = 767.988 ; free physical = 1785 ; free virtual = 3912
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 2469.082 ; gain = 763.988 ; free physical = 3351 ; free virtual = 4980
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2456.867 ; gain = 767.988 ; free physical = 1785 ; free virtual = 3912
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2469.082 ; gain = 0.000 ; free physical = 3364 ; free virtual = 4994
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2460.867 ; gain = 0.000 ; free physical = 1609 ; free virtual = 3738
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -1579,13 +1654,13 @@ Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys
 Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit/Mul8bit_in_context.xdc] for cell 'dut/tile/accel/conv2dPE/Mul8bit_268'
 Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit/Mul8bit_in_context.xdc] for cell 'dut/tile/accel/conv2dPE/Mul8bit_269'
 Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/Mul8bit/Mul8bit/Mul8bit_in_context.xdc] for cell 'dut/tile/accel/conv2dPE/Mul8bit_269'
+Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0/axi_uart16550_0_in_context.xdc] for cell 'mmio/uart_inst/uart16550_inst'
+Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0/axi_uart16550_0_in_context.xdc] for cell 'mmio/uart_inst/uart16550_inst'
 Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clk_gen'
 Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clk_gen'
 Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0/axi_clock_converter_0_in_context.xdc] for cell 'mem/clk_conv'
 Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0/axi_clock_converter_0_in_context.xdc] for cell 'mem/clk_conv'
 Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc]
-WARNING: [Vivado 12-584] No ports matched 'uart_TX'. [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc:6]
-WARNING: [Vivado 12-584] No ports matched 'uart_RX'. [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc:7]
 WARNING: [Vivado 12-507] No nets matched 'jtag_tck_IBUF'. [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc:35]
 Finished Parsing XDC File [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc]
 WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.srcs/constrs_1/imports/constraints/Minisys_Board_Pin_Map.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/chip_top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
@@ -1593,11 +1668,11 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/chip_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2875.488 ; gain = 0.000 ; free physical = 3025 ; free virtual = 4671
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2865.273 ; gain = 0.000 ; free physical = 1228 ; free virtual = 3358
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.14 . Memory (MB): peak = 2875.488 ; gain = 0.000 ; free physical = 3025 ; free virtual = 4671
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.15 . Memory (MB): peak = 2865.273 ; gain = 0.000 ; free physical = 1227 ; free virtual = 3358
 WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'dut/tile/accel/conv2dPE/Mul8bit' at clock pin 'CLK' is different from the actual clock period '33.333', this can lead to different synthesis results.
 WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'dut/tile/accel/conv2dPE/Mul8bit_1' at clock pin 'CLK' is different from the actual clock period '33.333', this can lead to different synthesis results.
 WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'dut/tile/accel/conv2dPE/Mul8bit_10' at clock pin 'CLK' is different from the actual clock period '33.333', this can lead to different synthesis results.
@@ -1700,7 +1775,7 @@ WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context 
 WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'dut/tile/accel/conv2dPE/Mul8bit_188' at clock pin 'CLK' is different from the actual clock period '33.333', this can lead to different synthesis results.
 INFO: [Common 17-14] Message 'Timing 38-316' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:40 ; elapsed = 00:00:46 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 3638 ; free virtual = 5285
+Finished Constraint Validation : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 1734 ; free virtual = 3864
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 4 processes.
 ---------------------------------------------------------------------------------
@@ -1708,7 +1783,7 @@ Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tfgg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:40 ; elapsed = 00:00:46 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 3637 ; free virtual = 5284
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:39 ; elapsed = 00:00:48 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 1734 ; free virtual = 3863
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -2084,10 +2159,11 @@ Applied set_property DONT_TOUCH = true for dut/tile/accel/conv2dPE/Mul8bit_96. (
 Applied set_property DONT_TOUCH = true for dut/tile/accel/conv2dPE/Mul8bit_97. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for dut/tile/accel/conv2dPE/Mul8bit_98. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for dut/tile/accel/conv2dPE/Mul8bit_99. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for mmio/uart_inst/uart16550_inst. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for clk_gen. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for mem/clk_conv. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:42 ; elapsed = 00:00:47 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 3631 ; free virtual = 5278
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:40 ; elapsed = 00:00:50 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 1707 ; free virtual = 3836
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-3936] Found unconnected internal register '_T_5_0_bits_opcode_reg' and it is trimmed from '3' to '1' bits. [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:86662]
 INFO: [Synth 8-4471] merging register '_T_qos_reg[3:0]' into '_T_cache_reg[3:0]'
@@ -2123,6 +2199,7 @@ WARNING: [Synth 8-3936] Found unconnected internal register 'ex_reg_inst_reg' an
 WARNING: [Synth 8-3936] Found unconnected internal register 'wb_reg_raw_inst_reg' and it is trimmed from '32' to '16' bits. [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:248972]
 WARNING: [Synth 8-3936] Found unconnected internal register 'mem_reg_raw_inst_reg' and it is trimmed from '32' to '16' bits. [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:250038]
 WARNING: [Synth 8-3936] Found unconnected internal register 'ex_reg_raw_inst_reg' and it is trimmed from '32' to '16' bits. [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:249970]
+INFO: [Synth 8-5845] Not enough pipeline registers after wide multiplier. Recommended levels of pipeline registers is 2 [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_reader.sv:110]
 INFO: [Synth 8-6430] The Block RAM "tag_array_ext:/ram_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 WARNING: [Synth 8-6841] Block RAM (ram_reg) originally specified as a Byte Wide Write Enable RAM cannot take advantage of ByteWide feature and is implemented with single write enable per RAM due to following reason.
 (byte width (1) is not a multiple of 8(data_only) or 9(data + parity))
@@ -2237,7 +2314,7 @@ INFO: [Synth 8-6430] The Block RAM "data_arrays_0_0_ext:/ram_reg" may get memory
 WARNING: [Synth 8-6841] Block RAM (ram_reg) originally specified as a Byte Wide Write Enable RAM cannot take advantage of ByteWide feature and is implemented with single write enable per RAM due to following reason.
 (byte width (1) is not a multiple of 8(data_only) or 9(data + parity))
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 1929 ; free virtual = 3588
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:06 ; elapsed = 00:01:20 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 274 ; free virtual = 1581
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-223] decloning instance 'dut/tile/dcache/tlb_package_Anon' (package_Anon) to 'dut/tile/dcache/tlb_package_Anon_13'
 INFO: [Synth 8-223] decloning instance 'dut/tile/dcache/tlb_package_Anon' (package_Anon) to 'dut/tile/dcache/tlb_package_Anon_26'
@@ -2335,7 +2412,7 @@ Report RTL Partitions:
 |7     |RocketTile__GCB3         |           1|     36637|
 |8     |RocketTile__GCB4         |           1|     27839|
 |9     |ExampleRocketSystem__GC0 |           1|     29381|
-|10    |chip_top__GC0            |           1|       330|
+|10    |chip_top__GC0            |           1|      2584|
 +------+-------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -2349,19 +2426,20 @@ Detailed RTL Component Info :
 	   2 Input     41 Bit       Adders := 1     
 	   3 Input     33 Bit       Adders := 1     
 	   9 Input     32 Bit       Adders := 30    
-	   2 Input     32 Bit       Adders := 14    
+	   2 Input     32 Bit       Adders := 17    
 	   3 Input     32 Bit       Adders := 4     
 	   2 Input     30 Bit       Adders := 8     
 	   3 Input     28 Bit       Adders := 1     
 	   2 Input     26 Bit       Adders := 4     
+	   2 Input     13 Bit       Adders := 1     
 	   2 Input     11 Bit       Adders := 4     
 	   4 Input     11 Bit       Adders := 1     
-	   3 Input     11 Bit       Adders := 1     
-	   2 Input     10 Bit       Adders := 15    
+	   3 Input     11 Bit       Adders := 2     
+	   2 Input     10 Bit       Adders := 17    
 	   3 Input     10 Bit       Adders := 9     
-	   2 Input      9 Bit       Adders := 6     
+	   2 Input      9 Bit       Adders := 9     
 	   3 Input      9 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 4     
 	   3 Input      8 Bit       Adders := 3     
 	   2 Input      7 Bit       Adders := 4     
 	   2 Input      6 Bit       Adders := 2     
@@ -2375,7 +2453,7 @@ Detailed RTL Component Info :
 	   3 Input      2 Bit       Adders := 4     
 	   4 Input      2 Bit       Adders := 2     
 	   5 Input      2 Bit       Adders := 1     
-	   2 Input      1 Bit       Adders := 60    
+	   2 Input      1 Bit       Adders := 63    
 	   3 Input      1 Bit       Adders := 7     
 	   4 Input      1 Bit       Adders := 7     
 +---XORs : 
@@ -2402,7 +2480,7 @@ Detailed RTL Component Info :
 	               43 Bit    Registers := 1     
 	               34 Bit    Registers := 87    
 	               33 Bit    Registers := 42    
-	               32 Bit    Registers := 145   
+	               32 Bit    Registers := 147   
 	               31 Bit    Registers := 1     
 	               30 Bit    Registers := 10    
 	               28 Bit    Registers := 4     
@@ -2415,20 +2493,21 @@ Detailed RTL Component Info :
 	               17 Bit    Registers := 1     
 	               16 Bit    Registers := 6     
 	               15 Bit    Registers := 1     
-	               13 Bit    Registers := 56    
+	               13 Bit    Registers := 61    
 	               12 Bit    Registers := 6     
 	               10 Bit    Registers := 23    
-	                9 Bit    Registers := 5     
-	                8 Bit    Registers := 237   
+	                9 Bit    Registers := 12    
+	                8 Bit    Registers := 240   
 	                7 Bit    Registers := 7     
 	                6 Bit    Registers := 11    
 	                5 Bit    Registers := 58    
-	                4 Bit    Registers := 83    
-	                3 Bit    Registers := 136   
-	                2 Bit    Registers := 126   
-	                1 Bit    Registers := 978   
+	                4 Bit    Registers := 96    
+	                3 Bit    Registers := 144   
+	                2 Bit    Registers := 132   
+	                1 Bit    Registers := 994   
 +---Multipliers : 
 	                 9x33  Multipliers := 1     
+	                10x32  Multipliers := 1     
 +---RAMs : 
 	             128K Bit         RAMs := 1     
 	              64K Bit         RAMs := 1     
@@ -2469,7 +2548,7 @@ Detailed RTL Component Info :
 	   2 Input     43 Bit        Muxes := 2     
 	   4 Input     34 Bit        Muxes := 16    
 	   2 Input     33 Bit        Muxes := 17    
-	   2 Input     32 Bit        Muxes := 246   
+	   2 Input     32 Bit        Muxes := 248   
 	   4 Input     32 Bit        Muxes := 5     
 	  14 Input     32 Bit        Muxes := 2     
 	  16 Input     32 Bit        Muxes := 1     
@@ -2491,13 +2570,13 @@ Detailed RTL Component Info :
 	   2 Input     17 Bit        Muxes := 1     
 	   2 Input     16 Bit        Muxes := 5     
 	   2 Input     14 Bit        Muxes := 10    
-	   2 Input     13 Bit        Muxes := 32    
+	   2 Input     13 Bit        Muxes := 34    
 	   3 Input     12 Bit        Muxes := 1     
 	   2 Input     12 Bit        Muxes := 5     
 	   2 Input     11 Bit        Muxes := 1     
 	   2 Input     10 Bit        Muxes := 37    
-	   2 Input      9 Bit        Muxes := 15    
-	   2 Input      8 Bit        Muxes := 151   
+	   2 Input      9 Bit        Muxes := 18    
+	   2 Input      8 Bit        Muxes := 154   
 	   6 Input      7 Bit        Muxes := 1     
 	   2 Input      7 Bit        Muxes := 14    
 	   3 Input      7 Bit        Muxes := 1     
@@ -2511,7 +2590,7 @@ Detailed RTL Component Info :
 	   3 Input      5 Bit        Muxes := 1     
 	  16 Input      5 Bit        Muxes := 3     
 	  11 Input      4 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 96    
+	   2 Input      4 Bit        Muxes := 97    
 	   4 Input      4 Bit        Muxes := 2     
 	  38 Input      4 Bit        Muxes := 1     
 	   3 Input      4 Bit        Muxes := 2     
@@ -2535,7 +2614,7 @@ Detailed RTL Component Info :
 	   4 Input      2 Bit        Muxes := 6     
 	  16 Input      2 Bit        Muxes := 2     
 	   6 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 1812  
+	   2 Input      1 Bit        Muxes := 1827  
 	   4 Input      1 Bit        Muxes := 24    
 	   3 Input      1 Bit        Muxes := 1     
 	  12 Input      1 Bit        Muxes := 1     
@@ -4790,6 +4869,55 @@ Detailed RTL Component Info :
 	                7 Bit    Registers := 1     
 +---Muxes : 
 	   2 Input      1 Bit        Muxes := 1     
+Module narrower 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 1     
+Module nasti_lite_writer 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
+	   3 Input     11 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 3     
+	   2 Input      1 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 1     
+	               13 Bit    Registers := 2     
+	                9 Bit    Registers := 5     
+	                4 Bit    Registers := 7     
+	                3 Bit    Registers := 4     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 11    
++---Multipliers : 
+	                10x32  Multipliers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     13 Bit        Muxes := 1     
+	   2 Input      9 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 9     
+Module nasti_lite_reader 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   2 Input     13 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 3     
+	   2 Input      1 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	               13 Bit    Registers := 3     
+	                9 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                4 Bit    Registers := 6     
+	                3 Bit    Registers := 4     
+	                2 Bit    Registers := 3     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     13 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 6     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -4805,6 +4933,31 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5845] Not enough pipeline registers after wide multiplier. Recommended levels of pipeline registers is 2 [/home/wolf/rocket-chip/rocc-accelerator/verilog/utils/nasti_lite_bridge/nasti_lite_writer.sv:124]
+DSP Report: Generating DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return, operation Mode is: A*B.
+DSP Report: operator mmio/uart_inst/bridge_inst/writer/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return.
+DSP Report: operator mmio/uart_inst/bridge_inst/writer/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return.
+DSP Report: Generating DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mmio/uart_inst/bridge_inst/writer/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return.
+DSP Report: operator mmio/uart_inst/bridge_inst/writer/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/writer/lite_packet_size_return.
+DSP Report: Generating DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return, operation Mode is: A*B.
+DSP Report: operator mmio/uart_inst/bridge_inst/reader/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return.
+DSP Report: operator mmio/uart_inst/bridge_inst/reader/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return.
+DSP Report: Generating DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mmio/uart_inst/bridge_inst/reader/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return.
+DSP Report: operator mmio/uart_inst/bridge_inst/reader/lite_packet_size_return is absorbed into DSP mmio/uart_inst/bridge_inst/reader/lite_packet_size_return.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/reader/ar_buf_reg[0][len][8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/writer/aw_buf_reg[0][len][8] )
+INFO: [Synth 8-3886] merging instance 'i_0/mmio/uart_inst/bridge_inst/reader/ar_buf_rp_reg[0]' (FDCE) to 'i_0/mmio/uart_inst/bridge_inst/reader/ar_buf_rp_reg[-1]'
+INFO: [Synth 8-3886] merging instance 'i_0/mmio/uart_inst/bridge_inst/reader/ar_buf_wp_reg[0]' (FDCE) to 'i_0/mmio/uart_inst/bridge_inst/reader/ar_buf_wp_reg[-1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/reader/ar_buf_rp_reg[-1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/reader/ar_buf_wp_reg[-1] )
+INFO: [Synth 8-3886] merging instance 'i_0/mmio/uart_inst/bridge_inst/writer/aw_buf_rp_reg[0]' (FDCE) to 'i_0/mmio/uart_inst/bridge_inst/writer/aw_buf_rp_reg[-1]'
+INFO: [Synth 8-3886] merging instance 'i_0/mmio/uart_inst/bridge_inst/writer/aw_buf_wp_reg[0]' (FDCE) to 'i_0/mmio/uart_inst/bridge_inst/writer/aw_buf_wp_reg[-1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/writer/aw_buf_rp_reg[-1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/writer/aw_buf_wp_reg[-1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/reader/xact_req_reg[len][8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_0/\mmio/uart_inst/bridge_inst/writer/xact_req_reg[len][8] )
 INFO: [Synth 8-4471] merging register '_T_884_reg[7:0]' into '_T_884_reg[7:0]' [/home/wolf/rocket-chip/rocc-accelerator/verilog/GRHRV32FPGAConfig.v:221246]
 WARNING: [Synth 8-3917] design Frontend has port io_cpu_npc[0] driven by constant 0
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
@@ -4949,10 +5102,6 @@ INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/
 INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[117]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
 INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[85]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
 INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[53]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
-INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[22]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
-INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[118]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
-INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[86]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
-INFO: [Synth 8-3886] merging instance 'icache/data_arrays_0/data_arrays_0_0_ext/RW0_random_reg[54]' (FD) to 'icache/tag_array/tag_array_0_ext/RW0_random_reg[3]'
 INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\s1_pc_reg[0] )
@@ -5035,14 +5184,6 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[22] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[23] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[24] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[25] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[26] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[27] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[28] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[29] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[30] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (csr/\reg_custom_0_reg[31] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mem_reg_cause_reg[5] )
 INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 WARNING: [Synth 8-3917] design PTW has port io_mem_req_bits_addr[1] driven by constant 0
@@ -5092,7 +5233,7 @@ WARNING: [Synth 8-6014] Unused sequential element buffer/Queue_1/_T_param_reg wa
 WARNING: [Synth 8-6014] Unused sequential element buffer/Queue_1/_T_sink_reg was removed. 
 INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:04:38 ; elapsed = 00:05:17 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 1507 ; free virtual = 3234
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:04:52 ; elapsed = 00:05:34 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 649 ; free virtual = 1247
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-5835] Resources of type BRAM have been overutilized. Used = 428, Available = 270. Will try to implement using LUT-RAM. 
 ---------------------------------------------------------------------------------
@@ -5324,14 +5465,18 @@ Distributed RAM: Preliminary Mapping	Report (see note below)
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 
 DSP: Preliminary Mapping	Report (see note below)
-+----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
-|Module Name     | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
-+----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
-|MulDiv          | A2*B2           | 18     | 9      | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
-|MulDiv          | (PCIN>>17)+A*B2 | 16     | 9      | -      | -      | 48     | 0    | 1    | -    | -    | -     | 0    | 0    | 
-|MulAddRecFNPipe | A*B             | 25     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-|MulAddRecFNPipe | (PCIN>>17)+A*B  | 25     | 8      | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
-+----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name       | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|chip_top          | A*B             | 18     | 11     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|chip_top          | (PCIN>>17)+A*B  | 16     | 11     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|nasti_lite_reader | A*B             | 18     | 11     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|nasti_lite_reader | (PCIN>>17)+A*B  | 15     | 11     | -      | -      | 15     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|MulDiv            | A2*B2           | 18     | 9      | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|MulDiv            | (PCIN>>17)+A*B2 | 16     | 9      | -      | -      | 48     | 0    | 1    | -    | -    | -     | 0    | 0    | 
+|MulAddRecFNPipe   | A*B             | 25     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|MulAddRecFNPipe   | (PCIN>>17)+A*B  | 25     | 8      | -      | -      | 31     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
 ---------------------------------------------------------------------------------
@@ -5351,19 +5496,19 @@ Report RTL Partitions:
 |7     |RocketTile__GCB3         |           1|     13855|
 |8     |RocketTile__GCB4         |           1|     19692|
 |9     |ExampleRocketSystem__GC0 |           1|     21877|
-|10    |chip_top__GC0            |           1|       330|
+|10    |chip_top__GC0            |           1|      1550|
 +------+-------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:04:47 ; elapsed = 00:05:26 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 1327 ; free virtual = 3106
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:05:00 ; elapsed = 00:05:44 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 456 ; free virtual = 1122
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:05:20 ; elapsed = 00:06:01 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 988 ; free virtual = 2770
+Finished Timing Optimization : Time (s): cpu = 00:05:19 ; elapsed = 00:06:04 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 402 ; free virtual = 1084
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -5430,6 +5575,16 @@ Distributed RAM: Final Mapping	Report
 |RocketTile__GCB3                                         | cmdRouter/cmd/_T_rs2_reg                                                                        | Implied   | 2 x 32               | RAM32M x 6	    | 
 |RocketTile__GCB4                                         | Queue/_T_rd_reg                                                                                 | Implied   | 2 x 5                | RAM32M x 1	    | 
 |RocketTile__GCB4                                         | Queue/_T_data_reg                                                                               | Implied   | 2 x 32               | RAM32M x 6	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue/_T_id_reg                                    | Implied   | 2 x 4                | RAM32M x 1	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue/_T_addr_reg                                  | Implied   | 2 x 31               | RAM32M x 6	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue/_T_len_reg                                   | Implied   | 2 x 8                | RAM32M x 2	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue/_T_size_reg                                  | Implied   | 2 x 3                | RAM32M x 1	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_1/_T_data_reg                                | Implied   | 2 x 32               | RAM32M x 6	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_1/_T_strb_reg                                | Implied   | 2 x 4                | RAM32M x 1	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_3/_T_id_reg                                  | Implied   | 2 x 4                | RAM32M x 1	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_3/_T_addr_reg                                | Implied   | 2 x 31               | RAM32M x 6	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_3/_T_len_reg                                 | Implied   | 2 x 8                | RAM32M x 2	    | 
+|subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_3/_T_size_reg                                | Implied   | 2 x 3                | RAM32M x 1	    | 
 |subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4buf/Queue_4/_T_last_reg                                | Implied   | 2 x 1                | RAM16X1D x 1	  | 
 |subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4yank/QueueCompatibility_7/_T_tl_state_size_reg         | Implied   | 8 x 4                | RAM32M x 1	    | 
 |subsystem_sbus                                           | coupler_to_port_named_mmio_port_axi4/axi4yank/QueueCompatibility_6/_T_tl_state_size_reg         | Implied   | 8 x 4                | RAM32M x 1	    | 
@@ -5523,20 +5678,19 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+------+-------------------------+------------+----------+
-|      |RTL Partition            |Replication |Instances |
-+------+-------------------------+------------+----------+
-|1     |GRHConv2dPE__GB0         |           1|     17365|
-|2     |GRHConv2dPE__GB1         |           1|      5302|
-|3     |GRHConvRoccAccel__GC0    |           1|      9833|
-|4     |Frontend                 |           1|     17348|
-|5     |Rocket                   |           1|     11462|
-|6     |PTW                      |           1|      2627|
-|7     |RocketTile__GCB3         |           1|     13705|
-|8     |RocketTile__GCB4         |           1|     19675|
-|9     |ExampleRocketSystem__GC0 |           1|     16898|
-|10    |chip_top__GC0            |           1|       330|
-+------+-------------------------+------------+----------+
++------+----------------------+------------+----------+
+|      |RTL Partition         |Replication |Instances |
++------+----------------------+------------+----------+
+|1     |GRHConv2dPE__GB0      |           1|     17365|
+|2     |GRHConv2dPE__GB1      |           1|      5302|
+|3     |GRHConvRoccAccel__GC0 |           1|      9833|
+|4     |Frontend              |           1|     17339|
+|5     |Rocket                |           1|     11513|
+|6     |PTW                   |           1|      2627|
+|7     |RocketTile__GCB3      |           1|     13705|
+|8     |RocketTile__GCB4      |           1|     19675|
+|9     |chip_top_GT0          |           1|     18822|
++------+----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
@@ -5644,24 +5798,23 @@ INFO: [Common 17-14] Message 'Synth 8-7053' appears 100 times and further instan
 INFO: [Common 17-14] Message 'Synth 8-7053' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-7053' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:05:35 ; elapsed = 00:06:21 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 429 ; free virtual = 2214
+Finished Technology Mapping : Time (s): cpu = 00:05:33 ; elapsed = 00:06:26 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 274 ; free virtual = 456
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+------+-------------------------+------------+----------+
-|      |RTL Partition            |Replication |Instances |
-+------+-------------------------+------------+----------+
-|1     |GRHConv2dPE__GB0         |           1|      5888|
-|2     |GRHConv2dPE__GB1         |           1|      1804|
-|3     |GRHConvRoccAccel__GC0    |           1|      4810|
-|4     |Frontend                 |           1|      8251|
-|5     |Rocket                   |           1|      5589|
-|6     |PTW                      |           1|      1196|
-|7     |RocketTile__GCB3         |           1|      6295|
-|8     |RocketTile__GCB4         |           1|      8115|
-|9     |ExampleRocketSystem__GC0 |           1|      6703|
-|10    |chip_top__GC0            |           1|       330|
-+------+-------------------------+------------+----------+
++------+----------------------+------------+----------+
+|      |RTL Partition         |Replication |Instances |
++------+----------------------+------------+----------+
+|1     |GRHConv2dPE__GB0      |           1|      5888|
+|2     |GRHConv2dPE__GB1      |           1|      1804|
+|3     |GRHConvRoccAccel__GC0 |           1|      4810|
+|4     |Frontend              |           1|      8265|
+|5     |Rocket                |           1|      5609|
+|6     |PTW                   |           1|      1196|
+|7     |RocketTile__GCB3      |           1|      6295|
+|8     |RocketTile__GCB4      |           1|      8115|
+|9     |chip_top_GT0          |           1|      8226|
++------+----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -5675,15 +5828,15 @@ Finished Flattening Before IO Insertion
 Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5365] Flop dut/tile/fpuOpt/sfma/fma/_T_2_sExpSum_reg[9] is being inverted and renamed to dut/tile/fpuOpt/sfma/fma/_T_2_sExpSum_reg[9]_inv.
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___362_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___361_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___360_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___359_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___357_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___358_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___356_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___355_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
-INFO: [Synth 8-6064] Net \dut/tile/frontend/i___354_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___380_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___379_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___378_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___377_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___375_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___376_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___374_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___373_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
+INFO: [Synth 8-6064] Net \dut/tile/frontend/i___372_n_0  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
 INFO: [Synth 8-6064] Net \dut/tile/frontend/icache/data_arrays_0/data_arrays_0_0_ext/p_11_out  is driving 128 big block pins (URAM, BRAM and DSP loads). Created 13 replicas of its driver. 
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
@@ -5708,14 +5861,15 @@ CRITICAL WARNING: [Synth 8-4442] BlackBox module \mem/DDR_ctrl  has unconnected 
 CRITICAL WARNING: [Synth 8-4442] BlackBox module \mem/DDR_ctrl  has unconnected pin device_temp_i[2]
 CRITICAL WARNING: [Synth 8-4442] BlackBox module \mem/DDR_ctrl  has unconnected pin device_temp_i[1]
 CRITICAL WARNING: [Synth 8-4442] BlackBox module \mem/DDR_ctrl  has unconnected pin device_temp_i[0]
+CRITICAL WARNING: [Synth 8-4442] BlackBox module \mmio/uart_inst/uart16550_inst  has unconnected pin ctsn
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:05:43 ; elapsed = 00:06:30 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 443 ; free virtual = 2299
+Finished IO Insertion : Time (s): cpu = 00:05:41 ; elapsed = 00:06:35 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 187 ; free virtual = 440
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:05:43 ; elapsed = 00:06:30 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 443 ; free virtual = 2300
+Finished Renaming Generated Instances : Time (s): cpu = 00:05:41 ; elapsed = 00:06:35 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 187 ; free virtual = 440
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -5734,25 +5888,25 @@ Report Check Netlist:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:49 ; elapsed = 00:06:36 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 235 ; free virtual = 2092
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:48 ; elapsed = 00:06:42 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 174 ; free virtual = 432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:05:50 ; elapsed = 00:06:36 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 235 ; free virtual = 2092
+Finished Renaming Generated Ports : Time (s): cpu = 00:05:48 ; elapsed = 00:06:42 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 174 ; free virtual = 432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:05:50 ; elapsed = 00:06:37 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 313 ; free virtual = 2169
+Finished Handling Custom Attributes : Time (s): cpu = 00:05:49 ; elapsed = 00:06:43 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 171 ; free virtual = 433
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:05:51 ; elapsed = 00:06:38 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 313 ; free virtual = 2169
+Finished Renaming Generated Nets : Time (s): cpu = 00:05:49 ; elapsed = 00:06:43 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 173 ; free virtual = 432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -5763,6 +5917,9 @@ Static Shift Register Report:
 |Module Name | RTL Name                                                                                                                              | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
 +------------+---------------------------------------------------------------------------------------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 |chip_top    | dut/tile/intsink/SynchronizerShiftReg_w1_d3/NonSyncResetSynchronizerPrimitiveShiftReg_d3/sync_0_reg                                   | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|chip_top    | dut/asyncXing/SynchronizerShiftReg_w2_d3/NonSyncResetSynchronizerPrimitiveShiftReg_d3/sync_0_reg                                      | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|chip_top    | dut/debug_1/dmOuter/asource/AsyncQueueSink/AsyncValidSync_3/source_valid_0/AsyncResetSynchronizerPrimitiveShiftReg_d3_i0/sync_0_reg   | 6      | 1     | YES          | NO                 | YES               | 1      | 0       | 
+|chip_top    | dut/debug_1/dmOuter/asource/AsyncQueueSink/AsyncValidSync_1/source_valid_0/AsyncResetSynchronizerPrimitiveShiftReg_d3_i0/sync_0_reg   | 6      | 1     | YES          | NO                 | YES               | 1      | 0       | 
 |chip_top    | dut/debug_1/dmInner/dmiXing/AsyncQueueSource/AsyncValidSync_1/source_valid_0/AsyncResetSynchronizerPrimitiveShiftReg_d3_i0/sync_0_reg | 6      | 1     | YES          | NO                 | YES               | 1      | 0       | 
 |chip_top    | dut/debug_1/dmInner/dmiXing/AsyncQueueSource/AsyncValidSync_3/source_valid_0/AsyncResetSynchronizerPrimitiveShiftReg_d3_i0/sync_0_reg | 6      | 1     | YES          | NO                 | YES               | 1      | 0       | 
 +------------+---------------------------------------------------------------------------------------------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
@@ -5782,6 +5939,7 @@ Report BlackBoxes:
 |2     |Mul8bit               |       270|
 |3     |axi_clock_converter_0 |         1|
 |4     |mig_7series_0         |         1|
+|5     |axi_uart16550_0       |         1|
 +------+----------------------+----------+
 
 Report Cell Usage: 
@@ -6059,292 +6217,315 @@ Report Cell Usage:
 |269   |Mul8bit__537          |     1|
 |270   |Mul8bit__538          |     1|
 |271   |axi_clock_converter_0 |     1|
-|272   |clk_wiz_0             |     1|
-|273   |mig_7series_0         |     1|
-|274   |BUFG                  |     1|
-|275   |CARRY4                |  1459|
-|276   |DSP48E1               |     2|
-|277   |DSP48E1_1             |     1|
-|278   |DSP48E1_2             |     1|
-|279   |LUT1                  |   127|
-|280   |LUT2                  |  1548|
-|281   |LUT3                  |  4393|
-|282   |LUT4                  |  6470|
-|283   |LUT5                  |  4559|
-|284   |LUT6                  | 11936|
-|285   |MUXF7                 |   974|
-|286   |MUXF8                 |    88|
-|287   |RAM128X1D             |     4|
-|288   |RAM16X1D              |    31|
-|289   |RAM32M                |   183|
-|290   |RAM64X1D              |   172|
-|291   |RAMB18E1              |   256|
-|292   |SRL16E                |     3|
-|293   |FDCE                  |    71|
-|294   |FDPE                  |     8|
-|295   |FDRE                  | 13937|
-|296   |FDSE                  |    61|
-|297   |IBUF                  |     5|
-|298   |OBUF                  |     3|
-|299   |OBUFT                 |    14|
+|272   |axi_uart16550_0       |     1|
+|273   |clk_wiz_0             |     1|
+|274   |mig_7series_0         |     1|
+|275   |BUFG                  |     1|
+|276   |CARRY4                |  1501|
+|277   |DSP48E1               |     2|
+|278   |DSP48E1_1             |     1|
+|279   |DSP48E1_2             |     3|
+|280   |DSP48E1_3             |     2|
+|281   |LUT1                  |   140|
+|282   |LUT2                  |  1745|
+|283   |LUT3                  |  4514|
+|284   |LUT4                  |  6543|
+|285   |LUT5                  |  4718|
+|286   |LUT6                  | 12279|
+|287   |MUXF7                 |   984|
+|288   |MUXF8                 |    86|
+|289   |RAM128X1D             |     4|
+|290   |RAM16X1D              |    51|
+|291   |RAM32M                |   265|
+|292   |RAM64X1D              |   172|
+|293   |RAMB18E1              |   256|
+|294   |SRL16E                |     6|
+|295   |FDCE                  |   146|
+|296   |FDPE                  |     8|
+|297   |FDRE                  | 14343|
+|298   |FDSE                  |    67|
+|299   |IBUF                  |     6|
+|300   |OBUF                  |     6|
+|301   |OBUFT                 |    12|
 +------+----------------------+------+
 
 Report Instance Areas: 
 +------+--------------------------------------------------------------+----------------------------------------------------+------+
 |      |Instance                                                      |Module                                              |Cells |
 +------+--------------------------------------------------------------+----------------------------------------------------+------+
-|1     |top                                                           |                                                    | 50952|
-|2     |  dut                                                         |ExampleRocketSystem                                 | 50552|
+|1     |top                                                           |                                                    | 52557|
+|2     |  dut                                                         |ExampleRocketSystem                                 | 51511|
 |3     |    bootrom                                                   |TLROM                                               |   473|
-|4     |    clint                                                     |CLINT                                               |   220|
-|5     |    debug_1                                                   |TLDebugModule                                       |  1420|
-|6     |      dmInner                                                 |TLDebugModuleInnerAsync                             |  1240|
-|7     |        AsyncQueueSink                                        |AsyncQueueSink_2                                    |     9|
-|8     |          deq_bits_reg                                        |ClockCrossingReg_w15                                |     1|
-|9     |          widx_gray                                           |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_60       |     5|
-|10    |            AsyncResetSynchronizerPrimitiveShiftReg_d3_i0     |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_61 |     5|
-|11    |        dmInner                                               |TLDebugModuleInner                                  |   980|
-|12    |        dmactiveSync                                          |AsyncResetSynchronizerShiftReg_w1_d3_i0_16          |     4|
-|13    |          AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_59 |     4|
-|14    |        dmiXing                                               |TLAsyncCrossingSink                                 |   247|
-|15    |          AsyncQueueSink                                      |AsyncQueueSink_1                                    |   193|
-|16    |            deq_bits_reg                                      |ClockCrossingReg_w55                                |   187|
-|17    |            widx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_57       |     4|
-|18    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_58 |     4|
-|19    |          AsyncQueueSource                                    |AsyncQueueSource_2                                  |    54|
-|20    |            AsyncValidSync                                    |AsyncValidSync_47                                   |     3|
-|21    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_55          |     3|
-|22    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_56    |     3|
-|23    |            AsyncValidSync_1                                  |AsyncValidSync_48                                   |     6|
-|24    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_53          |     6|
-|25    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_54    |     6|
-|26    |            AsyncValidSync_3                                  |AsyncValidSync_49                                   |     8|
-|27    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_51          |     8|
-|28    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_52    |     8|
-|29    |            ridx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_50       |     3|
-|30    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16    |     3|
-|31    |      dmOuter                                                 |TLDebugModuleOuterAsync                             |   180|
-|32    |        AsyncQueueSource                                      |AsyncQueueSource_1                                  |     9|
-|33    |          ridx_gray                                           |AsyncResetSynchronizerShiftReg_w1_d3_i0_45          |     4|
-|34    |            AsyncResetSynchronizerPrimitiveShiftReg_d3_i0     |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_46    |     4|
-|35    |        asource                                               |TLAsyncCrossingSource                               |   102|
-|36    |          AsyncQueueSink                                      |AsyncQueueSink                                      |    54|
-|37    |            AsyncValidSync_1                                  |AsyncValidSync                                      |     3|
-|38    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_43          |     3|
-|39    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_44    |     3|
-|40    |            AsyncValidSync_2                                  |AsyncValidSync_35                                   |     4|
-|41    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_41          |     4|
-|42    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_42    |     4|
-|43    |            AsyncValidSync_3                                  |AsyncValidSync_36                                   |    10|
-|44    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_39          |    10|
-|45    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_40    |    10|
-|46    |            deq_bits_reg                                      |ClockCrossingReg_w43                                |    32|
-|47    |            widx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_37          |     3|
-|48    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_38    |     3|
-|49    |          AsyncQueueSource                                    |AsyncQueueSource                                    |    48|
-|50    |            ridx_gray                                         |AsyncResetSynchronizerShiftReg_w1_d3_i0_33          |     4|
-|51    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_34    |     4|
-|52    |        dmOuter                                               |TLDebugModuleOuter                                  |    15|
-|53    |        dmactiveAckSync                                       |AsyncResetSynchronizerShiftReg_w1_d3_i0             |     3|
-|54    |          AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |     3|
-|55    |        dmiBypass                                             |TLBusBypass                                         |    43|
-|56    |          bar                                                 |TLBusBypassBar                                      |    43|
-|57    |        dmiXbar                                               |TLXbar_7                                            |     8|
-|58    |    dtm                                                       |DebugTransportModuleJTAG                            |   290|
-|59    |      JtagBypassChain                                         |JtagBypassChain                                     |     1|
-|60    |      JtagTapController                                       |JtagTapController                                   |   103|
-|61    |        irChain                                               |CaptureUpdateChain_2                                |    10|
-|62    |        stateMachine                                          |JtagStateMachine                                    |    82|
-|63    |      dmiAccessChain                                          |CaptureUpdateChain_1                                |    46|
-|64    |      dtmInfoChain                                            |CaptureUpdateChain                                  |    34|
-|65    |      idcodeChain                                             |CaptureChain                                        |    33|
-|66    |    intsource                                                 |IntSyncCrossingSource_2                             |     2|
-|67    |      AsyncResetRegVec_w2_i0                                  |AsyncResetRegVec_w2_i0                              |     2|
-|68    |    plic                                                      |TLPLIC                                              |   101|
-|69    |      Queue                                                   |Queue_27                                            |    88|
-|70    |    subsystem_cbus                                            |PeripheryBus_1                                      |  2532|
-|71    |      atomics                                                 |TLAtomicAutomata_1                                  |   411|
-|72    |      buffer                                                  |TLBuffer_5                                          |   487|
-|73    |        Queue                                                 |Queue_16_31                                         |   355|
-|74    |        Queue_1                                               |Queue_17_32                                         |   132|
-|75    |      coupler_to_bootrom                                      |SimpleLazyModule_12                                 |   122|
-|76    |        fragmenter                                            |TLFragmenter_3                                      |   122|
-|77    |          Repeater                                            |Repeater_4                                          |   109|
-|78    |      coupler_to_clint                                        |SimpleLazyModule_9                                  |   180|
-|79    |        fragmenter                                            |TLFragmenter_1                                      |   180|
-|80    |          Repeater                                            |Repeater_2                                          |   167|
-|81    |      coupler_to_debug                                        |SimpleLazyModule_10                                 |   882|
-|82    |        fragmenter                                            |TLFragmenter_2                                      |   882|
-|83    |          Repeater                                            |Repeater_3                                          |   870|
-|84    |      coupler_to_plic                                         |SimpleLazyModule_8                                  |    97|
-|85    |        fragmenter                                            |TLFragmenter                                        |    97|
-|86    |          Repeater                                            |Repeater_1                                          |    80|
-|87    |      fixer                                                   |TLFIFOFixer_3                                       |    78|
-|88    |      out_xbar                                                |TLXbar_5                                            |   134|
-|89    |      wrapped_error_device                                    |SimpleLazyModule_6                                  |   141|
-|90    |        buffer                                                |TLBuffer_6                                          |    56|
-|91    |          Queue                                               |Queue_19                                            |    13|
-|92    |          Queue_1                                             |Queue_17                                            |    43|
-|93    |        error                                                 |TLError                                             |    85|
-|94    |          a                                                   |Queue_18                                            |    49|
-|95    |    subsystem_fbus                                            |FrontBus                                            |    68|
-|96    |      buffer                                                  |TLBuffer_3                                          |    16|
-|97    |        Queue_1                                               |Queue_8_30                                          |    16|
-|98    |      coupler_from_port_named_slave_port_axi4                 |SimpleLazyModule_5                                  |    47|
-|99    |        axi42tl                                               |AXI4ToTL                                            |    18|
-|100   |          Queue                                               |Queue_11                                            |     1|
-|101   |          Queue_1                                             |Queue_12                                            |     7|
-|102   |        axi4yank                                              |AXI4UserYanker_1                                    |    10|
-|103   |          QueueCompatibility_2                                |QueueCompatibility_15_28                            |     5|
-|104   |          QueueCompatibility_3                                |QueueCompatibility_15_29                            |     5|
-|105   |        buffer                                                |TLBuffer_4                                          |    18|
-|106   |          Queue_1                                             |Queue_8                                             |    18|
-|107   |        widget                                                |TLWidthWidget_4                                     |     1|
-|108   |    subsystem_l2_wrapper                                      |CoherenceManagerWrapper                             |   774|
-|109   |      bh                                                      |TLBroadcast                                         |   709|
-|110   |        TLBroadcastTracker                                    |TLBroadcastTracker                                  |   180|
-|111   |          o_data                                              |Queue_23_27                                         |   115|
-|112   |        TLBroadcastTracker_1                                  |TLBroadcastTracker_1                                |   113|
-|113   |          o_data                                              |Queue_23_26                                         |    39|
-|114   |        TLBroadcastTracker_2                                  |TLBroadcastTracker_2                                |   121|
-|115   |          o_data                                              |Queue_23_25                                         |    56|
-|116   |        TLBroadcastTracker_3                                  |TLBroadcastTracker_3                                |   191|
-|117   |          o_data                                              |Queue_23                                            |   126|
-|118   |      shrinker                                                |TLSourceShrinker                                    |    65|
-|119   |    subsystem_mbus                                            |MemoryBus                                           |   268|
-|120   |      coupler_to_memory_controller_port_named_axi4            |SimpleLazyModule_13                                 |   268|
-|121   |        axi4yank                                              |AXI4UserYanker_2                                    |    61|
-|122   |          QueueCompatibility                                  |QueueCompatibility_19                               |     6|
-|123   |          QueueCompatibility_1                                |QueueCompatibility_19_18                            |     6|
-|124   |          QueueCompatibility_2                                |QueueCompatibility_19_19                            |     6|
-|125   |          QueueCompatibility_3                                |QueueCompatibility_19_20                            |    12|
-|126   |          QueueCompatibility_4                                |QueueCompatibility_19_21                            |     6|
-|127   |          QueueCompatibility_5                                |QueueCompatibility_19_22                            |     6|
-|128   |          QueueCompatibility_6                                |QueueCompatibility_19_23                            |     6|
-|129   |          QueueCompatibility_7                                |QueueCompatibility_19_24                            |    13|
-|130   |        tl2axi4                                               |TLToAXI4_1                                          |   207|
-|131   |          Queue                                               |Queue_5_17                                          |    84|
-|132   |          Queue_1                                             |Queue_22                                            |   104|
-|133   |    subsystem_sbus                                            |SystemBus                                           |   303|
-|134   |      coupler_to_port_named_mmio_port_axi4                    |SimpleLazyModule_4                                  |   117|
-|135   |        axi4buf                                               |AXI4Buffer                                          |    13|
-|136   |          Queue                                               |Queue                                               |     7|
-|137   |          Queue_1                                             |Queue_1                                             |     4|
-|138   |          Queue_3                                             |Queue_16                                            |     2|
-|139   |        axi4yank                                              |AXI4UserYanker                                      |    50|
-|140   |          QueueCompatibility                                  |QueueCompatibility                                  |     3|
-|141   |          QueueCompatibility_1                                |QueueCompatibility_1                                |     9|
-|142   |          QueueCompatibility_2                                |QueueCompatibility_1_8                              |     9|
-|143   |          QueueCompatibility_3                                |QueueCompatibility_9                                |     1|
-|144   |          QueueCompatibility_4                                |QueueCompatibility_10                               |     1|
-|145   |          QueueCompatibility_5                                |QueueCompatibility_11                               |     1|
-|146   |          QueueCompatibility_6                                |QueueCompatibility_1_12                             |    14|
-|147   |          QueueCompatibility_7                                |QueueCompatibility_1_13                             |     9|
-|148   |          QueueCompatibility_8                                |QueueCompatibility_14                               |     1|
-|149   |          QueueCompatibility_9                                |QueueCompatibility_15                               |     2|
-|150   |        tl2axi4                                               |TLToAXI4                                            |    54|
-|151   |          Queue                                               |Queue_5                                             |     6|
-|152   |          Queue_1                                             |Queue_6                                             |    21|
-|153   |      system_bus_xbar                                         |TLXbar                                              |   186|
-|154   |    tile                                                      |RocketTile                                          | 44087|
-|155   |      Queue                                                   |Queue_35                                            |    16|
-|156   |      Queue_1                                                 |Queue_35_0                                          |    57|
-|157   |      SimpleHellaCacheIF                                      |SimpleHellaCacheIF                                  |   360|
-|158   |        replayq                                               |SimpleHellaCacheIFReplayQueue_6                     |   314|
-|159   |          nackq                                               |QueueCompatibility_27_7                             |   160|
-|160   |      SimpleHellaCacheIF_1                                    |SimpleHellaCacheIF_1                                |   138|
-|161   |        replayq                                               |SimpleHellaCacheIFReplayQueue                       |   132|
-|162   |          nackq                                               |QueueCompatibility_27                               |    56|
-|163   |      accel                                                   |GRHConvRoccAccel                                    | 14139|
-|164   |        conv2dPE                                              |GRHConv2dPE                                         |  7761|
-|165   |        featureFIFO                                           |GRHFeatureFIFO                                      |   769|
-|166   |      accumulator                                             |AccumulatorExample                                  |   434|
-|167   |        cmd                                                   |Queue_28_5                                          |   129|
-|168   |      buffer                                                  |TLBuffer_9                                          |   410|
-|169   |        Queue                                                 |Queue_29                                            |   209|
-|170   |        Queue_1                                               |Queue_30                                            |    91|
-|171   |        Queue_2                                               |Queue_31                                            |    21|
-|172   |        Queue_3                                               |Queue_32                                            |    72|
-|173   |        Queue_4                                               |Queue_33                                            |    17|
-|174   |      cmdRouter                                               |RoccCommandRouter                                   |    78|
-|175   |        cmd                                                   |Queue_28                                            |    78|
-|176   |      core                                                    |Rocket                                              |  6004|
-|177   |        csr                                                   |CSRFile                                             |  3419|
-|178   |        div                                                   |MulDiv                                              |   637|
-|179   |        ibuf                                                  |IBuf                                                |   311|
-|180   |      dcache                                                  |DCache                                              |  4755|
-|181   |        MaxPeriodFibonacciLFSR                                |MaxPeriodFibonacciLFSR_4                            |    23|
-|182   |        data                                                  |DCacheDataArray                                     |   581|
-|183   |          data_arrays_0                                       |data_arrays_0                                       |   581|
-|184   |            data_arrays_0_ext                                 |data_arrays_0_ext                                   |   581|
-|185   |        tag_array                                             |tag_array                                           |   345|
-|186   |          tag_array_ext                                       |tag_array_ext                                       |   345|
-|187   |      dcacheArb                                               |HellaCacheArbiter                                   |     7|
-|188   |      fpuOpt                                                  |FPU                                                 |  8115|
-|189   |        divSqrt                                               |DivSqrtRecFN_small                                  |  2468|
-|190   |          divSqrtRecFNToRaw                                   |DivSqrtRecFNToRaw_small                             |  2456|
-|191   |            divSqrtRawFN                                      |DivSqrtRawFN_small                                  |  2456|
-|192   |          roundRawFNToRecFN                                   |RoundRawFNToRecFN_2                                 |    12|
-|193   |            roundAnyRawFNToRecFN                              |RoundAnyRawFNToRecFN_3                              |    12|
-|194   |        fpiu                                                  |FPToInt                                             |   652|
-|195   |          RecFNToIN                                           |RecFNToIN                                           |   100|
-|196   |          dcmp                                                |CompareRecFN                                        |    42|
-|197   |        fpmu                                                  |FPToFP                                              |   979|
-|198   |        ifpu                                                  |IntToFP                                             |   449|
-|199   |          INToRecFN                                           |INToRecFN                                           |   213|
-|200   |            roundAnyRawFNToRecFN                              |RoundAnyRawFNToRecFN_1                              |   213|
-|201   |        sfma                                                  |FPUFMAPipe                                          |  1783|
-|202   |          fma                                                 |MulAddRecFNPipe                                     |  1235|
-|203   |            mulAddRecFNToRaw_postMul                          |MulAddRecFNToRaw_postMul                            |    90|
-|204   |            mulAddRecFNToRaw_preMul                           |MulAddRecFNToRaw_preMul                             |   366|
-|205   |            roundRawFNToRecFN                                 |RoundRawFNToRecFN                                   |   185|
-|206   |              roundAnyRawFNToRecFN                            |RoundAnyRawFNToRecFN                                |   185|
-|207   |      frontend                                                |Frontend                                            |  8434|
-|208   |        btb                                                   |BTB                                                 |  2473|
-|209   |        fq                                                    |ShiftQueue                                          |  1414|
-|210   |        icache                                                |ICache                                              |  1515|
-|211   |          MaxPeriodFibonacciLFSR                              |MaxPeriodFibonacciLFSR                              |   297|
-|212   |          data_arrays_0                                       |data_arrays_0_0                                     |   229|
-|213   |            data_arrays_0_0_ext                               |data_arrays_0_0_ext                                 |   229|
-|214   |          tag_array                                           |tag_array_0                                         |   167|
-|215   |            tag_array_0_ext                                   |tag_array_0_ext                                     |   167|
-|216   |        tlb                                                   |TLB_1                                               |  2113|
-|217   |      intsink                                                 |IntSyncAsyncCrossingSink                            |     2|
-|218   |        SynchronizerShiftReg_w1_d3                            |SynchronizerShiftReg_w1_d3                          |     2|
-|219   |          NonSyncResetSynchronizerPrimitiveShiftReg_d3        |NonSyncResetSynchronizerPrimitiveShiftReg_d3        |     2|
-|220   |      ptw                                                     |PTW                                                 |  1071|
-|221   |      respArb                                                 |RRArbiter                                           |     1|
-|222   |      tlMasterXbar                                            |TLXbar_8                                            |    66|
-|223   |  mem                                                         |AXIMem                                              |   352|
+|4     |    asyncXing                                                 |IntXing                                             |     2|
+|5     |      SynchronizerShiftReg_w2_d3                              |SynchronizerShiftReg_w2_d3                          |     2|
+|6     |        NonSyncResetSynchronizerPrimitiveShiftReg_d3          |NonSyncResetSynchronizerPrimitiveShiftReg_d3_69     |     2|
+|7     |    clint                                                     |CLINT                                               |   220|
+|8     |    debug_1                                                   |TLDebugModule                                       |  1421|
+|9     |      dmInner                                                 |TLDebugModuleInnerAsync                             |  1239|
+|10    |        AsyncQueueSink                                        |AsyncQueueSink_2                                    |     8|
+|11    |          deq_bits_reg                                        |ClockCrossingReg_w15                                |     1|
+|12    |          widx_gray                                           |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_67       |     4|
+|13    |            AsyncResetSynchronizerPrimitiveShiftReg_d3_i0     |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_68 |     4|
+|14    |        dmInner                                               |TLDebugModuleInner                                  |   980|
+|15    |        dmactiveSync                                          |AsyncResetSynchronizerShiftReg_w1_d3_i0_16          |     4|
+|16    |          AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_66 |     4|
+|17    |        dmiXing                                               |TLAsyncCrossingSink                                 |   247|
+|18    |          AsyncQueueSink                                      |AsyncQueueSink_1                                    |   193|
+|19    |            deq_bits_reg                                      |ClockCrossingReg_w55                                |   187|
+|20    |            widx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_64       |     4|
+|21    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16_65 |     4|
+|22    |          AsyncQueueSource                                    |AsyncQueueSource_2                                  |    54|
+|23    |            AsyncValidSync                                    |AsyncValidSync_54                                   |     3|
+|24    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_62          |     3|
+|25    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_63    |     3|
+|26    |            AsyncValidSync_1                                  |AsyncValidSync_55                                   |     6|
+|27    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_60          |     6|
+|28    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_61    |     6|
+|29    |            AsyncValidSync_3                                  |AsyncValidSync_56                                   |     8|
+|30    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_58          |     8|
+|31    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_59    |     8|
+|32    |            ridx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_16_57       |     3|
+|33    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16    |     3|
+|34    |      dmOuter                                                 |TLDebugModuleOuterAsync                             |   182|
+|35    |        AsyncQueueSource                                      |AsyncQueueSource_1                                  |     9|
+|36    |          ridx_gray                                           |AsyncResetSynchronizerShiftReg_w1_d3_i0_52          |     4|
+|37    |            AsyncResetSynchronizerPrimitiveShiftReg_d3_i0     |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_53    |     4|
+|38    |        asource                                               |TLAsyncCrossingSource                               |   106|
+|39    |          AsyncQueueSink                                      |AsyncQueueSink                                      |    58|
+|40    |            AsyncValidSync_1                                  |AsyncValidSync                                      |     4|
+|41    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_50          |     4|
+|42    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_51    |     4|
+|43    |            AsyncValidSync_2                                  |AsyncValidSync_42                                   |     3|
+|44    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_48          |     3|
+|45    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_49    |     3|
+|46    |            AsyncValidSync_3                                  |AsyncValidSync_43                                   |    14|
+|47    |              source_valid_0                                  |AsyncResetSynchronizerShiftReg_w1_d3_i0_46          |    14|
+|48    |                AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_47    |    14|
+|49    |            deq_bits_reg                                      |ClockCrossingReg_w43                                |    32|
+|50    |            widx_gray__0                                      |AsyncResetSynchronizerShiftReg_w1_d3_i0_44          |     3|
+|51    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_45    |     3|
+|52    |          AsyncQueueSource                                    |AsyncQueueSource                                    |    48|
+|53    |            ridx_gray                                         |AsyncResetSynchronizerShiftReg_w1_d3_i0_40          |     4|
+|54    |              AsyncResetSynchronizerPrimitiveShiftReg_d3_i0   |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_41    |     4|
+|55    |        dmOuter                                               |TLDebugModuleOuter                                  |    14|
+|56    |        dmactiveAckSync                                       |AsyncResetSynchronizerShiftReg_w1_d3_i0             |     3|
+|57    |          AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |AsyncResetSynchronizerPrimitiveShiftReg_d3_i0       |     3|
+|58    |        dmiBypass                                             |TLBusBypass                                         |    42|
+|59    |          bar                                                 |TLBusBypassBar                                      |    42|
+|60    |        dmiXbar                                               |TLXbar_7                                            |     8|
+|61    |    dtm                                                       |DebugTransportModuleJTAG                            |   277|
+|62    |      JtagBypassChain                                         |JtagBypassChain                                     |     1|
+|63    |      JtagTapController                                       |JtagTapController                                   |    96|
+|64    |        irChain                                               |CaptureUpdateChain_2                                |    10|
+|65    |        stateMachine                                          |JtagStateMachine                                    |    75|
+|66    |      dmiAccessChain                                          |CaptureUpdateChain_1                                |    46|
+|67    |      dtmInfoChain                                            |CaptureUpdateChain                                  |    32|
+|68    |      idcodeChain                                             |CaptureChain                                        |    32|
+|69    |    intsource                                                 |IntSyncCrossingSource_2                             |     2|
+|70    |      AsyncResetRegVec_w2_i0                                  |AsyncResetRegVec_w2_i0                              |     2|
+|71    |    intsource_1                                               |IntSyncCrossingSource_3                             |     1|
+|72    |      AsyncResetRegVec_w1_i0                                  |AsyncResetRegVec_w1_i0_39                           |     1|
+|73    |    intsource_2                                               |IntSyncCrossingSource_3_0                           |     1|
+|74    |      AsyncResetRegVec_w1_i0                                  |AsyncResetRegVec_w1_i0                              |     1|
+|75    |    plic                                                      |TLPLIC                                              |   135|
+|76    |      LevelGateway                                            |LevelGateway                                        |     3|
+|77    |      Queue                                                   |Queue_27                                            |   104|
+|78    |    subsystem_cbus                                            |PeripheryBus_1                                      |  2476|
+|79    |      atomics                                                 |TLAtomicAutomata_1                                  |   410|
+|80    |      buffer                                                  |TLBuffer_5                                          |   435|
+|81    |        Queue                                                 |Queue_16                                            |   336|
+|82    |        Queue_1                                               |Queue_17_38                                         |    99|
+|83    |      coupler_to_bootrom                                      |SimpleLazyModule_12                                 |   122|
+|84    |        fragmenter                                            |TLFragmenter_3                                      |   122|
+|85    |          Repeater                                            |Repeater_4                                          |   109|
+|86    |      coupler_to_clint                                        |SimpleLazyModule_9                                  |   180|
+|87    |        fragmenter                                            |TLFragmenter_1                                      |   180|
+|88    |          Repeater                                            |Repeater_2                                          |   167|
+|89    |      coupler_to_debug                                        |SimpleLazyModule_10                                 |   882|
+|90    |        fragmenter                                            |TLFragmenter_2                                      |   882|
+|91    |          Repeater                                            |Repeater_3                                          |   870|
+|92    |      coupler_to_plic                                         |SimpleLazyModule_8                                  |    97|
+|93    |        fragmenter                                            |TLFragmenter                                        |    97|
+|94    |          Repeater                                            |Repeater_1                                          |    80|
+|95    |      fixer                                                   |TLFIFOFixer_3                                       |    78|
+|96    |      out_xbar                                                |TLXbar_5                                            |   133|
+|97    |      wrapped_error_device                                    |SimpleLazyModule_6                                  |   139|
+|98    |        buffer                                                |TLBuffer_6                                          |    54|
+|99    |          Queue                                               |Queue_19                                            |    11|
+|100   |          Queue_1                                             |Queue_17                                            |    43|
+|101   |        error                                                 |TLError                                             |    85|
+|102   |          a                                                   |Queue_18                                            |    49|
+|103   |    subsystem_fbus                                            |FrontBus                                            |    72|
+|104   |      buffer                                                  |TLBuffer_3                                          |    20|
+|105   |        Queue_1                                               |Queue_8_37                                          |    20|
+|106   |      coupler_from_port_named_slave_port_axi4                 |SimpleLazyModule_5                                  |    47|
+|107   |        axi42tl                                               |AXI4ToTL                                            |    18|
+|108   |          Queue                                               |Queue_11                                            |     1|
+|109   |          Queue_1                                             |Queue_12                                            |     7|
+|110   |        axi4yank                                              |AXI4UserYanker_1                                    |    10|
+|111   |          QueueCompatibility_2                                |QueueCompatibility_15_35                            |     5|
+|112   |          QueueCompatibility_3                                |QueueCompatibility_15_36                            |     5|
+|113   |        buffer                                                |TLBuffer_4                                          |    18|
+|114   |          Queue_1                                             |Queue_8                                             |    18|
+|115   |        widget                                                |TLWidthWidget_4                                     |     1|
+|116   |    subsystem_l2_wrapper                                      |CoherenceManagerWrapper                             |   780|
+|117   |      bh                                                      |TLBroadcast                                         |   718|
+|118   |        TLBroadcastTracker                                    |TLBroadcastTracker                                  |   181|
+|119   |          o_data                                              |Queue_23_34                                         |   112|
+|120   |        TLBroadcastTracker_1                                  |TLBroadcastTracker_1                                |   110|
+|121   |          o_data                                              |Queue_23_33                                         |    39|
+|122   |        TLBroadcastTracker_2                                  |TLBroadcastTracker_2                                |   120|
+|123   |          o_data                                              |Queue_23_32                                         |    55|
+|124   |        TLBroadcastTracker_3                                  |TLBroadcastTracker_3                                |   200|
+|125   |          o_data                                              |Queue_23                                            |   132|
+|126   |      shrinker                                                |TLSourceShrinker                                    |    62|
+|127   |    subsystem_mbus                                            |MemoryBus                                           |   273|
+|128   |      coupler_to_memory_controller_port_named_axi4            |SimpleLazyModule_13                                 |   273|
+|129   |        axi4yank                                              |AXI4UserYanker_2                                    |    61|
+|130   |          QueueCompatibility                                  |QueueCompatibility_19                               |     6|
+|131   |          QueueCompatibility_1                                |QueueCompatibility_19_25                            |     6|
+|132   |          QueueCompatibility_2                                |QueueCompatibility_19_26                            |     6|
+|133   |          QueueCompatibility_3                                |QueueCompatibility_19_27                            |    12|
+|134   |          QueueCompatibility_4                                |QueueCompatibility_19_28                            |     6|
+|135   |          QueueCompatibility_5                                |QueueCompatibility_19_29                            |     6|
+|136   |          QueueCompatibility_6                                |QueueCompatibility_19_30                            |     6|
+|137   |          QueueCompatibility_7                                |QueueCompatibility_19_31                            |    13|
+|138   |        tl2axi4                                               |TLToAXI4_1                                          |   212|
+|139   |          Queue                                               |Queue_5_23                                          |    82|
+|140   |          Queue_1                                             |Queue_22_24                                         |   109|
+|141   |    subsystem_sbus                                            |SystemBus                                           |  1085|
+|142   |      coupler_to_port_named_mmio_port_axi4                    |SimpleLazyModule_4                                  |   842|
+|143   |        axi4buf                                               |AXI4Buffer                                          |   133|
+|144   |          Queue                                               |Queue                                               |    19|
+|145   |          Queue_1                                             |Queue_1                                             |    15|
+|146   |          Queue_2                                             |Queue_2                                             |    33|
+|147   |          Queue_3                                             |Queue_22                                            |    15|
+|148   |          Queue_4                                             |Queue_4                                             |    51|
+|149   |        axi4deint                                             |AXI4Deinterleaver                                   |   391|
+|150   |          QueueCompatibility                                  |QueueCompatibility_10_17                            |    59|
+|151   |          QueueCompatibility_1                                |QueueCompatibility_10_18                            |    67|
+|152   |          QueueCompatibility_2                                |QueueCompatibility_10_19                            |   115|
+|153   |          QueueCompatibility_3                                |QueueCompatibility_10_20                            |    58|
+|154   |          QueueCompatibility_4                                |QueueCompatibility_10_21                            |    45|
+|155   |        axi4yank                                              |AXI4UserYanker                                      |   128|
+|156   |          QueueCompatibility                                  |QueueCompatibility                                  |     9|
+|157   |          QueueCompatibility_1                                |QueueCompatibility_1                                |    17|
+|158   |          QueueCompatibility_2                                |QueueCompatibility_1_9                              |    18|
+|159   |          QueueCompatibility_3                                |QueueCompatibility_10                               |     9|
+|160   |          QueueCompatibility_4                                |QueueCompatibility_11                               |     8|
+|161   |          QueueCompatibility_5                                |QueueCompatibility_12                               |    12|
+|162   |          QueueCompatibility_6                                |QueueCompatibility_1_13                             |    17|
+|163   |          QueueCompatibility_7                                |QueueCompatibility_1_14                             |    20|
+|164   |          QueueCompatibility_8                                |QueueCompatibility_15                               |     9|
+|165   |          QueueCompatibility_9                                |QueueCompatibility_16                               |     9|
+|166   |        tl2axi4                                               |TLToAXI4                                            |   190|
+|167   |          Queue                                               |Queue_5                                             |    76|
+|168   |          Queue_1                                             |Queue_6                                             |    82|
+|169   |      system_bus_xbar                                         |TLXbar                                              |   243|
+|170   |    tile                                                      |RocketTile                                          | 44191|
+|171   |      Queue                                                   |Queue_35                                            |    16|
+|172   |      Queue_1                                                 |Queue_35_1                                          |    57|
+|173   |      SimpleHellaCacheIF                                      |SimpleHellaCacheIF                                  |   360|
+|174   |        replayq                                               |SimpleHellaCacheIFReplayQueue_7                     |   314|
+|175   |          nackq                                               |QueueCompatibility_27_8                             |   160|
+|176   |      SimpleHellaCacheIF_1                                    |SimpleHellaCacheIF_2                                |   138|
+|177   |        replayq                                               |SimpleHellaCacheIFReplayQueue                       |   132|
+|178   |          nackq                                               |QueueCompatibility_27                               |    56|
+|179   |      accel                                                   |GRHConvRoccAccel                                    | 14139|
+|180   |        conv2dPE                                              |GRHConv2dPE                                         |  7761|
+|181   |        featureFIFO                                           |GRHFeatureFIFO                                      |   769|
+|182   |      accumulator                                             |AccumulatorExample                                  |   434|
+|183   |        cmd                                                   |Queue_28_6                                          |   129|
+|184   |      buffer                                                  |TLBuffer_9                                          |   480|
+|185   |        Queue                                                 |Queue_29                                            |   284|
+|186   |        Queue_1                                               |Queue_30                                            |    91|
+|187   |        Queue_2                                               |Queue_31                                            |    21|
+|188   |        Queue_3                                               |Queue_32                                            |    67|
+|189   |        Queue_4                                               |Queue_33                                            |    17|
+|190   |      cmdRouter                                               |RoccCommandRouter                                   |    78|
+|191   |        cmd                                                   |Queue_28                                            |    78|
+|192   |      core                                                    |Rocket                                              |  5987|
+|193   |        csr                                                   |CSRFile                                             |  3409|
+|194   |        div                                                   |MulDiv                                              |   633|
+|195   |        ibuf                                                  |IBuf                                                |   299|
+|196   |      dcache                                                  |DCache                                              |  4744|
+|197   |        MaxPeriodFibonacciLFSR                                |MaxPeriodFibonacciLFSR_5                            |    23|
+|198   |        data                                                  |DCacheDataArray                                     |   581|
+|199   |          data_arrays_0                                       |data_arrays_0                                       |   581|
+|200   |            data_arrays_0_ext                                 |data_arrays_0_ext                                   |   581|
+|201   |        tag_array                                             |tag_array                                           |   345|
+|202   |          tag_array_ext                                       |tag_array_ext                                       |   345|
+|203   |      dcacheArb                                               |HellaCacheArbiter                                   |     7|
+|204   |      fpuOpt                                                  |FPU                                                 |  8117|
+|205   |        divSqrt                                               |DivSqrtRecFN_small                                  |  2470|
+|206   |          divSqrtRecFNToRaw                                   |DivSqrtRecFNToRaw_small                             |  2458|
+|207   |            divSqrtRawFN                                      |DivSqrtRawFN_small                                  |  2458|
+|208   |          roundRawFNToRecFN                                   |RoundRawFNToRecFN_3                                 |    12|
+|209   |            roundAnyRawFNToRecFN                              |RoundAnyRawFNToRecFN_4                              |    12|
+|210   |        fpiu                                                  |FPToInt                                             |   652|
+|211   |          RecFNToIN                                           |RecFNToIN                                           |   100|
+|212   |          dcmp                                                |CompareRecFN                                        |    42|
+|213   |        fpmu                                                  |FPToFP                                              |   979|
+|214   |        ifpu                                                  |IntToFP                                             |   449|
+|215   |          INToRecFN                                           |INToRecFN                                           |   213|
+|216   |            roundAnyRawFNToRecFN                              |RoundAnyRawFNToRecFN_1                              |   213|
+|217   |        sfma                                                  |FPUFMAPipe                                          |  1783|
+|218   |          fma                                                 |MulAddRecFNPipe                                     |  1235|
+|219   |            mulAddRecFNToRaw_postMul                          |MulAddRecFNToRaw_postMul                            |    90|
+|220   |            mulAddRecFNToRaw_preMul                           |MulAddRecFNToRaw_preMul                             |   366|
+|221   |            roundRawFNToRecFN                                 |RoundRawFNToRecFN                                   |   185|
+|222   |              roundAnyRawFNToRecFN                            |RoundAnyRawFNToRecFN                                |   185|
+|223   |      frontend                                                |Frontend                                            |  8494|
+|224   |        btb                                                   |BTB                                                 |  2515|
+|225   |        fq                                                    |ShiftQueue                                          |  1437|
+|226   |        icache                                                |ICache                                              |  1485|
+|227   |          MaxPeriodFibonacciLFSR                              |MaxPeriodFibonacciLFSR                              |   297|
+|228   |          data_arrays_0                                       |data_arrays_0_0                                     |   218|
+|229   |            data_arrays_0_0_ext                               |data_arrays_0_0_ext                                 |   218|
+|230   |          tag_array                                           |tag_array_0                                         |   164|
+|231   |            tag_array_0_ext                                   |tag_array_0_ext                                     |   164|
+|232   |        tlb                                                   |TLB_1                                               |  2113|
+|233   |      intsink                                                 |IntSyncAsyncCrossingSink                            |     2|
+|234   |        SynchronizerShiftReg_w1_d3                            |SynchronizerShiftReg_w1_d3                          |     2|
+|235   |          NonSyncResetSynchronizerPrimitiveShiftReg_d3        |NonSyncResetSynchronizerPrimitiveShiftReg_d3        |     2|
+|236   |      ptw                                                     |PTW                                                 |  1071|
+|237   |      respArb                                                 |RRArbiter                                           |     1|
+|238   |      tlMasterXbar                                            |TLXbar_8                                            |    66|
+|239   |  mem                                                         |AXIMem                                              |   351|
+|240   |  mmio                                                        |AXIMmio                                             |   646|
+|241   |    uart_inst                                                 |uart                                                |   646|
+|242   |      bridge_inst                                             |nasti_lite_bridge                                   |   595|
+|243   |        reader                                                |nasti_lite_reader                                   |   313|
+|244   |        writer                                                |nasti_lite_writer                                   |   282|
 +------+--------------------------------------------------------------+----------------------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:05:51 ; elapsed = 00:06:38 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 312 ; free virtual = 2169
+Finished Writing Synthesis Report : Time (s): cpu = 00:05:49 ; elapsed = 00:06:43 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 173 ; free virtual = 432
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 20 critical warnings and 351 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:05:40 ; elapsed = 00:06:27 . Memory (MB): peak = 2883.426 ; gain = 763.988 ; free physical = 4161 ; free virtual = 6018
-Synthesis Optimization Complete : Time (s): cpu = 00:05:53 ; elapsed = 00:06:41 . Memory (MB): peak = 2883.426 ; gain = 1178.332 ; free physical = 4170 ; free virtual = 6018
+Synthesis finished with 0 errors, 21 critical warnings and 350 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:05:37 ; elapsed = 00:06:35 . Memory (MB): peak = 2872.211 ; gain = 767.988 ; free physical = 3627 ; free virtual = 4080
+Synthesis Optimization Complete : Time (s): cpu = 00:05:51 ; elapsed = 00:06:49 . Memory (MB): peak = 2872.211 ; gain = 1183.332 ; free physical = 3628 ; free virtual = 4080
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.37 ; elapsed = 00:00:00.37 . Memory (MB): peak = 2883.426 ; gain = 0.000 ; free physical = 4150 ; free virtual = 5997
-INFO: [Netlist 29-17] Analyzing 3171 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.39 ; elapsed = 00:00:00.39 . Memory (MB): peak = 2872.211 ; gain = 0.000 ; free physical = 3591 ; free virtual = 4051
+INFO: [Netlist 29-17] Analyzing 3327 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2907.438 ; gain = 0.000 ; free physical = 4089 ; free virtual = 5938
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2896.223 ; gain = 0.000 ; free physical = 3491 ; free virtual = 3988
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 390 instances were transformed.
+  A total of 492 instances were transformed.
   RAM128X1D => RAM128X1D (MUXF7(x2), RAMD64E(x4)): 4 instances
-  RAM16X1D => RAM32X1D (RAMD32(x2)): 31 instances
-  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 183 instances
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 51 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 265 instances
   RAM64X1D => RAM64X1D (RAMD64E(x2)): 172 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-752 Infos, 578 Warnings, 20 Critical Warnings and 0 Errors encountered.
+754 Infos, 623 Warnings, 21 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:06:02 ; elapsed = 00:06:54 . Memory (MB): peak = 2907.438 ; gain = 1451.355 ; free physical = 4293 ; free virtual = 6141
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2907.438 ; gain = 0.000 ; free physical = 4293 ; free virtual = 6142
+synth_design: Time (s): cpu = 00:06:00 ; elapsed = 00:07:04 . Memory (MB): peak = 2896.223 ; gain = 1423.449 ; free physical = 3701 ; free virtual = 4196
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2896.223 ; gain = 0.000 ; free physical = 3701 ; free virtual = 4197
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint '/home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc/minisys_with_grh_rocc.runs/synth_1/chip_top.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2931.449 ; gain = 24.012 ; free physical = 4285 ; free virtual = 6142
+write_checkpoint: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 2920.234 ; gain = 24.012 ; free physical = 3685 ; free virtual = 4196
 INFO: [runtcl-4] Executing : report_utilization -file chip_top_utilization_synth.rpt -pb chip_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu May  7 23:26:11 2020...
+INFO: [Common 17-206] Exiting Vivado at Sat May  9 10:06:56 2020...

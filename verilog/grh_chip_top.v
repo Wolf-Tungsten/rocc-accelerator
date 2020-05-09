@@ -8,14 +8,15 @@ module chip_top
   output [15:0]LED,
   
   //----JTAG
+  input jtag_trst,
   input jtag_tck,
   input jtag_tms,
   input jtag_tdi,
   output jtag_tdo,
   input jtag_reset,
   //----UART
-//  output  uart_TX,
-//  input   uart_RX,
+  output  uart_TX,
+  input   uart_RX,
   
   //----DDR
   inout  [15:0] ddr3_dq,
@@ -99,7 +100,6 @@ module chip_top
   wire  dut_mem_axi4_0_r_ready; 
   wire  dut_mem_axi4_0_r_valid; 
   wire [3:0] dut_mem_axi4_0_r_id; 
-  // wire [63:0] dut_mem_axi4_0_r_data; 
   wire [31:0] dut_mem_axi4_0_r_data;
   wire [1:0] dut_mem_axi4_0_r_resp; 
   wire  dut_mem_axi4_0_r_last; 
@@ -290,7 +290,7 @@ module chip_top
       .debug_systemjtag_mfr_id(dut_debug_systemjtag_mfr_id),
       .debug_ndreset(dut_debug_ndreset),
       .debug_dmactive(dut_debug_dmactive),
-      .debug_dmactiveAck(1),
+      .debug_dmactiveAck(dut_debug_dmactive),
       .interrupts(dut_interrupts),
       .mem_axi4_0_aw_ready(dut_mem_axi4_0_aw_ready),
       .mem_axi4_0_aw_valid(dut_mem_axi4_0_aw_valid),
@@ -494,59 +494,59 @@ module chip_top
 `endif
 
   
-//  AXIMmio mmio ( 
-//    .clock(mmio_clock),
-//    .reset(mmio_reset),
+  AXIMmio mmio ( 
+    .clock(mmio_clock),
+    .reset(mmio_reset),
     
-//    .io_axi4_0_aw_ready(mmio_io_axi4_0_aw_ready),
-//    .io_axi4_0_aw_valid(mmio_io_axi4_0_aw_valid),
-//    .io_axi4_0_aw_id(mmio_io_axi4_0_aw_id),
-//    .io_axi4_0_aw_addr(mmio_io_axi4_0_aw_addr),
-//    .io_axi4_0_aw_len(mmio_io_axi4_0_aw_len),
-//    .io_axi4_0_aw_size(mmio_io_axi4_0_aw_size),
-//    .io_axi4_0_aw_burst(mmio_io_axi4_0_aw_burst),
-//    .io_axi4_0_w_ready(mmio_io_axi4_0_w_ready),
-//    .io_axi4_0_w_valid(mmio_io_axi4_0_w_valid),
-//    .io_axi4_0_w_data(mmio_io_axi4_0_w_data),
-//    .io_axi4_0_w_strb(mmio_io_axi4_0_w_strb),
-//    .io_axi4_0_w_last(mmio_io_axi4_0_w_last),
-//    .io_axi4_0_b_ready(mmio_io_axi4_0_b_ready),
-//    .io_axi4_0_b_valid(mmio_io_axi4_0_b_valid),
-//    .io_axi4_0_b_id(mmio_io_axi4_0_b_id),
-//    .io_axi4_0_b_resp(mmio_io_axi4_0_b_resp),
-//    .io_axi4_0_ar_ready(mmio_io_axi4_0_ar_ready),
-//    .io_axi4_0_ar_valid(mmio_io_axi4_0_ar_valid),
-//    .io_axi4_0_ar_id(mmio_io_axi4_0_ar_id),
-//    .io_axi4_0_ar_addr(mmio_io_axi4_0_ar_addr),
-//    .io_axi4_0_ar_len(mmio_io_axi4_0_ar_len),
-//    .io_axi4_0_ar_size(mmio_io_axi4_0_ar_size),
-//    .io_axi4_0_ar_burst(mmio_io_axi4_0_ar_burst),
-//    .io_axi4_0_r_ready(mmio_io_axi4_0_r_ready),
-//    .io_axi4_0_r_valid(mmio_io_axi4_0_r_valid),
-//    .io_axi4_0_r_id(mmio_io_axi4_0_r_id),
-//    .io_axi4_0_r_data(mmio_io_axi4_0_r_data),
-//    .io_axi4_0_r_resp(mmio_io_axi4_0_r_resp),
-//    .io_axi4_0_r_last(mmio_io_axi4_0_r_last),
+    .io_axi4_0_aw_ready(mmio_io_axi4_0_aw_ready),
+    .io_axi4_0_aw_valid(mmio_io_axi4_0_aw_valid),
+    .io_axi4_0_aw_id(mmio_io_axi4_0_aw_id),
+    .io_axi4_0_aw_addr(mmio_io_axi4_0_aw_addr),
+    .io_axi4_0_aw_len(mmio_io_axi4_0_aw_len),
+    .io_axi4_0_aw_size(mmio_io_axi4_0_aw_size),
+    .io_axi4_0_aw_burst(mmio_io_axi4_0_aw_burst),
+    .io_axi4_0_w_ready(mmio_io_axi4_0_w_ready),
+    .io_axi4_0_w_valid(mmio_io_axi4_0_w_valid),
+    .io_axi4_0_w_data(mmio_io_axi4_0_w_data),
+    .io_axi4_0_w_strb(mmio_io_axi4_0_w_strb),
+    .io_axi4_0_w_last(mmio_io_axi4_0_w_last),
+    .io_axi4_0_b_ready(mmio_io_axi4_0_b_ready),
+    .io_axi4_0_b_valid(mmio_io_axi4_0_b_valid),
+    .io_axi4_0_b_id(mmio_io_axi4_0_b_id),
+    .io_axi4_0_b_resp(mmio_io_axi4_0_b_resp),
+    .io_axi4_0_ar_ready(mmio_io_axi4_0_ar_ready),
+    .io_axi4_0_ar_valid(mmio_io_axi4_0_ar_valid),
+    .io_axi4_0_ar_id(mmio_io_axi4_0_ar_id),
+    .io_axi4_0_ar_addr(mmio_io_axi4_0_ar_addr),
+    .io_axi4_0_ar_len(mmio_io_axi4_0_ar_len),
+    .io_axi4_0_ar_size(mmio_io_axi4_0_ar_size),
+    .io_axi4_0_ar_burst(mmio_io_axi4_0_ar_burst),
+    .io_axi4_0_r_ready(mmio_io_axi4_0_r_ready),
+    .io_axi4_0_r_valid(mmio_io_axi4_0_r_valid),
+    .io_axi4_0_r_id(mmio_io_axi4_0_r_id),
+    .io_axi4_0_r_data(mmio_io_axi4_0_r_data),
+    .io_axi4_0_r_resp(mmio_io_axi4_0_r_resp),
+    .io_axi4_0_r_last(mmio_io_axi4_0_r_last),
     
-//    //external interrupt connecting
-//    .interrupt_uart(interrupt_uart),
+    //external interrupt connecting
+    .interrupt_uart(interrupt_uart),
 //    .interrupt_spi(interrupt_spi),
     
-//    //HW devices' pins
-//    .uart_TX(uart_TX),
-//    .uart_RX(uart_RX),
+    //HW devices' pins
+    .uart_TX(uart_TX),
+    .uart_RX(uart_RX)
 
 //    .spi_cs(spi_cs),
 //    .spi_sclock(spi_sclock),
 //    .spi_mosi(spi_mosi),
 //    .spi_miso(spi_miso),
 //    .sd_poweroff(sd_poweroff)
-//  );
+  );
   
   //////////////////////////////////debug
   
-//  assign LED[13] = uart_TX;
-//  assign LED[12] = uart_RX;
+  assign LED[13] = uart_TX;
+  assign LED[12] = uart_RX;
   
   assign LED[15] = dut_reset;
   assign LED[14] = dut_clock;
@@ -573,10 +573,10 @@ module chip_top
   assign dut_reset = reset | dut_debug_ndreset; 
   
   assign dut_interrupts[0] = interrupt_uart;
-  assign dut_interrupts[1] = interrupt_spi;  // need to be connected with interrupts
+  assign dut_interrupts[1] = 0;  // need to be connected with interrupts
   
-  assign dut_interrupts[0] = 0;
-  assign dut_interrupts[1] = 0;
+//  assign dut_interrupts[0] = 0;
+//  assign dut_interrupts[1] = 0;
 //  assign dut_debug_clockeddmi_dmiClock = clock30; 
 //  assign dut_debug_clockeddmi_dmiReset = reset; 
 
@@ -631,7 +631,6 @@ module chip_top
   assign mem_io_axi4_0_r_ready = dut_mem_axi4_0_r_ready; 
   
 
-/*
   //  ***** mmio module *****
   // CR inheritance 
   assign mmio_clock = clock30; 
@@ -667,35 +666,34 @@ module chip_top
   assign mmio_io_axi4_0_ar_size = dut_mmio_axi4_0_ar_size; 
   assign mmio_io_axi4_0_ar_burst = dut_mmio_axi4_0_ar_burst; 
   assign mmio_io_axi4_0_r_ready = dut_mmio_axi4_0_r_ready; 
-  */
   // mmio
   
-  assign dut_mmio_axi4_0_aw_valid = 1'h0; 
-  assign dut_mmio_axi4_0_aw_id = 8'h0;
-  assign dut_mmio_axi4_0_aw_addr = 32'h0;
-  assign dut_mmio_axi4_0_aw_len = 8'h0;
-  assign dut_mmio_axi4_0_aw_size = 3'h0;
-  assign dut_mmio_axi4_0_aw_burst = 2'h0;
-  assign dut_mmio_axi4_0_aw_lock = 1'h0;
-  assign dut_mmio_axi4_0_aw_cache = 4'h0;
-  assign dut_mmio_axi4_0_aw_prot = 3'h0;
-  assign dut_mmio_axi4_0_aw_qos = 4'h0;
-  assign dut_mmio_axi4_0_w_valid = 1'h0;
-  assign dut_mmio_axi4_0_w_data = 32'h0;
-  assign dut_mmio_axi4_0_w_strb = 8'h0;
-  assign dut_mmio_axi4_0_w_last = 1'h0;
-  assign dut_mmio_axi4_0_b_ready = 1'h0; 
-  assign dut_mmio_axi4_0_ar_valid = 1'h0;
-  assign dut_mmio_axi4_0_ar_id = 8'h0;
-  assign dut_mmio_axi4_0_ar_addr = 32'h0;
-  assign dut_mmio_axi4_0_ar_len = 8'h0;
-  assign dut_mmio_axi4_0_ar_size = 3'h0;
-  assign dut_mmio_axi4_0_ar_burst = 2'h0;
-  assign dut_mmio_axi4_0_ar_lock = 1'h0;
-  assign dut_mmio_axi4_0_ar_cache = 4'h0;
-  assign dut_mmio_axi4_0_ar_prot = 3'h0;
-  assign dut_mmio_axi4_0_ar_qos = 4'h0;
-  assign dut_mmio_axi4_0_r_ready = 1'h0; 
+//  assign dut_mmio_axi4_0_aw_valid = 1'h0; 
+//  assign dut_mmio_axi4_0_aw_id = 8'h0;
+//  assign dut_mmio_axi4_0_aw_addr = 32'h0;
+//  assign dut_mmio_axi4_0_aw_len = 8'h0;
+//  assign dut_mmio_axi4_0_aw_size = 3'h0;
+//  assign dut_mmio_axi4_0_aw_burst = 2'h0;
+//  assign dut_mmio_axi4_0_aw_lock = 1'h0;
+//  assign dut_mmio_axi4_0_aw_cache = 4'h0;
+//  assign dut_mmio_axi4_0_aw_prot = 3'h0;
+//  assign dut_mmio_axi4_0_aw_qos = 4'h0;
+//  assign dut_mmio_axi4_0_w_valid = 1'h0;
+//  assign dut_mmio_axi4_0_w_data = 32'h0;
+//  assign dut_mmio_axi4_0_w_strb = 8'h0;
+//  assign dut_mmio_axi4_0_w_last = 1'h0;
+//  assign dut_mmio_axi4_0_b_ready = 1'h0; 
+//  assign dut_mmio_axi4_0_ar_valid = 1'h0;
+//  assign dut_mmio_axi4_0_ar_id = 8'h0;
+//  assign dut_mmio_axi4_0_ar_addr = 32'h0;
+//  assign dut_mmio_axi4_0_ar_len = 8'h0;
+//  assign dut_mmio_axi4_0_ar_size = 3'h0;
+//  assign dut_mmio_axi4_0_ar_burst = 2'h0;
+//  assign dut_mmio_axi4_0_ar_lock = 1'h0;
+//  assign dut_mmio_axi4_0_ar_cache = 4'h0;
+//  assign dut_mmio_axi4_0_ar_prot = 3'h0;
+//  assign dut_mmio_axi4_0_ar_qos = 4'h0;
+//  assign dut_mmio_axi4_0_r_ready = 1'h0; 
 
   
 

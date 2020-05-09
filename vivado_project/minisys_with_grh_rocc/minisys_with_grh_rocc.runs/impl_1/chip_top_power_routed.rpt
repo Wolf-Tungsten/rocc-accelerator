@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-| Date             : Thu May  7 23:35:38 2020
+| Date             : Sat May  9 10:16:20 2020
 | Host             : ubuntu running 64-bit Ubuntu 18.04.4 LTS
 | Command          : report_power -file chip_top_power_routed.rpt -pb chip_top_power_summary_routed.pb -rpx chip_top_power_routed.rpx
 | Design           : chip_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.153        |
+| Total On-Chip Power (W)  | 1.163        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.038        |
+| Dynamic (W)              | 1.049        |
 | Device Static (W)        | 0.114        |
 | Effective TJA (C/W)      | 2.7          |
 | Max Ambient (C)          | 81.9         |
@@ -52,25 +52,25 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.057 |       52 |       --- |             --- |
-| Slice Logic              |     0.036 |   125046 |       --- |             --- |
-|   LUT as Logic           |     0.033 |    49139 |     63400 |           77.51 |
-|   CARRY4                 |     0.001 |     7305 |     15850 |           46.09 |
-|   Register               |     0.001 |    42284 |    126800 |           33.35 |
-|   LUT as Distributed RAM |    <0.001 |     1812 |     19000 |            9.54 |
-|   F7/F8 Muxes            |    <0.001 |     1131 |     63400 |            1.78 |
+| Clocks                   |     0.059 |       52 |       --- |             --- |
+| Slice Logic              |     0.038 |   127739 |       --- |             --- |
+|   LUT as Logic           |     0.034 |    50115 |     63400 |           79.05 |
+|   CARRY4                 |     0.001 |     7342 |     15850 |           46.32 |
+|   Register               |     0.001 |    42977 |    126800 |           33.89 |
+|   LUT as Distributed RAM |    <0.001 |     2142 |     19000 |           11.27 |
+|   F7/F8 Muxes            |    <0.001 |     1139 |     63400 |            1.80 |
 |   BUFG                   |    <0.001 |        1 |        32 |            3.13 |
-|   LUT as Shift Register  |    <0.001 |      223 |     19000 |            1.17 |
-|   Others                 |    <0.001 |     4449 |       --- |             --- |
-| Signals                  |     0.066 |    75529 |       --- |             --- |
-| Block RAM                |     0.072 |      128 |       135 |           94.81 |
+|   LUT as Shift Register  |    <0.001 |      237 |     19000 |            1.25 |
+|   Others                 |    <0.001 |     4522 |       --- |             --- |
+| Signals                  |     0.069 |    77444 |       --- |             --- |
+| Block RAM                |     0.075 |      128 |       135 |           94.81 |
 | MMCM                     |     0.095 |        1 |         6 |           16.67 |
 | PLL                      |     0.202 |        2 |         6 |           33.33 |
-| DSPs                     |     0.001 |        4 |       240 |            1.67 |
-| I/O                      |     0.305 |       72 |       285 |           25.26 |
+| DSPs                     |     0.002 |        8 |       240 |            3.33 |
+| I/O                      |     0.305 |       74 |       285 |           25.96 |
 | PHASER                   |     0.205 |       18 |       --- |             --- |
 | Static Power             |     0.114 |          |           |                 |
-| Total                    |     1.153 |          |           |                 |
+| Total                    |     1.163 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -80,7 +80,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.309 |       0.286 |      0.023 |
+| Vccint    |       1.000 |     0.319 |       0.296 |      0.023 |
 | Vccaux    |       1.800 |     0.325 |       0.306 |      0.018 |
 | Vcco33    |       3.300 |     0.005 |       0.001 |      0.004 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -198,28 +198,31 @@ Table of Contents
 +---------------------------+-----------+
 | Name                      | Power (W) |
 +---------------------------+-----------+
-| chip_top                  |     1.038 |
+| chip_top                  |     1.049 |
 |   clk_gen                 |     0.111 |
 |     inst                  |     0.111 |
-|   dut                     |     0.158 |
+|   dut                     |     0.168 |
 |     debug_1               |     0.002 |
 |       dmInner             |     0.001 |
 |     dtm                   |     0.002 |
 |       JtagTapController   |     0.002 |
 |     subsystem_cbus        |     0.003 |
-|     tile                  |     0.149 |
-|       accel               |     0.019 |
-|       buffer              |     0.002 |
+|     subsystem_sbus        |     0.001 |
+|     tile                  |     0.157 |
+|       accel               |     0.020 |
+|       buffer              |     0.003 |
 |       core                |     0.008 |
-|       dcache              |     0.049 |
-|       fpuOpt              |     0.015 |
-|       frontend            |     0.051 |
+|       dcache              |     0.051 |
+|       fpuOpt              |     0.014 |
+|       frontend            |     0.057 |
 |       ptw                 |     0.003 |
 |   mem                     |     0.763 |
 |     DDR_ctrl              |     0.758 |
-|       u_mig_7series_0_mig |     0.757 |
+|       u_mig_7series_0_mig |     0.756 |
 |     clk_conv              |     0.005 |
 |       inst                |     0.005 |
+|   mmio                    |     0.001 |
+|     uart_inst             |     0.001 |
 +---------------------------+-----------+
 
 
