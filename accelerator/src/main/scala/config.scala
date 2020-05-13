@@ -67,7 +67,34 @@ class With1TinyRV32Core extends Config((site, here, up) => {
   ))
 })
 
+class WithNMinisysCores(n: Int) extends Config((site, here, up) => {
+  case RocketTilesKey => {
+    val slim = RocketTileParams(
+      core = RocketCoreParams(
+      useVM = false,
+      useUser = false,
+      useSupervisor = false,
+      fpu = None,
+      mulDiv = Some(MulDivParams(
+        mulUnroll = 8,
+        mulEarlyOut = true,
+        divEarlyOut = true))
+      ),
+      btb = None,
+      dcache = Some(DCacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nMSHRs = 0,
+        blockBytes = site(CacheBlockBytes))),
+      icache = Some(ICacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        blockBytes = site(CacheBlockBytes))))
+    List.tabulate(n)(i => slim.copy(hartId = i))
+  }
+})
+
+
 class GRHRV32EmulatorConfig extends Config(new WithGRHRocc ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
 class GRHRV32FPGAConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new WithRV32 ++ new WithNBigCores(1)  ++ new WithCoherentBusTopology ++ new BaseConfig)
 class GRHRV32RBBConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++ new With1TinyRV32Core ++ new WithCoherentBusTopology ++ new BaseConfig)
-
+class GRHRV64FPGAMinisysConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++  new WithNMinisysCores(1)  ++ new WithCoherentBusTopology ++ new BaseConfig)
+class GRHRV64FPGABigConfig extends Config(new WithGRHRocc ++ new WithJtagDTMSystem ++  new WithNBigCores(1)  ++ new WithCoherentBusTopology ++ new BaseConfig)

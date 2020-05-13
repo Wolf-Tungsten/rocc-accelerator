@@ -79,6 +79,7 @@ set rc [catch {
   read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.srcs/sources_1/ip/axi_uart16550_0/axi_uart16550_0.xci
   read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.srcs/sources_1/ip/axi_clock_converter_0/axi_clock_converter_0.xci
   read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.srcs/sources_1/ip/mig_7series_0/mig_7series_0.xci
+  read_ip -quiet /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.srcs/sources_1/ip/Mul8bit/Mul8bit.xci
   read_xdc /home/wolf/rocket-chip/rocc-accelerator/constraints/Minisys_Board_Pin_Map.xdc
   link_design -top chip_top -part xc7a100tfgg484-1
   close_msg_db -file init_design.pb
