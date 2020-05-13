@@ -1,0 +1,89 @@
+ELF 头：
+  Magic：   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  类别:                              ELF32
+  数据:                              2 补码，小端序 (little endian)
+  版本:                              1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI 版本:                          0
+  类型:                              EXEC (可执行文件)
+  系统架构:                          RISC-V
+  版本:                              0x1
+  入口点地址：               0x80000000
+  程序头起点：          52 (bytes into file)
+  Start of section headers:          13068 (bytes into file)
+  标志：             0x0
+  本头的大小：       52 (字节)
+  程序头大小：       32 (字节)
+  Number of program headers:         2
+  节头大小：         40 (字节)
+  节头数量：         9
+  字符串表索引节头： 8
+
+节头：
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        80000000 001000 000840 00  AX  0   0  4
+  [ 2] .rodata           PROGBITS        80001000 002000 0000e1 00   A  0   0  4
+  [ 3] .bss              NOBITS          800010e4 0020e1 0005e5 00  WA  0   0  4
+  [ 4] .sdata            PROGBITS        800ff000 003000 000004 00  WA  0   0  4
+  [ 5] .comment          PROGBITS        00000000 003004 000011 01  MS  0   0  1
+  [ 6] .symtab           SYMTAB          00000000 003018 0001d0 10      7  10  4
+  [ 7] .strtab           STRTAB          00000000 0031e8 0000e6 00      0   0  1
+  [ 8] .shstrtab         STRTAB          00000000 0032ce 00003e 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  p (processor specific)
+
+There are no section groups in this file.
+
+程序头：
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x80000000 0x80000000 0x010e1 0x016c9 RWE 0x1000
+  LOAD           0x003000 0x800ff000 0x800ff000 0x00004 0x00004 RW  0x1000
+
+ Section to Segment mapping:
+  段节...
+   00     .text .rodata .bss 
+   01     .sdata 
+
+There is no dynamic section in this file.
+
+该文件中没有重定位信息。
+
+The decoding of unwind sections for machine type RISC-V is not currently supported.
+
+Symbol table '.symtab' contains 29 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 80000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 80001000     0 SECTION LOCAL  DEFAULT    2 
+     3: 800010e4     0 SECTION LOCAL  DEFAULT    3 
+     4: 800ff000     0 SECTION LOCAL  DEFAULT    4 
+     5: 00000000     0 SECTION LOCAL  DEFAULT    5 
+     6: 00000000     0 FILE    LOCAL  DEFAULT  ABS baremetal.c
+     7: 00000000     0 FILE    LOCAL  DEFAULT  ABS convolution.c
+     8: 00000000     0 FILE    LOCAL  DEFAULT  ABS uart.c
+     9: 00000000     0 FILE    LOCAL  DEFAULT  ABS myprintf.c
+    10: 80000674   312 FUNC    GLOBAL DEFAULT    1 printf
+    11: 800010e8  1024 OBJECT  GLOBAL DEFAULT    3 featureData
+    12: 800005e4    88 FUNC    GLOBAL DEFAULT    1 uart_send
+    13: 800007ac   116 FUNC    GLOBAL DEFAULT    1 printNum
+    14: 800014e8   236 OBJECT  GLOBAL DEFAULT    3 softwareResultData
+    15: 8000063c    56 FUNC    GLOBAL DEFAULT    1 putch
+    16: 80000558   140 FUNC    GLOBAL DEFAULT    1 uart_init
+    17: 80000368   420 FUNC    GLOBAL DEFAULT    1 loadFeatureIntoAccel
+    18: 80000000     0 NOTYPE  GLOBAL DEFAULT    1 _start
+    19: 8000050c    76 FUNC    GLOBAL DEFAULT    1 loadDMABenchmark
+    20: 80000114   596 FUNC    GLOBAL DEFAULT    1 convTest
+    21: 800000c4    80 FUNC    GLOBAL DEFAULT    1 main
+    22: 800015d4   236 OBJECT  GLOBAL DEFAULT    3 resultData
+    23: 800ff000     4 OBJECT  GLOBAL DEFAULT    4 uart_base_ptr
+    24: 800016c0     9 OBJECT  GLOBAL DEFAULT    3 filterData
+    25: 8000009c    40 FUNC    GLOBAL DEFAULT    1 a
+    26: 800f0000     0 NOTYPE  GLOBAL DEFAULT    4 _stack
+    27: 80000820    32 FUNC    GLOBAL DEFAULT    1 nop
+    28: 800010e4     4 OBJECT  GLOBAL DEFAULT    3 empty
+
+No version information found in this file.

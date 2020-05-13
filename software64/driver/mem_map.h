@@ -1,0 +1,7 @@
+#ifndef MEM_MAP_HEADER_H
+#define MEM_MAP_HEADER_H
+
+	#define MEM_MAP_UART_BASE 0x60000000
+	#define MEM_MAP_DDR_BASE  0x80000000
+
+#endif
