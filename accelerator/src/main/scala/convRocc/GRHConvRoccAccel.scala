@@ -123,7 +123,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
 
   when(state === s_loadFeatureData){
     featureRegFile(featureRegFileAddr(0)) := featureRegFileData(0)
-    // 逻辑限制：只有四个地址是依次递增时才会四个都写入，否则只写入前面的
+    // 逻辑限制：只有8个地址是依次递增时才会8个都写入，否则只写入前面的
     for(i <- 1 until (xLen / 8)){ // i <- 1,2,3
         when(featureRegFileAddr(i) > featureRegFileAddr(i-1)){
           featureRegFile(featureRegFileAddr(i)) := featureRegFileData(i)
@@ -136,7 +136,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.addr := featureMemBaseAddr + featureMemPtr
     io.mem.req.bits.tag := featureMemPtr(7, 0)// 也许是10到0？
     io.mem.req.bits.cmd := M_XRD // 内存读取
-    io.mem.req.bits.size := log2Ceil(1).U // 每次读取一字节
+    io.mem.req.bits.size := log2Ceil(8).U // 每次读取一字节
     io.mem.req.bits.signed := Bool(true) // 有符号
     io.mem.req.bits.data := Bits(0) 
     io.mem.req.bits.phys := Bool(false)
@@ -156,9 +156,12 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.addr := resultMemBaseAddr + resultMemPtr
     io.mem.req.bits.tag := resultMemPtr(7, 0) >> 2
     io.mem.req.bits.cmd := M_XWR // 内存写入
-    io.mem.req.bits.size := log2Ceil(4).U // 每次写入四字节
+    io.mem.req.bits.size := log2Ceil(8).U // 每次写入8字节
     io.mem.req.bits.signed := Bool(true) // 有符号
-    io.mem.req.bits.data := resultRegFile(resultMemPtr(7, 0) >> 2).asUInt
+    //io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0) >> 2)).asUInt, resultRegFile(resultMemPtr(7, 0) >> 2).asUInt)
+    io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0)>>2)+1.U).asUInt, resultRegFile((resultMemPtr(7, 0)>>2)).asUInt)
+    // io.mem.req.bits.data := Cat(98.U(32.W), 47.U(32.W))
+    // io.mem.req.bits.data := Cat((resultMemPtr >> 2)(31, 0), 0.U(24.W), featureRegFile((resultMemPtr(7, 0) >> 2)).asUInt)
     io.mem.req.bits.phys := Bool(false)
     io.mem.req.bits.dprv := cmd.bits.status.dprv
   }
@@ -166,11 +169,11 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   // 内存系统请求成功时，指针向后偏移
   when(io.mem.req.fire()){
     when(state === s_loadFeatureDataDMA  && featureMemPtr < outer.featureSize.U){
-      featureMemPtr := featureMemPtr + 1.U
+      featureMemPtr := featureMemPtr + 8.U
     }
     when(state === s_storeResultData) {
       when( (resultMemPtr >> 2) < resultSize.U ){
-        resultMemPtr := resultMemPtr + 4.U
+        resultMemPtr := resultMemPtr + 8.U
       }.otherwise{
         state := s_resp
       }
@@ -181,11 +184,14 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   when(io.mem.resp.valid){
     // 当内存响应数据时，根据 tag 记录数据，并取消对应位的 pending 状态
     when(state === s_loadFeatureDataDMA){
-      featureRegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
-      featureRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+      for(i <- 0 until 8){
+        featureRegFile(io.mem.resp.bits.tag(7,0)+i.U) := io.mem.resp.bits.data(7+(i*8),0+(i*8)).asSInt
+        featureRegDmaPending(io.mem.resp.bits.tag(7,0)+i.U) := false.B
+      }
     }
     when(state === s_storeResultData){
       resultRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+      resultRegDmaPending(io.mem.resp.bits.tag(7,0) + 1.U) := false.B
     }
   }
 

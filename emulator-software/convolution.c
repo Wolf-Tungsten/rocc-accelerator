@@ -10,9 +10,9 @@ void pushFIFOTest();
 int8_t fetchOneResultFIFO(uint8_t resultAddr);
 
 // 划分内存区域
-int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE];
+uint64_t featureData[(FEATURE_ROW_SIZE / 8) * (FEATURE_ROW_SIZE / 8)]; // 使用64位来保证对齐
 int8_t filterData[FILTER_ROW_SIZE * FILTER_ROW_SIZE];
-int32_t resultData[RESULT_ROW_SIZE * RESULT_ROW_SIZE];
+uint64_t resultData[(RESULT_ROW_SIZE / 2) * (RESULT_ROW_SIZE / 2)];
 
 int main() {
 
@@ -21,7 +21,8 @@ int main() {
   printf("[INFO] Init test data...\n",0);
   for(int row = 0; row < FEATURE_ROW_SIZE; row++){
     for(int col = 0; col < FEATURE_ROW_SIZE; col++){
-      featureData[row * FEATURE_ROW_SIZE + col] = 1;
+      //featureData[row * FEATURE_ROW_SIZE + col] = col;
+      ((int8_t *)featureData)[row * FEATURE_ROW_SIZE + col] = col;
     }
   }
   for(int row = 0; row < FILTER_ROW_SIZE; row++){
@@ -46,11 +47,11 @@ int main() {
   printf("[INFO] Fire the hole!\n",0);
   doConv();
   printf("[INFO] Conv DONE\n",0);
-  doStoreResult(resultData)
+  doStoreResult(resultData);
   for(int i = 0; i < RESULT_ROW_SIZE; i++){
     // resultData[i] = fetchOneResult(i);
     printf("[RESULT] addr:%d, ", i);
-    printf("data:%d\n", resultData[i]);
+    printf("data:%d\n", *(((int32_t *)resultData) + i));
   }
   
 }
