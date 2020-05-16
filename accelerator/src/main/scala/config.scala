@@ -1,6 +1,7 @@
 package grh.config
 
 import grh.convRocc._
+import grh.activateRocc._
 import Chisel._
 import freechips.rocketchip.config._
 import freechips.rocketchip.devices.debug._
@@ -17,12 +18,17 @@ import freechips.rocketchip.subsystem._
 class WithGRHRocc extends Config((site, here, up) => {
   case BuildRoCC => List(
     (p: Parameters) => {
-        val accel = LazyModule(new GRHConvRoccAccel(OpcodeSet.custom0, featureSize = 32, filterSize = 3, mulStage = 3)(p))
+        val convAccel = LazyModule(new GRHConvRoccAccel(OpcodeSet.custom0, featureSize = 32, filterSize = 3, mulStage = 3)(p))
         //val accel = LazyModule(new AccumulatorExample(OpcodeSet.custom0, n = 4)(p))
-        accel
+        convAccel
     },
     (p: Parameters) => {
-        val accumulator = LazyModule(new AccumulatorExample(OpcodeSet.custom1 | OpcodeSet.custom2 | OpcodeSet.custom3 , n = 4)(p))
+        val activateAccel = LazyModule(new GRHActivateRoccAccel(OpcodeSet.custom1, resolution = 256)(p))
+        //val accel = LazyModule(new AccumulatorExample(OpcodeSet.custom0, n = 4)(p))
+        activateAccel
+    },
+    (p: Parameters) => {
+        val accumulator = LazyModule(new AccumulatorExample(OpcodeSet.custom2 | OpcodeSet.custom3 , n = 4)(p))
         accumulator
     })
     // (p: Parameters) => {

@@ -136,7 +136,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.addr := featureMemBaseAddr + featureMemPtr
     io.mem.req.bits.tag := featureMemPtr(7, 0)// 也许是10到0？
     io.mem.req.bits.cmd := M_XRD // 内存读取
-    io.mem.req.bits.size := log2Ceil(8).U // 每次读取一字节
+    io.mem.req.bits.size := log2Ceil(8).U // 每次读取8字节
     io.mem.req.bits.signed := Bool(true) // 有符号
     io.mem.req.bits.data := Bits(0) 
     io.mem.req.bits.phys := Bool(false)
