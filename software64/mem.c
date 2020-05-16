@@ -7,7 +7,10 @@
 int main (void){
     uart_init();
     printf("Hello RISCV\n\r", 0);
-    *(uint64_t *)(0x80000800) = 0xdeadbeef;
+    for(int i = 0; i < 0xffff; i+=4){
+        *(uint32_t *)(0x80010000+i) = 0xdeadbeef;
+    }
+    
     printf("%h\n\r", *(uint64_t *)(0x80000000));
     printf("Test Done!\n\r", 0);
 }

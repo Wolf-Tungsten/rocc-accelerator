@@ -49,8 +49,8 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   val featureRegFileAddr = Mem(xLen / 8, UInt(width = 8)) // 锁存将要写入特征寄存器组的地址（来自 rs1）
   val featureRegFileData = Mem(xLen / 8, SInt(width = 8)) // 锁存将要写入特征寄存器组的数据（来自 rs2）
   // loadFeatureRowDMA 指令相关寄存器
-  val featureMemBaseAddr = Reg(0.U(32.W)) // feature data 行的内存基地址，通过 rs1 传入
-  val featureMemPtr = Reg(0.U(32.W)) // 访存 feature data 行时的活动指针
+  val featureMemBaseAddr = Reg(0.U(xLen.W)) // feature data 行的内存基地址，通过 rs1 传入
+  val featureMemPtr = Reg(0.U(xLen.W)) // 访存 feature data 行时的活动指针
   val featureRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态
   // loadFilter 指令相关寄存器
   val filterRegFileAddr = Mem(xLen / 8, UInt(width = 8))
@@ -58,10 +58,10 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   // fetchResult 指令相关寄存器
   val resultRegFileAddr = RegInit(0.U(8.W))// 锁存将要访问的结果寄存器组的地址（来自 rs1）
   val resultStore_rd = RegInit(0.U(5.W)) // 锁存指令将要写入的 rd 寄存器编号
-  val resultStore_rd_data = RegInit(0.U(32.W)) // 锁存要写入 rd 的数据，在 s_resp 状态时返回给 Core
+  val resultStore_rd_data = RegInit(0.U(xLen.W)) // 锁存要写入 rd 的数据，在 s_resp 状态时返回给 Core
   // storeResult 指令相关寄存器
-  val resultMemBaseAddr = Reg(0.U(32.W))
-  val resultMemPtr = Reg(0.U(32.W)) // 访存 result data 时的活动指针
+  val resultMemBaseAddr = Reg(0.U(xLen.W))
+  val resultMemPtr = Reg(0.U(xLen.W)) // 访存 result data 时的活动指针
   val resultRegDmaPending = Reg(init = Vec.fill(outer.featureSize){Bool(false)}) // 标记访存状态 
 
   // 状态定义及相关信号定义
@@ -83,7 +83,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   when(cmd.fire()){
     when(doLoadFeatureRow){
       // 功能要求加载特征，并且指定的起始地址不同
-      for(i <- 0 until (xLen / 8)){ // i <- 0,1,2,3
+      for(i <- 0 until (xLen / 8)){ // i <- 0,1,2,3,4,5,6,7
         featureRegFileAddr(i) := rs1(8 * (i + 1) - 1, 8 * i) // (7,0) (15, 8)
         featureRegFileData(i) := rs2(8 * (i + 1) - 1, 8 * i).asSInt() 
       }

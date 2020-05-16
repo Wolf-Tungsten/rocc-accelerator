@@ -17,14 +17,14 @@ class Mul8bitComb extends BlackBox {
 
 class Mul8bitCombSim extends Module {
     val io = IO(new Bundle {
-    val a = Input(SInt(8.W))
-    val b = Input(SInt(8.W))
-    // val clk = Input(Clock())
-    // val ce = Input(Bool())
-    // val sclr = Input(Bool())
-    val p = Output(SInt(16.W))
+    val A = Input(SInt(8.W))
+    val B = Input(SInt(8.W))
+    val CLK = Input(Clock())
+    val CE = Input(Bool())
+    val SCLR = Input(Bool())
+    val P = Output(SInt(16.W))
   })
-  io.p := io.a * io.b
+  io.P := io.A * io.B
 }
 
 class Mul8bit extends BlackBox {
@@ -56,7 +56,7 @@ class GRHConv2dPE(featureSize:Int, filterSize:Int, mulStage:Int) extends Module 
     io.valid := stage > mulStage.U
     // 数据通路连接
     for( featureCol <- 0 until (featureSize - filterSize + 1) ){
-        val mulIP = List.fill(filterSize)(List.fill(filterSize)(Module(new Mul8bit)))
+        val mulIP = List.fill(filterSize)(List.fill(filterSize)(Module(new Mul8bitCombSim)))
         val mulResult = List.fill(filterSize * filterSize)(Wire(SInt(32.W)))
         for(posRow <- 0 until filterSize){
             for(posCol <- 0 until filterSize){

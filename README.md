@@ -4,7 +4,7 @@
 # 生成模拟器
 ```make CONFIG=grh.config.GRHRV32EmulatorConfig ROCKETCHIP_ADDONS=rocc-accelerator/accelerator```
 ```make verilog CONFIG=grh.config.GRHRV32FPGAConfig ROCKETCHIP_ADDONS=rocc-accelerator/accelerator```
-```make verilog CONFIG=grh.config.GRHRV64FPGAConfig ROCKETCHIP_ADDONS=rocc-accelerator/accelerator```
+```make CONFIG=grh.config.GRHRV64EmulatorMinisysConfig ROCKETCHIP_ADDONS=rocc-accelerator/accelerator```
 ```make verilog CONFIG=grh.config.GRHRV64FPGAMinisysConfig ROCKETCHIP_ADDONS=rocc-accelerator/accelerator```
 
 # 编译模拟器程序

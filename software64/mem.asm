@@ -4630,29 +4630,37 @@ Disassembly of section .text:
     800024b2:	87ae                	mv	a5,a1
     800024b4:	fef42223          	sw	a5,-28(s0)
     800024b8:	fe843783          	ld	a5,-24(s0)
-    800024bc:	cf95                	beqz	a5,800024f8 <printNum+0x52>
-    800024be:	fe442783          	lw	a5,-28(s0)
-    800024c2:	fe843703          	ld	a4,-24(s0)
-    800024c6:	02f757b3          	divu	a5,a4,a5
-    800024ca:	fe442703          	lw	a4,-28(s0)
-    800024ce:	85ba                	mv	a1,a4
-    800024d0:	853e                	mv	a0,a5
-    800024d2:	fd5ff0ef          	jal	ra,800024a6 <printNum>
-    800024d6:	fe442783          	lw	a5,-28(s0)
-    800024da:	fe843703          	ld	a4,-24(s0)
-    800024de:	02f777b3          	remu	a5,a4,a5
-    800024e2:	00001717          	auipc	a4,0x1
-    800024e6:	b4670713          	addi	a4,a4,-1210 # 80003028 <printNum+0xb82>
-    800024ea:	97ba                	add	a5,a5,a4
-    800024ec:	0007c783          	lbu	a5,0(a5)
-    800024f0:	853e                	mv	a0,a5
-    800024f2:	e93ff0ef          	jal	ra,80002384 <putch>
-    800024f6:	a011                	j	800024fa <printNum+0x54>
-    800024f8:	0001                	nop
-    800024fa:	60e2                	ld	ra,24(sp)
-    800024fc:	6442                	ld	s0,16(sp)
-    800024fe:	6105                	addi	sp,sp,32
-    80002500:	8082                	ret
+    800024bc:	cba1                	beqz	a5,8000250c <printNum+0x66>
+    800024be:	fe843783          	ld	a5,-24(s0)
+    800024c2:	0007871b          	sext.w	a4,a5
+    800024c6:	fe442783          	lw	a5,-28(s0)
+    800024ca:	02f757bb          	divuw	a5,a4,a5
+    800024ce:	2781                	sext.w	a5,a5
+    800024d0:	1782                	slli	a5,a5,0x20
+    800024d2:	9381                	srli	a5,a5,0x20
+    800024d4:	fe442703          	lw	a4,-28(s0)
+    800024d8:	85ba                	mv	a1,a4
+    800024da:	853e                	mv	a0,a5
+    800024dc:	fcbff0ef          	jal	ra,800024a6 <printNum>
+    800024e0:	fe843783          	ld	a5,-24(s0)
+    800024e4:	0007871b          	sext.w	a4,a5
+    800024e8:	fe442783          	lw	a5,-28(s0)
+    800024ec:	02f777bb          	remuw	a5,a4,a5
+    800024f0:	2781                	sext.w	a5,a5
+    800024f2:	00001717          	auipc	a4,0x1
+    800024f6:	b3670713          	addi	a4,a4,-1226 # 80003028 <printNum+0xb82>
+    800024fa:	1782                	slli	a5,a5,0x20
+    800024fc:	9381                	srli	a5,a5,0x20
+    800024fe:	97ba                	add	a5,a5,a4
+    80002500:	0007c783          	lbu	a5,0(a5)
+    80002504:	853e                	mv	a0,a5
+    80002506:	e7fff0ef          	jal	ra,80002384 <putch>
+    8000250a:	a011                	j	8000250e <printNum+0x68>
+    8000250c:	0001                	nop
+    8000250e:	60e2                	ld	ra,24(sp)
+    80002510:	6442                	ld	s0,16(sp)
+    80002512:	6105                	addi	sp,sp,32
+    80002514:	8082                	ret
 
 Disassembly of section .rodata:
 
@@ -4693,12 +4701,12 @@ Disassembly of section .sdata:
 Disassembly of section .riscv.attributes:
 
 0000000000000000 <.riscv.attributes>:
-   0:	3241                	addiw	tp,tp,-16
+   0:	2841                	addiw	a6,a6,16
    2:	0000                	unimp
    4:	7200                	ld	s0,32(a2)
    6:	7369                	lui	t1,0xffffa
    8:	01007663          	bgeu	zero,a6,14 <_start-0x7fffffec>
-   c:	0028                	addi	a0,sp,8
+   c:	001e                	c.slli	zero,0x7
    e:	0000                	unimp
   10:	7205                	lui	tp,0xfffe1
   12:	3676                	fld	fa2,376(sp)
@@ -4708,10 +4716,7 @@ Disassembly of section .riscv.attributes:
   1a:	326d                	addiw	tp,tp,-5
   1c:	3070                	fld	fa2,224(s0)
   1e:	615f 7032 5f30      	0x5f307032615f
-  24:	3266                	fld	ft4,120(sp)
-  26:	3070                	fld	fa2,224(s0)
-  28:	645f 7032 5f30      	0x5f307032645f
-  2e:	30703263          	0x30703263
+  24:	30703263          	0x30703263
 	...
 
 Disassembly of section .comment:
