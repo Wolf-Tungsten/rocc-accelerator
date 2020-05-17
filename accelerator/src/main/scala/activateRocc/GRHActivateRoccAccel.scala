@@ -34,11 +34,12 @@ with HasCoreParameters {
     val mapMemPtr = Reg(0.U(xLen.W)) // 访存 result data 时的活动指针
     val mapRegDmaPending = Reg(init = Vec.fill(outer.resolution){Bool(false)}) // 标记访存状态 
 
-    val inputNumReg = Mem(xLen / 8 * 2, SInt(width = 32)) // 每条指令可以计算4个SInt32到SInt8的转换
+    val inputNumReg = Mem(4, SInt(width = 32)) // 每条指令可以计算4个SInt32到SInt8的转换
+    val outputNumReg = Mem(4, SInt(width = 8))
     val resultStore_rd = RegInit(0.U(5.W)) // 锁存指令将要写入的 rd 寄存器编号
     val resultStore_rd_data = RegInit(0.U(xLen.W)) // 锁存要写入 rd 的数据，在 s_resp 状态时返回给 Core
 
-    val s_idle::s_loadMap::s_compute::s_resp::Nil = Enum(Bits(), 4)
+    val s_idle::s_loadMap::s_compute_0::s_compute_1::s_compute_2::s_compute_3::s_resp::Nil = Enum(Bits(), 7)
     val state = Reg(init = s_idle)
     cmd.ready := (state === s_idle)
     io.busy := (state =/= s_idle) && (state =/= s_resp)
@@ -60,7 +61,7 @@ with HasCoreParameters {
             inputNumReg(1) := rs1(63,32).asSInt
             inputNumReg(2) := rs2(31,0).asSInt
             inputNumReg(3) := rs2(63,32).asSInt
-            state := s_compute
+            state := s_compute_0
         }.otherwise{
             state := s_resp
         }
@@ -108,20 +109,35 @@ with HasCoreParameters {
     }
 
     // 连接PE和数据
-    val activatePEs = List.fill(4)(Module(new GRHActivatePE(outer.resolution)))
-    for(i <- 0 until 4){
-        activatePEs(i).io.numInput := inputNumReg(i)
-        for(pos <- 0 until outer.resolution){
-            activatePEs(i).io.mapInput(pos) := mapRegFile(i)
-        }
+    val activatePE = Module(new GRHActivatePE(outer.resolution))
+    for(pos <- 0 until outer.resolution){
+        activatePE.io.mapInput(pos) := mapRegFile(pos)
     }
-    when(state === s_compute){
+    `
+    when(state === s_compute_0){
+        activatePE.io.numInput := inputNumReg(0)
+        outputNumReg(0) := activatePE.io.output
+        state := s_compute_1
+    }
+
+    when(state === s_compute_1){
+        activatePE.io.numInput := inputNumReg(1)
+        outputNumReg(1) := activatePE.io.output
+        state := s_compute_2
+    }
+
+    when(state === s_compute_2){
+        activatePE.io.numInput := inputNumReg(2)
+        outputNumReg(2) := activatePE.io.output
+        state := s_compute_2
+    }
+
+    when(state === s_compute_3){
+        activatePE.io.numInput := inputNumReg(3)
+        outputNumReg(3) := activatePE.io.output
         resultStore_rd_data := Cat(0.U(32.W), 
-            activatePEs(3).io.output.asUInt,
-            activatePEs(2).io.output.asUInt,
-            activatePEs(1).io.output.asUInt,
-            activatePEs(1).io.output.asUInt,
-        )
+        outputNumReg(3).asUInt, outputNumReg(2).asUInt, 
+        outputNumReg(1).asUInt, outputNumReg(0).asUInt)
         state := s_resp
     }
 }
