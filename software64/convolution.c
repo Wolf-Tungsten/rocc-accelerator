@@ -7,12 +7,13 @@ int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE];
 int8_t filterData[FILTER_ROW_SIZE * FILTER_ROW_SIZE];
 int32_t resultData[RESULT_ROW_SIZE * RESULT_ROW_SIZE];
 
+
 void convTest(){
 
     printf("[INFO] Init test data...\n\r",0);
     for(int row = 0; row < FEATURE_ROW_SIZE; row++){
         for(int col = 0; col < FEATURE_ROW_SIZE; col++){
-            featureData[row * FEATURE_ROW_SIZE + col] = 1;
+            featureData[row * FEATURE_ROW_SIZE + col] = col;
         }
     }
     for(int row = 0; row < FILTER_ROW_SIZE; row++){

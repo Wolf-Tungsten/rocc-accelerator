@@ -24,7 +24,7 @@ class WithGRHRocc extends Config((site, here, up) => {
         convAccel
     },
     (p: Parameters) => {
-        val activateAccel = LazyModule(new GRHActivateRoccAccel(OpcodeSet.custom1, resolution = 256)(p))
+        val activateAccel = LazyModule(new GRHActivateRoccAccel(OpcodeSet.custom1, resolution = 128)(p))
         //val accel = LazyModule(new AccumulatorExample(OpcodeSet.custom0, n = 4)(p))
         activateAccel
     },
