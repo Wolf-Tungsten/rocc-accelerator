@@ -132,5 +132,23 @@ with HasCoreParameters {
 
     // 连接PE和数据
     val maxPoolPEs = List.fill(8)(Module(new GRHMaxPoolPE))
-    
+    for(i <- 0 until 8){
+        maxPoolPEs(i).io.input(0)(0) := row0RegFile(i*2)
+        maxPoolPEs(i).io.input(0)(1) := row0RegFile(i*2+1)
+        maxPoolPEs(i).io.input(1)(0) := row1RegFile(i*2)
+        maxPoolPEs(i).io.input(1)(1) := row1RegFile(i*2+1)
+    }
+    when(state === s_compute){
+        resultStore_rd_data := Cat(
+            maxPoolPEs(7).io.output.asSInt,
+            maxPoolPEs(6).io.output.asSInt,
+            maxPoolPEs(5).io.output.asSInt,
+            maxPoolPEs(4).io.output.asSInt,
+            maxPoolPEs(3).io.output.asSInt,
+            maxPoolPEs(2).io.output.asSInt,
+            maxPoolPEs(1).io.output.asSInt,
+            maxPoolPEs(0).io.output.asSInt
+        )
+        state := s_resp
+    }
 }

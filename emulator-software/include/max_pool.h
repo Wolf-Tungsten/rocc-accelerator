@@ -7,7 +7,7 @@
 // #define k_DO_READ 1
 // #define k_DO_LOAD 2
 // #define k_DO_ACCUM 3
-#define FEATURE_ROW_SIZE 24
+#define FEATURE_ROW_SIZE 32
 #define FILTER_ROW_SIZE 3
 #define RESULT_ROW_SIZE (FEATURE_ROW_SIZE-FILTER_ROW_SIZE+1)
 

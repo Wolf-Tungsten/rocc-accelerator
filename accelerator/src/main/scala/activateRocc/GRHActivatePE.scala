@@ -6,15 +6,16 @@ import chisel3.experimental.IntParam
 class GRHActivatePE(resolution:Int) extends Module {
     val io = IO(new Bundle {
     val mapInput = Input(Vec(resolution, SInt(32.W)))
+    val valueInput = Input(Vec(resolution, SInt(8.W)))
     val numInput = Input(SInt(32.W))
     val output = Output(SInt(8.W))
   })
-  for(i <- 0 until resolution){
-      when(io.numInput < io.mapInput(i)){
-          io.output := i.S
+
+  val compareResult = Wire(SInt(8.W))
+  for(i <- 1 until resolution){
+      when(io.numInput >= io.mapInput(i-1) && io.numInput < io.mapInput(i)){
+          compareResult := io.valueInput(i)
       }
   }
-  when(io.numInput >= io.mapInput(resolution - 1)){
-      io.output := 127.S
-  }
+  io.output := Mux(io.numInput < io.mapInput(0), io.valueInput(0), compareResult)
 }

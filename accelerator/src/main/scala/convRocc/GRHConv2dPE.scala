@@ -56,7 +56,7 @@ class GRHConv2dPE(featureSize:Int, filterSize:Int, mulStage:Int) extends Module 
     io.valid := stage > mulStage.U
     // 数据通路连接
     for( featureCol <- 0 until (featureSize - filterSize + 1) ){
-        val mulIP = List.fill(filterSize)(List.fill(filterSize)(Module(new Mul8bit)))
+        val mulIP = List.fill(filterSize)(List.fill(filterSize)(Module(new Mul8bitCombSim)))
         val mulResult = List.fill(filterSize * filterSize)(Wire(SInt(32.W)))
         for(posRow <- 0 until filterSize){
             for(posCol <- 0 until filterSize){
