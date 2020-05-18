@@ -24,7 +24,9 @@ with HasCoreParameters {
     val rs2 = cmd.bits.rs2
 
     // funct 功能定义
-    val doMaxPool = funct === UInt(0)
+    val doLoadRow0 = funct === UInt(0)
+    val doLoadRow1 = funct === UInt(1)
+    val doCompute = funct === UInt(2)
 
     // 寄存器文件定义
     val row0RegFile = Mem(16, SInt(width = 8))
@@ -50,14 +52,19 @@ with HasCoreParameters {
     io.resp.bits.data := resultStore_rd_data
 
     when(cmd.fire()){
-        when(doMaxPool){
+        when(doLoadRow0){
             row0MemBaseAddr := rs1
-            row1MemBaseAddr := rs2
             row0MemPtr := 0.U
-            row1MemPtr := 0.U
             row0RegDmaPending.map{ _ := true.B }
-            row1RegDmaPending.map{ _ := true.B }
             state := s_loadRow0
+        }.elsewhen(doLoadRow1){
+            row1MemBaseAddr := rs1
+            row1MemPtr := 0.U
+            row1RegDmaPending.map{ _ := true.B }
+            state := s_loadRow1
+        }.elsewhen(doCompute){
+            resultStore_rd := cmd.bits.inst.rd
+            state := s_compute
         }.otherwise{
             state := s_resp
         }
@@ -123,11 +130,11 @@ with HasCoreParameters {
     
     // 所有内存请求均完成时进入响应状态
     when(state === s_loadRow0 && !row0RegDmaPending.reduce(_ || _)){
-        state := s_loadRow1
+        state := s_resp
     }
 
     when(state === s_loadRow1 && !row1RegDmaPending.reduce(_ || _)){
-        state := s_compute
+        state := s_resp
     }
 
     // 连接PE和数据

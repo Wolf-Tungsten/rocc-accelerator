@@ -20,6 +20,9 @@ convolution.elf: $(ld) $(common_src) convolution.c
 activate.elf: $(ld) $(common_src) activate.c
 	riscv64-unknown-elf-gcc $(gcc_args) -T $(ld) -I $(include_dir) $(common_src) activate.c -o $@
 
+maxpool.elf: $(ld) $(common_src) maxpool.c
+	riscv64-unknown-elf-gcc $(gcc_args) -T $(ld) -I $(include_dir) $(common_src) maxpool.c -o $@
+
 mem-test.elf: linker.ld head.S mem.c $(c_driver)
 	riscv64-unknown-elf-gcc -march=rv64imac -mabi=lp64 -mcmodel=medany -nostdlib -static -fno-builtin-printf -T linker.ld -I $(driver_dir) -I $(include_dir) head.S mem.c $(c_driver) -o $@
 

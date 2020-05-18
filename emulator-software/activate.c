@@ -10,7 +10,7 @@ int8_t relu(int32_t input);
 #define SCALE ((int32_t)((int32_t)0x80000000 / (int8_t)0x80))
 
 void main(){
-    printf("****** Activate Rocc Test *****\n",0);
+    printf("****** Activate Rocc Test ******\n",0);
     printf("[INFO] Init test data...\n",0);
     for(int i = 0; i < ACTIVATE_RESOLUTION; i++){
         ((int32_t *)activateMap)[i] = i * SCALE;
