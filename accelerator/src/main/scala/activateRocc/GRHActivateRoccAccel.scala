@@ -172,11 +172,11 @@ with HasCoreParameters {
     when(state === s_compute_3){
         activatePE.io.numInput := inputNumReg(3)
         outputNumReg(3) := activatePE.io.output
-        // resultStore_rd_data := Cat(0.U(32.W), 
-        // activatePE.io.output, outputNumReg(2).asUInt, 
-        // outputNumReg(1).asUInt, outputNumReg(0).asUInt)
+        resultStore_rd_data := Cat(0.U(32.W), 
+        activatePE.io.output, outputNumReg(2).asUInt, 
+        outputNumReg(1).asUInt, outputNumReg(0).asUInt)
         // resultStore_rd_data := Cat(mapRegFile(255), mapRegFile(254))
-        resultStore_rd_data := Cat( mapRegFile(inputNumReg(0)(7, 0)),  inputNumReg(0).asUInt)
+        //resultStore_rd_data := Cat( mapRegFile(inputNumReg(0)(7, 0)),  0.U(16.W), inputNumReg(0)(7,0).asUInt, valueRegFile(inputNumReg(0)(7,0)))
         state := s_resp
     }
 }
