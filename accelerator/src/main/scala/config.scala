@@ -55,7 +55,7 @@ class With1TinyRV32Core extends Config((site, here, up) => {
         useUser = false,
         useSupervisor = false,
         useDebug = true,
-        fpu = None,
+        
         mulDiv = Some(MulDivParams(mulUnroll = 8)),
         //dcacheReqTagBits = 10
         ),
@@ -83,16 +83,22 @@ class WithNMinisysCores(n: Int) extends Config((site, here, up) => {
   case RocketTilesKey => {
     val slim = RocketTileParams(
       core = RocketCoreParams(
-      useVM = false,
-      useUser = false,
-      useSupervisor = false,
-      fpu = None,
+      useVM = true,
+      useUser = true,
+      useSupervisor = true,
+      fpu = Some(FPUParams(
+          minFLen = 32,
+          fLen = 32,
+          divSqrt = true,
+          sfmaLatency = 3,
+          dfmaLatency = 4
+        )),
       mulDiv = Some(MulDivParams(
         mulUnroll = 8,
         mulEarlyOut = true,
         divEarlyOut = true))
       ),
-      btb = None,
+      // btb = None,
       dcache = Some(DCacheParams(
         rowBits = site(SystemBusKey).beatBits,
         nMSHRs = 0,

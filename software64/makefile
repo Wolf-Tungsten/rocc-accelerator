@@ -12,7 +12,7 @@ common_src= \
 
 include_dir = ./include
 
-gcc_args = -march=rv64imac -mabi=lp64 -mcmodel=medany -nostdlib -static -fno-builtin-printf -nostartfiles
+gcc_args = -march=rv64imafc -mabi=lp64f -mcmodel=medany -nostdlib -static -fno-builtin-printf -nostartfiles -O2
 
 baremetal.elf: linker.ld $(common_src) baremetal.c convolution.c activate.c maxpool.c $(c_driver) $(include_dir)  # devicetree.dtb
 	riscv64-unknown-elf-gcc $(gcc_args) -T linker.ld -I $(driver_dir) -I $(include_dir) $(common_src) baremetal.c convolution.c activate.c maxpool.c $(c_driver) -o $@ 

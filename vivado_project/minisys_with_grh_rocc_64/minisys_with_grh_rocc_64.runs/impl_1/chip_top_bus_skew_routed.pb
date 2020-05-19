@@ -1,3 +1,3 @@
 
 2018.1’Bus skew results˜
-¥CA
+¥Œ²A
