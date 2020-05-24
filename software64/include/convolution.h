@@ -41,11 +41,12 @@
 #define doFetchResult(result_rd, addr_rs1)                                              \
   ROCC_INSTRUCTION_DSS(XCUSTOM_CONV, result_rd, addr_rs1, 0, k_DO_FETCH_RESULT)
 #define doStoreResult(addr_rs1)                                       \
-  ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_STORE_RESULT);
+  ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_STORE_RESULT); \
+  asm volatile ("fence"); 
 
 void convTest();
 void initConvData();
 void convBySoftware();
-void convByRocc();
+void convByHardware();
 
 #endif

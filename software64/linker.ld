@@ -13,9 +13,9 @@ SECTIONS
 /*  . = ALIGN(0x1000);													*/
 /*  .dtb : { *(.dtb) }													*/
 
-    . = 0x8000f000;
+    . = 0x80f00000;
     .stack : { *(.stack) }
 
-    . = 0x8000ff00;
+    . = 0x80ff0000;
     .sdata : { *(.sdata) }
 }

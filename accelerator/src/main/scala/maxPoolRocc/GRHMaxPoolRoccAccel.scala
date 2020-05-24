@@ -79,7 +79,7 @@ with HasCoreParameters {
         io.mem.req.bits.addr := row0MemBaseAddr + row0MemPtr
         io.mem.req.bits.tag := row0MemPtr(7, 0)// 也许是10到0？
         io.mem.req.bits.cmd := M_XRD // 内存读取
-        io.mem.req.bits.size := log2Ceil(8).U // 每次读取8字节
+        io.mem.req.bits.size := log2Ceil(1).U // 每次读取1字节
         io.mem.req.bits.signed := Bool(true) // 有符号
         io.mem.req.bits.data := Bits(0) 
         io.mem.req.bits.phys := Bool(false)
@@ -90,7 +90,7 @@ with HasCoreParameters {
         io.mem.req.bits.addr := row1MemBaseAddr + row1MemPtr
         io.mem.req.bits.tag := row1MemPtr(7, 0)// 也许是10到0？
         io.mem.req.bits.cmd := M_XRD // 内存读取
-        io.mem.req.bits.size := log2Ceil(8).U // 每次读取8字节
+        io.mem.req.bits.size := log2Ceil(1).U // 每次读取1字节
         io.mem.req.bits.signed := Bool(true) // 有符号
         io.mem.req.bits.data := Bits(0) 
         io.mem.req.bits.phys := Bool(false)
@@ -100,13 +100,13 @@ with HasCoreParameters {
     // 内存系统请求成功时，指针向后偏移
     when(io.mem.req.fire()){
         when(state === s_loadRow0) {
-            when(row0MemPtr < 16.U ){
-                row0MemPtr := row0MemPtr + 8.U
+            when(row0MemPtr < 16.U){
+                row0MemPtr := row0MemPtr + 1.U
             }
         }
         when(state === s_loadRow1) {
             when(row1MemPtr < 16.U){
-                row1MemPtr := row1MemPtr + 8.U
+                row1MemPtr := row1MemPtr + 1.U
             }
         }
     }
@@ -115,16 +115,13 @@ with HasCoreParameters {
     when(io.mem.resp.valid){
         // 当内存响应数据时，根据 tag 记录数据，并取消对应位的 pending 状态
         when(state === s_loadRow0){
-           for(i <- 0 until 8){
-                row0RegFile(io.mem.resp.bits.tag(7,0)+i.U) := io.mem.resp.bits.data(7+(i*8),0+(i*8)).asSInt
-                row0RegDmaPending(io.mem.resp.bits.tag(7,0)+i.U) := false.B
-            }
+            row0RegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
+            row0RegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
+            
         }
         when(state === s_loadRow1){
-           for(i <- 0 until 8){
-                row1RegFile(io.mem.resp.bits.tag(7,0)+i.U) := io.mem.resp.bits.data(7+(i*8),0+(i*8)).asSInt
-                row1RegDmaPending(io.mem.resp.bits.tag(7,0)+i.U) := false.B
-            }
+            row1RegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
+            row1RegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
         }
     }
     

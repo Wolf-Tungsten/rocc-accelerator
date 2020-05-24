@@ -10,9 +10,9 @@ void pushFIFOTest();
 int8_t fetchOneResultFIFO(uint8_t resultAddr);
 
 // 划分内存区域
-uint64_t featureData[(FEATURE_ROW_SIZE / 8) * (FEATURE_ROW_SIZE / 8)]; // 使用64位来保证对齐
+int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE]; // 使用64位来保证对齐
 int8_t filterData[FILTER_ROW_SIZE * FILTER_ROW_SIZE];
-uint64_t resultData[(RESULT_ROW_SIZE / 2) * (RESULT_ROW_SIZE / 2)];
+int32_t resultData[RESULT_ROW_SIZE * RESULT_ROW_SIZE];
 
 int main() {
 
@@ -22,22 +22,22 @@ int main() {
   for(int row = 0; row < FEATURE_ROW_SIZE; row++){
     for(int col = 0; col < FEATURE_ROW_SIZE; col++){
       //featureData[row * FEATURE_ROW_SIZE + col] = col;
-      ((int8_t *)featureData)[row * FEATURE_ROW_SIZE + col] = col;
+      featureData[row * FEATURE_ROW_SIZE + col] = col+row;
     }
   }
   for(int row = 0; row < FILTER_ROW_SIZE; row++){
     for(int col = 0; col < FILTER_ROW_SIZE; col++){
-      filterData[row * FILTER_ROW_SIZE + col] = 1;
+      filterData[row * FILTER_ROW_SIZE + col] = -(col+row);
     }
   }
   printf("[INFO] Init test data DONE!\n",0);
   printf("[INFO] Load test data...\n",0);
   // 装载前两行特征数据
-  doLoadFeatureRowDma(featureData);
+  doLoadFeatureRowDma(featureData + 1);
   doPushFeatureRowIntoFifo();
-  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE);
+  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE + 1);
   doPushFeatureRowIntoFifo();
-  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE * 2);
+  doLoadFeatureRowDma(featureData + FEATURE_ROW_SIZE * 2 + 1);
   doPushFeatureRowIntoFifo();
   // 装载卷积核数据
   for(int i = 0; i < FILTER_ROW_SIZE * FILTER_ROW_SIZE; i++){
@@ -49,11 +49,9 @@ int main() {
   printf("[INFO] Conv DONE\n",0);
   doStoreResult(resultData);
   for(int i = 0; i < RESULT_ROW_SIZE; i++){
-    // resultData[i] = fetchOneResult(i);
     printf("[RESULT] addr:%d, ", i);
-    printf("data:%d\n", *(((int32_t *)resultData) + i));
+    printf("data:%d\n", resultData[i]);
   }
-  
 }
 
 void loadFeatureIntoAccel(int8_t* baseAddr, uint16_t size){

@@ -15,10 +15,11 @@ int main (void){
     convBySoftware();
     printf("software mcycle:%d\n\r", rdmcycle()-startTime);
     startTime = rdmcycle();
-    convByRocc();
+    convByHardware();
     printf("hardware mcycle:%d\n\r", rdmcycle()-startTime);
     //printf("mcycle:%d\n\r", endTime-startTime);
     printf("Test Done!\n\r", 0);
     //while(1);
+    checkConvResult();
     return 0;
 }

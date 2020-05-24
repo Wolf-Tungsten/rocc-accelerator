@@ -12,6 +12,7 @@ class GRHActivatePE(resolution:Int) extends Module {
   })
 
   val compareResult = Wire(SInt(8.W))
+  compareResult := 127.S
   for(i <- 1 until resolution){
       when(io.numInput >= io.mapInput(i-1) && io.numInput < io.mapInput(i)){
           compareResult := io.valueInput(i)

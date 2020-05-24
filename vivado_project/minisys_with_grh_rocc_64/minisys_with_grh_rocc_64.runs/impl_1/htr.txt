@@ -6,4 +6,4 @@
 # Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 #
 
-vivado -log chip_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source chip_top.tcl -notrace
+vivado -log grh_chip_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source grh_chip_top.tcl -notrace

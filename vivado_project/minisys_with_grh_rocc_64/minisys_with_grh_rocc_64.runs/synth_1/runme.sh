@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log chip_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source chip_top.tcl
+EAStep vivado -log grh_chip_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source grh_chip_top.tcl

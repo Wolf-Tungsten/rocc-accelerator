@@ -2,11 +2,11 @@
 # Vivado v2019.2 (64-bit)
 # SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
 # IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
-# Start of session at: Tue May 19 09:28:25 2020
-# Process ID: 75913
+# Start of session at: Sun May 24 15:35:27 2020
+# Process ID: 10165
 # Current directory: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.runs/impl_1
-# Command line: vivado -log chip_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source chip_top.tcl -notrace
-# Log file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.runs/impl_1/chip_top.vdi
+# Command line: vivado -log grh_chip_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source grh_chip_top.tcl -notrace
+# Log file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.runs/impl_1/grh_chip_top.vdi
 # Journal file: /home/wolf/rocket-chip/rocc-accelerator/vivado_project/minisys_with_grh_rocc_64/minisys_with_grh_rocc_64.runs/impl_1/vivado.jou
 #-----------------------------------------------------------
-source chip_top.tcl -notrace
+source grh_chip_top.tcl -notrace

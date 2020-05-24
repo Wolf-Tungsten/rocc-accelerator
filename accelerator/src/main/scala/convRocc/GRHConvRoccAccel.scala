@@ -136,7 +136,7 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.addr := featureMemBaseAddr + featureMemPtr
     io.mem.req.bits.tag := featureMemPtr(7, 0)// 也许是10到0？
     io.mem.req.bits.cmd := M_XRD // 内存读取
-    io.mem.req.bits.size := log2Ceil(8).U // 每次读取8字节
+    io.mem.req.bits.size := log2Ceil(1).U // 每次读取1字节
     io.mem.req.bits.signed := Bool(true) // 有符号
     io.mem.req.bits.data := Bits(0) 
     io.mem.req.bits.phys := Bool(false)
@@ -156,10 +156,10 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
     io.mem.req.bits.addr := resultMemBaseAddr + resultMemPtr
     io.mem.req.bits.tag := resultMemPtr(7, 0) >> 2
     io.mem.req.bits.cmd := M_XWR // 内存写入
-    io.mem.req.bits.size := log2Ceil(8).U // 每次写入8字节
+    io.mem.req.bits.size := log2Ceil(4).U
     io.mem.req.bits.signed := Bool(true) // 有符号
-    //io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0) >> 2)).asUInt, resultRegFile(resultMemPtr(7, 0) >> 2).asUInt)
-    io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0)>>2)+1.U).asUInt, resultRegFile((resultMemPtr(7, 0)>>2)).asUInt)
+    io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0) >> 2)).asUInt, resultRegFile(resultMemPtr(7, 0) >> 2).asUInt)
+    // io.mem.req.bits.data := Cat(resultRegFile((resultMemPtr(7, 0)>>2)+1.U).asUInt, resultRegFile((resultMemPtr(7, 0)>>2)).asUInt)
     // io.mem.req.bits.data := Cat(98.U(32.W), 47.U(32.W))
     // io.mem.req.bits.data := Cat((resultMemPtr >> 2)(31, 0), 0.U(24.W), featureRegFile((resultMemPtr(7, 0) >> 2)).asUInt)
     io.mem.req.bits.phys := Bool(false)
@@ -169,11 +169,11 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   // 内存系统请求成功时，指针向后偏移
   when(io.mem.req.fire()){
     when(state === s_loadFeatureDataDMA  && featureMemPtr < outer.featureSize.U){
-      featureMemPtr := featureMemPtr + 8.U
+      featureMemPtr := featureMemPtr + 1.U
     }
     when(state === s_storeResultData) {
       when( (resultMemPtr >> 2) < resultSize.U ){
-        resultMemPtr := resultMemPtr + 8.U
+        resultMemPtr := resultMemPtr + 4.U
       }.otherwise{
         state := s_resp
       }
@@ -184,14 +184,16 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
   when(io.mem.resp.valid){
     // 当内存响应数据时，根据 tag 记录数据，并取消对应位的 pending 状态
     when(state === s_loadFeatureDataDMA){
-      for(i <- 0 until 8){
-        featureRegFile(io.mem.resp.bits.tag(7,0)+i.U) := io.mem.resp.bits.data(7+(i*8),0+(i*8)).asSInt
-        featureRegDmaPending(io.mem.resp.bits.tag(7,0)+i.U) := false.B
-      }
+      // for(i <- 0 until 8){
+      //   featureRegFile(io.mem.resp.bits.tag(7,0)+i.U) := io.mem.resp.bits.data(7+(i*8),0+(i*8)).asSInt
+      //   featureRegDmaPending(io.mem.resp.bits.tag(7,0)+i.U) := false.B
+      // }
+      featureRegFile(io.mem.resp.bits.tag(7,0)) := io.mem.resp.bits.data(7,0).asSInt
+      featureRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
     }
     when(state === s_storeResultData){
       resultRegDmaPending(io.mem.resp.bits.tag(7,0)) := false.B
-      resultRegDmaPending(io.mem.resp.bits.tag(7,0) + 1.U) := false.B
+      //resultRegDmaPending(io.mem.resp.bits.tag(7,0) + 1.U) := false.B
     }
   }
 
@@ -237,64 +239,5 @@ class GRHConvRoccAccelModuleImp(outer: GRHConvRoccAccel)(implicit p: Parameters)
       state := s_resp
     }
   }
-  // when(state === s_loadFeatureData){
-  //   io.mem.req.valid := true.B
-  //   io.mem.req.bits.addr := r_featureLoadPtr
-  //   io.mem.req.bits.tag := featureTag(9, 0)// 也许是10到0？
-  //   io.mem.req.bits.cmd := M_XRD // perform a load (M_XWR for stores)
-  //   io.mem.req.bits.size := 1.U // 每次读取一字节
-  //   io.mem.req.bits.signed := Bool(true) // 有符号
-  //   io.mem.req.bits.data := Bits(0) // we're not performing any stores...
-  //   io.mem.req.bits.phys := Bool(false)
-  //   io.mem.req.bits.dprv := cmd.bits.status.dprv
-
-  //   when(io.mem.req.fire()){
-  //     // 内存请求成功时，指针向后偏移
-  //     r_featureLoadPtr := r_featureLoadPtr + 1.U
-  //   }
-    
-  //   when(io.mem.resp.fire()){
-  //     // 当内存响应数据时，根据 tag 记录数据，并取消对应位的 pending 状态
-  //     featureRegFile(featureMemRespTag) := io.mem.resp.bits.data.asTypeOf(featureRegFile(featureMemRespTag))
-  //     r_featureDataPending(featureMemRespTag) := false.B
-  //   }
-
-  //   when(r_featureDataPending.reduce(_ || _)){
-  //     // 如果所有数据都成功读取了，指令可以响应
-  //     io.resp.valid := true.B
-  //     when(io.resp.fire()){
-  //       // 当 Core 和 Rocc 交火时指令执行完成
-  //       state := s_idle
-  //     }
-  //   }
-  // }
-  
-  // when(state === s_storeResultData){
-  //   // 写回数据
-  //   io.mem.req.valid := true.B
-  //   io.mem.req.bits.addr := r_resultStorePtr
-  //   io.mem.req.bits.tag := 0.U// 不需要tag
-  //   io.mem.req.bits.cmd := M_XWR // perform a load (M_XWR for stores)
-  //   io.mem.req.bits.size := 2.U // 每次写两字节
-  //   io.mem.req.bits.signed := Bool(true) // 有符号
-  //   //io.mem.req.bits.data := resultRegFile(r_resultStorePtr - r_currentResultBaseAddr)
-  //   // 用于测试，把feature写回去
-  //   io.mem.req.bits.data := featureRegFile((r_resultStorePtr - r_currentResultBaseAddr)(log2Up(outer.featureSize)-1,0)).asTypeOf(io.mem.req.bits.data)
-  //   io.mem.req.bits.phys := Bool(false)
-  //   io.mem.req.bits.dprv := cmd.bits.status.dprv
-  //   when(io.mem.req.fire()){
-  //     // 内存请求成功时
-  //     r_resultStorePtr := r_resultStorePtr + 2.U
-  //     r_resultDataPending((r_resultStorePtr - r_currentResultBaseAddr - 2.U)(log2Up(resultSize)-1,0)) := false.B
-  //   }
-  //   when(r_resultDataPending.reduce(_ || _)){
-  //     // 如果所有数据都保存成功，指令响应
-  //     io.resp.valid := true.B
-  //     when(io.resp.fire()){
-  //       // 当 Core 和 Rocc 交火时指令执行完成
-  //       state := s_idle
-  //     }
-  //   }
-  // }
   
 }
