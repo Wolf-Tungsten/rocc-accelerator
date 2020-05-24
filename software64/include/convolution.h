@@ -44,5 +44,8 @@
   ROCC_INSTRUCTION_S(XCUSTOM_CONV, addr_rs1, k_DO_STORE_RESULT);
 
 void convTest();
+void initConvData();
+void convBySoftware();
+void convByRocc();
 
 #endif
