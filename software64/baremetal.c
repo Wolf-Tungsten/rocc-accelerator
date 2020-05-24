@@ -14,7 +14,8 @@ uint64_t benchmarkCounter = 0;
 int main (void){
     uart_init();
     printf("Hello, RISC-V!\n\r", 0);
-    convolutionBenchmark();
+    //convolutionBenchmark();
+    maxpoolBenchmark();
 }
 
 int convolutionBenchmark(){
@@ -39,6 +40,33 @@ int convolutionBenchmark(){
         }
     }while(benchmarkCounter < 100);
     printf("****** Convolution Benchmark DONE! ******\n\r", 0);
+    printf("software mcycle sum:%d\n\r", softwareTimeSum);
+    printf("hardware mcycle sum:%d\n\r", hardwareTimeSum);
+    return 0;
+}
+
+int maxpoolBenchmark(){
+    initMaxpoolData();
+    uint64_t startTime;
+    int64_t softwareTime, hardwareTime;
+    benchmarkCounter = 0;
+    hardwareTimeSum = 0;
+    softwareTimeSum = 0;
+    do{
+        printf("****** MAXPOOL Benchmark :%d ******\r", benchmarkCounter);
+        startTime = rdmcycle();
+        maxpoolBySoftware();
+        softwareTime = rdmcycle() - startTime;
+        startTime = rdmcycle();
+        maxpoolByHardware();
+        hardwareTime = rdmcycle() - startTime;
+        if(softwareTime > 0 && hardwareTime > 0 && checkMaxpool()){
+            benchmarkCounter++;
+            softwareTimeSum += softwareTime;
+            hardwareTimeSum += hardwareTime;
+        }
+    }while(benchmarkCounter < 100);
+    printf("****** Maxpool Benchmark DONE! ******\n\r", 0);
     printf("software mcycle sum:%d\n\r", softwareTimeSum);
     printf("hardware mcycle sum:%d\n\r", hardwareTimeSum);
     return 0;
