@@ -8,9 +8,10 @@ uint64_t activateValue[ACTIVATE_RESOLUTION / 8];
 int8_t relu(int32_t input);
 #define SCALE ((int32_t)((int32_t)0x80000000 / (int8_t)0x80))
 
-uint64_t activateInput[1024/2];
-int8_t softwareActivateResult[1024];
-uint32_t hardwareActivateResult[1024/4 + 1];
+#define ACTIVATE_TEST_SIZE 2048
+uint64_t activateInput[ACTIVATE_TEST_SIZE/2];
+int8_t softwareActivateResult[ACTIVATE_TEST_SIZE];
+uint32_t hardwareActivateResult[ACTIVATE_TEST_SIZE/4 + 1];
 
 void activateTest(){
     printf("****** Activate Rocc Test ******\n\r",0);
@@ -60,30 +61,31 @@ void initActivateData(){
     doLoadActivateMap(activateMap, 0);
     doLoadActivateMap(activateMap+64*4, 64);
     doLoadActivateValue(activateValue);
-    for(int i = 0; i<1024; i++){
-        ((int32_t *)activateInput)[i] = i-24;
+    for(int i = 0; i<ACTIVATE_TEST_SIZE; i++){
+        ((int32_t *)activateInput)[i] = (i % 1024)-24;
     }
 }
 
 void activateBySoftware(){
-    for(int i = 0; i<1024; i++){
+    for(int i = 0; i<ACTIVATE_TEST_SIZE; i++){
         softwareActivateResult[i] = relu(((int32_t *)activateInput)[i]);
     }
 }
 
 void activateByHardware(){
     uint64_t result;
-    for(int i = 0; i<1024; i+=4){
-        doComputeActivate(result, activateInput[i>>1], activateInput[(i>>1)+1])
-        ((int8_t*)hardwareActivateResult)[i] = result & 0xFF;
-        ((int8_t*)hardwareActivateResult)[i+1] = (result >> 8) & 0xFF;
-        ((int8_t*)hardwareActivateResult)[i+2] = (result >> 16) & 0xFF;
-        ((int8_t*)hardwareActivateResult)[i+3] = (result >> 24) & 0xFF;
+    for(int i = 0; i<ACTIVATE_TEST_SIZE; i+=4){
+        // doComputeActivate(result, activateInput[i>>1], activateInput[(i>>1)+1])
+        // ((int8_t*)hardwareActivateResult)[i] = result & 0xFF;
+        // ((int8_t*)hardwareActivateResult)[i+1] = (result >> 8) & 0xFF;
+        // ((int8_t*)hardwareActivateResult)[i+2] = (result >> 16) & 0xFF;
+        // ((int8_t*)hardwareActivateResult)[i+3] = (result >> 24) & 0xFF;
+        doComputeActivate(hardwareActivateResult[i>>2], activateInput[i>>1], activateInput[(i>>1)+1])
     }
 }
 
 int checkActivate(){
-    for(int i=0; i < 1024; i++){
+    for(int i=0; i < ACTIVATE_TEST_SIZE; i++){
         if(softwareActivateResult[i] != ((int8_t *)hardwareActivateResult)[i]){
             printf("pos: %d ",i);
             printf("input: %d ",((int32_t *)activateInput)[i]);
