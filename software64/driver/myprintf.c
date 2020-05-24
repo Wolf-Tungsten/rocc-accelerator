@@ -47,6 +47,6 @@ void printf(uint8_t *s, uint64_t num)
 void printNum(uint64_t num, int base)
 {
 	if (num == 0) return;
-	printNum((uint32_t)num / base, base);
-    putch("0123456789abcdef"[(uint32_t)num % base]);
+	printNum((uint64_t)num / base, base);
+    putch("0123456789abcdef"[(uint64_t)num % base]);
 }

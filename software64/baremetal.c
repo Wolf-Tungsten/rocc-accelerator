@@ -7,19 +7,39 @@
 #include "activate.h"
 #include "maxpool.h"
 
+uint64_t softwareTimeSum = 0;
+uint64_t hardwareTimeSum = 0;
+uint64_t benchmarkCounter = 0;
+
 int main (void){
     uart_init();
     printf("Hello, RISC-V!\n\r", 0);
+    convolutionBenchmark();
+}
+
+int convolutionBenchmark(){
     initConvData();
-    uint64_t startTime = rdmcycle();
-    convBySoftware();
-    printf("software mcycle:%d\n\r", rdmcycle()-startTime);
-    startTime = rdmcycle();
-    convByHardware();
-    printf("hardware mcycle:%d\n\r", rdmcycle()-startTime);
-    //printf("mcycle:%d\n\r", endTime-startTime);
-    printf("Test Done!\n\r", 0);
-    //while(1);
-    checkConvResult();
+    uint64_t startTime;
+    int64_t softwareTime, hardwareTime;
+    benchmarkCounter = 0;
+    hardwareTimeSum = 0;
+    softwareTimeSum = 0;
+    do{
+        printf("****** Convolution Benchmark :%d ******\r", benchmarkCounter);
+        startTime = rdmcycle();
+        convBySoftware();
+        softwareTime = rdmcycle() - startTime;
+        startTime = rdmcycle();
+        convByHardware();
+        hardwareTime = rdmcycle() - startTime;
+        if(softwareTime > 0 && hardwareTime > 0 && checkConvResult()){
+            benchmarkCounter++;
+            softwareTimeSum += softwareTime;
+            hardwareTimeSum += hardwareTime;
+        }
+    }while(benchmarkCounter < 100);
+    printf("****** Convolution Benchmark DONE! ******\n\r", 0);
+    printf("software mcycle sum:%d\n\r", softwareTimeSum);
+    printf("hardware mcycle sum:%d\n\r", hardwareTimeSum);
     return 0;
 }

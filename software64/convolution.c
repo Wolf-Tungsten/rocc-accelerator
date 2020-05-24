@@ -2,7 +2,7 @@
 #include "include/convolution.h"
 #include "myprintf.h"
 
-#define TEST_FEATURE_SIZE 256
+#define TEST_FEATURE_SIZE 90
 #define TEST_RESULT_ROW_SIZE ((TEST_FEATURE_SIZE / RESULT_ROW_SIZE + (TEST_FEATURE_SIZE % RESULT_ROW_SIZE ? 1 : 0)) * RESULT_ROW_SIZE)
 // 定义内存区域
 int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE];
@@ -63,10 +63,10 @@ void initConvData(){
     }
     for(int row = 0; row < FILTER_ROW_SIZE; row++){
         for(int col = 0; col < FILTER_ROW_SIZE; col++){
-            testFilterData[row * FILTER_ROW_SIZE + col] = 0;
+            testFilterData[row * FILTER_ROW_SIZE + col] = col;
         }
     }
-    testFilterData[0]=1;
+    //testFilterData[0]=1;
     // for(int row=0; row < TEST_FEATURE_SIZE - 2; row++){
     //     for(int col=0; col < TEST_RESULT_ROW_SIZE; col++){
     //         testHardwareResult[row * TEST_RESULT_ROW_SIZE + col] = 0;
@@ -108,9 +108,6 @@ void convByHardware(){
             doStoreResult(testHardwareResult + 4 * ((TEST_RESULT_ROW_SIZE+1) * (j-2) + (i * RESULT_ROW_SIZE)));
         }
     }
-    
-    // 开始计算
-    
 }
 
 int checkConvResult(){
@@ -122,9 +119,11 @@ int checkConvResult(){
                 printf("col: %d ", col);
                 printf("software: %d ", testSoftwareResult[row * (TEST_FEATURE_SIZE-2)  + col]);
                 printf("hardware: %d\n\r", testHardwareResult[row * (TEST_RESULT_ROW_SIZE+1) + col]);
+                return 0;
             }
         }
     }
+    return 1;
 }
 
 
