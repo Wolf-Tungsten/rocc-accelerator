@@ -8,7 +8,7 @@ uint64_t activateValue[ACTIVATE_RESOLUTION / 8];
 int8_t relu(int32_t input);
 #define SCALE ((int32_t)((int32_t)0x80000000 / (int8_t)0x80))
 
-#define ACTIVATE_TEST_SIZE 2048
+#define ACTIVATE_TEST_SIZE 128*128
 uint64_t activateInput[ACTIVATE_TEST_SIZE/2];
 int8_t softwareActivateResult[ACTIVATE_TEST_SIZE];
 uint32_t hardwareActivateResult[ACTIVATE_TEST_SIZE/4 + 1];

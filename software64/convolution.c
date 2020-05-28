@@ -2,7 +2,7 @@
 #include "include/convolution.h"
 #include "myprintf.h"
 
-#define TEST_FEATURE_SIZE 90
+#define TEST_FEATURE_SIZE 48
 #define TEST_RESULT_ROW_SIZE ((TEST_FEATURE_SIZE / RESULT_ROW_SIZE + (TEST_FEATURE_SIZE % RESULT_ROW_SIZE ? 1 : 0)) * RESULT_ROW_SIZE)
 // 定义内存区域
 int8_t featureData[FEATURE_ROW_SIZE * FEATURE_ROW_SIZE];
@@ -109,6 +109,25 @@ void convByHardware(){
         }
     }
 }
+
+void conv24ByHardware(){
+    // 装载卷积核
+    for(int i = 0; i < FILTER_ROW_SIZE * FILTER_ROW_SIZE; i++){
+        doLoadFilterData(i, testFilterData[i]);
+    }
+    // 计算横向展开
+    doLoadFeatureRowDma(testFeatureData);
+    doPushFeatureRowIntoFifo();
+    doLoadFeatureRowDma(testFeatureData + TEST_FEATURE_SIZE);
+    doPushFeatureRowIntoFifo();
+        for(int j = 2; j < 24; j++){
+            doLoadFeatureRowDma(testFeatureData + (TEST_FEATURE_SIZE * j));
+            doPushFeatureRowIntoFifo();
+            doConv();
+            doStoreResult(testHardwareResult + 4 * ((TEST_RESULT_ROW_SIZE+1) * (j-2)));
+        }
+    }
+
 
 int checkConvResult(){
     for(int row=0; row < TEST_FEATURE_SIZE-2; row++){

@@ -5,7 +5,7 @@
 uint64_t row0[MAX_POOL_SIZE / 8];
 uint64_t row1[MAX_POOL_SIZE / 8];
 
-#define MAXPOOL_TEST_SIZE 512
+#define MAXPOOL_TEST_SIZE 128
 int8_t maxpoolInputData[MAXPOOL_TEST_SIZE * MAXPOOL_TEST_SIZE];
 int8_t maxpoolSoftwareOutputData[(MAXPOOL_TEST_SIZE / 2) * (MAXPOOL_TEST_SIZE / 2)];
 int8_t maxpoolHardwareOutputData[(MAXPOOL_TEST_SIZE / 2) * (MAXPOOL_TEST_SIZE / 2)];
