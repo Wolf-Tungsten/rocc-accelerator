@@ -23,6 +23,7 @@
   ROCC_INSTRUCTION_SS(XCUSTOM_ACTIVATE, addr_rs1, reg_base_rs2, k_DO_LOAD_MAP);\
   asm volatile ("fence"); 
 #define doLoadActivateValue(addr_rs1)\
+  asm volatile ("fence"); \
   asm volatile ("fence");                                        \
   ROCC_INSTRUCTION_S(XCUSTOM_ACTIVATE, addr_rs1, k_DO_LOAD_VALUE);\
   asm volatile ("fence"); 

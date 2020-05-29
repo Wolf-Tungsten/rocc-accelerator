@@ -50,3 +50,5 @@ void printNum(uint64_t num, int base)
 	printNum((uint64_t)num / base, base);
     putch("0123456789abcdef"[(uint64_t)num % base]);
 }
+
+void __errno(){}
